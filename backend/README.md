@@ -23,3 +23,5 @@ Wait for several minutes.
 Finally, all material is ready, now type **node app.js**.
 
 Done!
+
+To shutdown server press **CTRL+C**
