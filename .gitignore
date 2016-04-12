@@ -1,0 +1,14 @@
+#backend Ignore
+backend/lib-cov
+backend/*.seed
+backend/*.log
+backend/*.csv
+backend/*.dat
+backend/*.out
+backend/*.pid
+backend/*.gz
+backend/pids
+backend/logs
+backend/results
+backend/node_modules
+backend/npm-debug.log
