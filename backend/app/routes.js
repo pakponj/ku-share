@@ -1,6 +1,6 @@
 // app/routes.js
-module.exports = function(app, passport) {
 
+module.exports = function(app, passport, multer) {
 	// =====================================
 	// HOME PAGE (with login links) ========
 	// =====================================
@@ -63,9 +63,37 @@ module.exports = function(app, passport) {
 		res.redirect('/');
 	});
 
-	app.get('/api/entries', function (req, res) {
-        
+	app.get('/upload', function (req, res) {
+        res.render('uploadFilePage.html', {
+			user: req.user
+		})
 	});
+
+	app.post('/upload', function(req,res){
+		multer(req,res,(err) => {
+            if (err) {
+				console.log(err);
+                res.end('Error uploading file.')
+            }
+            //res.end('File is uploaded.')
+            console.log(req.body); //form fields
+        	console.log(req.file); //form files
+			//res.status(204).end();
+			res.redirect('/')
+        })
+	})
+
+	app.get('/delete/:id',(req,res) => {
+	    fs.unlink(path.join('./uploads/',req.params.id), (err) => {
+	        if(err) throw err
+	        console.log('Successfully delete!!');
+	    })
+	    res.redirect('/')
+	})
+
+	app.get('/uploads/:id', (req,res) => {
+	    fs.createReadStream(path.join('./uploads/', req.params.id)).pipe(res)
+	})
 };
 
 // route middleware to make sure
