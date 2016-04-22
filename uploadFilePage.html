@@ -1,0 +1,139 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload File(s)!</title>
+    <!-- Mobile support -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!--main scripts-->
+    <script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo=" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.3/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.4/angular-resource.min.js"></script>
+    <script src="scripts/material/js/material.min.js">
+        $.material.init();
+    </script>
+    <script src="scripts/material/js/ripples.min.js"></script>
+
+    <!-- Dropdown.js -->
+    <link href="//cdn.rawgit.com/FezVrasta/dropdown.js/master/jquery.dropdown.css" rel="stylesheet">
+
+    <!--other scripts-->
+    <script src="scripts/requestApp.js"></script>
+
+    <!-- Material Design fonts -->
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!--css-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/4.0.1/bootstrap-material-design.css">
+    <link rel="stylesheet" type="text/css" href="scripts/material/css/ripples.min.css">
+
+    <style>
+        body{
+            padding-top: 80px;
+        }
+    </style>
+
+</head>
+<body>
+    <!--Fixed Navbar-->
+    <div class="navbar navbar-fixed-top">
+        <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="btn btn-raised">
+                        <i class="material-icons">account_circle</i>
+                        ANONYMOUS
+                    </a>
+                    <!--<a class="btn btn-raised btn-info" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+                        <i class="material-icons">menu</i>
+                    </a>-->
+
+                    <a class="navbar-toggle" data-toggle="collapse" data-target="#navbarCollapsePart">
+                        <i class="material-icons">menu</i>
+                    </a>
+
+                    <div class="navbar-brand">
+                       <i class="material-icons">share</i>
+                       Welcome to KUShare!
+                    </div>
+                </div>
+                <div class="collapse navbar-collapse" id="navbarCollapsePart">
+                    <form class="navbar-form">
+                        <div class="form-group">
+                            <input type="text" class="form-control col-xs-12" placeholder="Search KUShare">
+                        </div>
+                    </form>
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <i class="material-icons">storage</i>
+                            Library
+                        </li>
+                    </ul>
+                    
+                </div>
+                <!--<nav class="navbar-nav">
+                    <a class="btn btn-default">
+                        <i class="material-icons">storage</i>
+                        Library
+                    </a>
+                </nav>-->
+                <!--<nav class="navbar-nav">
+                    <a class="btn btn-raised btn-info" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+                        <i class="material-icons">menu</i>
+                    </a>
+                </nav>
+                <nav class="navbar-nav navbar-right">
+                    <a class="btn btn-raised">
+                        <i class="material-icons">account_circle</i>
+                        ANONYMOUS
+                    </a>
+                </nav>-->
+        </div>
+    </div>
+
+    <!--Upload Form-->
+    <div class="container col-md-6">
+        <div class="well">
+            <form class="form-horizontal">
+                <fieldset>
+                    <legend>Upload Form</legend>
+                    <div class="form-group">
+                        <label for="subject" class="col-md-2 control-label">Subject</label>
+
+                        <div class="col-md-10">
+                            <input type="text" class="form-control" id="subject" placeholder="Subject" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="filename" class="col-md-2 control-label">Filename</label>
+
+                        <div class="col-md-10">
+                            <input type="text" class="form-control" id="filename" placeholder="FileName" />
+                        </div>
+                    </div>
+
+                    <form class="form-group" method="post" enctype="multipart/form-data" action="homepage.html" >
+                        <label for="inputFile" class="col-md-2 control-label">File</label>
+
+                        <div class="col-md-10">
+                            <!--<input type="text" readonly class="form-control" placeholder="Browse...">-->
+                            <input type="file" id="inputFile">
+                        </div>
+                    </form>
+
+                    <div class="form-group">
+                        <div class="col-md-10 col-md-offset-2">
+                            <button type="button" class="btn btn-default">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

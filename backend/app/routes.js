@@ -62,6 +62,10 @@ module.exports = function(app, passport) {
 		req.logout();
 		res.redirect('/');
 	});
+
+	app.get('/api/entries', function (req, res) {
+        
+	});
 };
 
 // route middleware to make sure
