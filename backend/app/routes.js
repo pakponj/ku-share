@@ -1,4 +1,11 @@
 // app/routes.js
+var mysql = require('mysql');
+var connection = mysql.createConnection({
+    host    : 'localhost',
+    user    : 'root',
+    password: '1234',
+    database: 'authen_test'
+})
 
 module.exports = function(app, passport, multer) {
 	// =====================================
@@ -93,6 +100,14 @@ module.exports = function(app, passport, multer) {
 
 	app.get('/uploads/:id', (req,res) => {
 	    fs.createReadStream(path.join('./uploads/', req.params.id)).pipe(res)
+	})
+
+	app.get('/show',(req,res) => {
+		connection.query('select * from user', (err, result) => {
+			console.log(result);
+			//res.render(result)
+			res.status(204).end()
+		})
 	})
 };
 
