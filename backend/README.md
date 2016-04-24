@@ -10,6 +10,10 @@ Logout page ends with **/logout**
 
 Profile page ends with **/profile**
 
+Upload page ends with **/upload**
+
+Access file uploads use address ends with **/uploads/:nameOfFile**
+
 ## Other: TBA
 
 How to run
@@ -20,7 +24,7 @@ After that type **npm install**, it will download all components that use in thi
 
 Wait for several minutes.
 
-Finally, all material is ready, now type **node app.js**.
+Finally, all material is ready, now type **node server.js**.
 
 Done!
 
