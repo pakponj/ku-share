@@ -32,67 +32,71 @@
     <link rel="stylesheet" type="text/css" href="scripts/material/css/ripples.min.css">
 
     <style>
-        body{
-            padding-top: 80px;
+        body {
+            /*padding-top: 80px;*/
+            /*background-color: white;*/
+        }
+
+
+
+        /*.collapse {
+            background-color: white;
+        }
+
+        .navbar-collapse {
+            background-color: white;
+        }*/
+
+        #mainNavbar {
+            padding: 20px;
+            background-color: white;
+            position: relative;
+        }
+
+        #navbarCollapsePart {
+            background-color: white;
         }
     </style>
 
 </head>
 <body>
     <!--Fixed Navbar-->
-    <div class="navbar navbar-fixed-top">
-        <div class="container-fluid">
-                <div class="navbar-header">
-                    <a class="btn btn-raised">
-                        <i class="material-icons">account_circle</i>
-                        ANONYMOUS
-                    </a>
-                    <!--<a class="btn btn-raised btn-info" data-toggle="collapse" data-target=".navbar-responsive-collapse">
-                        <i class="material-icons">menu</i>
-                    </a>-->
-
-                    <a class="navbar-toggle" data-toggle="collapse" data-target="#navbarCollapsePart">
-                        <i class="material-icons">menu</i>
-                    </a>
-
-                    <div class="navbar-brand">
-                       <i class="material-icons">share</i>
-                       Welcome to KUShare!
-                    </div>
+    <nav class="navbar navbar-fixed-top" id="mainNavbar">
+        <div class="container">
+            <div class="navbar-header">
+                <div class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbarCollapsePart" aria-controls="navbarCollapsePart">
+                    <span class="material-icons" aria-hidden="true">menu</span>
                 </div>
-                <div class="collapse navbar-collapse" id="navbarCollapsePart">
-                    <form class="navbar-form">
-                        <div class="form-group">
-                            <input type="text" class="form-control col-xs-12" placeholder="Search KUShare">
-                        </div>
-                    </form>
-                    <ul class="nav navbar-nav">
-                        <li>
+                <a href="#" class="navbar-brand">
+                    <i class="material-icons">share</i>
+                    Welcome to KUShare!
+                </a>
+            </div>    
+            <nav class="collapse navbar-collapse" id="navbarCollapsePart">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <form class="navbar-form">
+                            <div class="form-group">
+                                <input type="text" class="form-control col-xs-12" placeholder="Search KUShare">
+                            </div>
+                        </form>
+                    </li>
+                    <li>
+                        <a href="#">
                             <i class="material-icons">storage</i>
                             Library
-                        </li>
-                    </ul>
-                    
-                </div>
-                <!--<nav class="navbar-nav">
-                    <a class="btn btn-default">
-                        <i class="material-icons">storage</i>
-                        Library
-                    </a>
-                </nav>-->
-                <!--<nav class="navbar-nav">
-                    <a class="btn btn-raised btn-info" data-toggle="collapse" data-target=".navbar-responsive-collapse">
-                        <i class="material-icons">menu</i>
-                    </a>
-                </nav>
-                <nav class="navbar-nav navbar-right">
-                    <a class="btn btn-raised">
-                        <i class="material-icons">account_circle</i>
-                        ANONYMOUS
-                    </a>
-                </nav>-->
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="material-icons">account_circle</i>
+                            ANONYMOUS
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         </div>
-    </div>
+    </nav>
 
     <!--Upload Form-->
     <div class="container col-md-6">
@@ -116,7 +120,7 @@
                         </div>
                     </div>
 
-                    <form class="form-group" method="post" enctype="multipart/form-data" action="homepage.html" >
+                    <form class="form-group" method="post" enctype="multipart/form-data" action="homepage.html">
                         <label for="inputFile" class="col-md-2 control-label">File</label>
 
                         <div class="col-md-10">
