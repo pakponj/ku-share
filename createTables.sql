@@ -13,7 +13,7 @@ CREATE TABLE category(
     categoryID INT NOT NULL AUTO_INCREMENT,
     categoryName VARCHAR(255) COLLATE utf8_unicode_ci NOT NULL,
     PRIMARY KEY (`categoryID`)
-) ENGINE=MariaDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 DROP TABLE IF EXISTS `subject`;
 CREATE TABLE subject(
@@ -22,7 +22,7 @@ CREATE TABLE subject(
     categoryID INT NOT NULL,
     PRIMARY KEY (`subjectID`),
     FOREIGN KEY (`categoryID`) REFERENCES category(`categoryID`)
-) ENGINE=MariaDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 DROP TABLE IF EXISTS `file`;
 CREATE TABLE file(
@@ -34,7 +34,7 @@ CREATE TABLE file(
     PRIMARY KEY (`fileID`),
     FOREIGN KEY (`subjectID`) REFERENCES subject(`subjectID`),
     FOREIGN KEY (`ownerID`) REFERENCES user(`userID`)
-) ENGINE=MariaDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 DROP TABLE IF EXISTS `comment`;
 CREATE TABLE comment(
@@ -45,4 +45,4 @@ CREATE TABLE comment(
     PRIMARY KEY (`commentID`),
     FOREIGN KEY (`userID`) REFERENCES user(userID),
     FOREIGN KEY (`fileID`) REFERENCES file(fileID)
-) ENGINE=MariaDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;

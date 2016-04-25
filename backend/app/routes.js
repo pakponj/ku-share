@@ -4,8 +4,11 @@ var connection = mysql.createConnection({
     host    : 'localhost',
     user    : 'root',
     password: '1234',
-    database: 'authen_test'
+    database: 'kushare'
 })
+
+var fs = require('fs');
+var path = require('path');
 
 module.exports = function(app, passport, multer) {
 	// =====================================
@@ -70,7 +73,7 @@ module.exports = function(app, passport, multer) {
 		res.redirect('/');
 	});
 
-	app.get('/upload', function (req, res) {
+	app.get('/upload', isLoggedIn, function (req, res) {
         res.render('uploadFilePage.html', {
 			user: req.user
 		})
@@ -82,6 +85,8 @@ module.exports = function(app, passport, multer) {
 				console.log(err);
                 res.end('Error uploading file.')
             }
+            /*connection.query('insert into file(filename,filepath,subjectID,ownerID)
+            values (?,?,?,?)',[req.file.fileName,req.body.subjectID,req.])*/
             //res.end('File is uploaded.')
             console.log(req.body); //form fields
         	console.log(req.file); //form files
