@@ -11,6 +11,7 @@ var morgan      = require('morgan');
 var bodyParser  = require('body-parser');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
+var path = require('path');
 
 //configuration
 require('./config/passport')(passport)
@@ -31,6 +32,7 @@ app.use(passport.initialize())
 app.use(passport.session())
 app.use(flash())
 
+app.use(express.static(path.join(__dirname, 'views')));
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, './uploads/')

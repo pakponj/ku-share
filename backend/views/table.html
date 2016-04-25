@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html ng-app="testApp">
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+        <meta charset="utf-8">
+        <title>Welcome to KUShare</title>
+        
+        <link rel="stylesheet" href="bootstrap-3.3.6-dist/css/bootstrap.css">
+        <script src="jquery-2.1.4.min.js"></script>
+        <script type="text/javascript" src="bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
+        <script src="testApp.js"></script>
+           
+<!--        <script src="https://code.angularjs.org/1.5.3/angular.js"></script>-->
+        
+        <style>
+            #loginbox{
+                min-width: 250px;
+                padding: 14px 14px 0;
+                overflow:hidden;
+            }
+            #img_container {
+                width: 100%;
+                position: relative;
+                background-image: url(test.jpg);
+                background-repeat: repeat;
+                height: 1000px;
+                background-size: cover;
+                background-position: center center;
+            }
+
+            #inside_comp{
+                  position: absolute;
+                  right: 100px;
+                  top: 500px;
+                  color: white;
+                  text-shadow: rgba(0,0,0,0.8) 0 1px 3px;
+                  font-size: 16pt;
+
+            }
+            #header{
+                background-image: url(test.jpg);
+            
+            }
+            #shallowbg{
+                 background-image: url(wallpaper/bg.png);
+            }
+            #sharebtn {
+                background-color: Transparent;
+                border: none;
+                cursor:pointer;
+                overflow: hidden;
+                outline:none;
+            }
+        </style>
+            
+    </head>
+   <body>
+      
+       
+       <nav class="navbar navbar-default navbar-fixed-top">
+          <div class="container" >
+              <div class="row" >
+                <div class="col-xs-1">
+                        <button class="btn btn-info " type="button">
+                            <i class="glyphicon glyphicon-home"></i>
+                        </button>
+                </div>
+                <div class="col-xs-6">
+                    <div class="input-group">
+                        <input type="text" class="form-control " placeholder="Search your subject" />
+                    
+                        <span class="input-group-btn">
+                            <button class="btn btn-info " type="button">
+                                <i class="glyphicon glyphicon-search"></i>
+                            </button>
+                        </span>
+                    </div>
+                  </div><div class="col-xs-2"></div>
+                <div class="col-xs-1" ng-controller="headerCtrl">
+                       
+                       
+                    <div class="dropdown">
+                       <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                Library
+                            <span class="caret"></span>
+                      </button>
+                        <ul class="dropdown-menu">
+                <li  ng-repeat="items in contents"><a href={{items.url}}>{{items.name}}</a></li>
+                        </ul>
+                    </div>
+                
+                </div>
+                <div class="col-xs-1">
+                  <div class="dropwdown"  align="left">
+                      <button class="btn btn-default dropdown-toggle" type="button"
+ id="loginMenu" data-toggle="dropdown" area-haspopup="true" aria-expanded = "true" >
+                      <i class="glyphicon glyphicon-align-justify"></i>
+                      </button>                      
+                      <ul class="dropdown-menu" id="loginbox" >
+                         <div class="col-md-12">
+                          Sign in
+                          <br>
+                          <br>
+                          <input type="text" class="form-control" placeholder="Username"><br>
+                            <input type="text" class = "form-control" placeholder="Password"><br>
+                              <div class="form-group">
+								 <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+				              </div>
+                              <div class="form-group">
+								 <button type="submit" class="btn btn-primary btn-block">Sign Up</button>
+				              </div><br>
+                             
+                          </div>
+                      </ul>
+                  </div>
+                </div>
+                 
+              </div>
+                  
+                  
+            </div>
+                
+        </nav>
+       <br><br><br>
+        <div class="container" id="shallowbg"  >
+                 <div align="center">
+                 <ul class="pagination">
+                 <li class="previous"><a href="#">Previous</a></li>
+                     <li class="active"><a href="#">1</a></li>
+                     <li ><a href="#">2</a></li>
+                     <li><a href="#">3</a></li>
+                     <li><a href="#">4</a></li>
+                     <li><a href="#">5</a></li>
+                     
+                 <li class="next"><a href="#">Next</a></li>
+                 </ul>
+                 </div>
+                 <div ng-controller="subjectCtrl">
+                  <table class="table table-bordered" border="1" style="width:100%">
+                  <col width="30">
+                  <col width="500">
+                  <thead>
+                     <tr>
+                           <th> Category </th> 
+                           <th>Subject</th> 
+                     </tr>
+                  </thead>
+                   <tbody>
+                    
+                    <tr ng-repeat="item in categories">
+                    
+                    <td><a href={{item.categoryURL}}>{{ item.category }} </td></a> 
+                    <td><a href={{item.subjectUrl}}> {{ item.subject }} </td></a>
+                </tr>
+                  </tbody>
+            </table>
+</div>
+            <div align="center">
+                 <ul class="pagination">
+                 <li class="previous"><a href="#">Previous</a></li>
+                     <li class="active"><a href="#">1</a></li>
+                     <li ><a href="#">2</a></li>
+                     <li><a href="#">3</a></li>
+                     <li><a href="#">4</a></li>
+                     <li><a href="#">5</a></li>
+                     
+                 <li class="next"><a href="#">Next</a></li>
+                 </ul>
+                 </div>
+                
+                 </div>
+            </form>
+         
+         </div>
+        
+    </body>
+    
+</html>

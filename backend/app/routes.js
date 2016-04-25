@@ -15,7 +15,7 @@ module.exports = function(app, passport, multer) {
 	// HOME PAGE (with login links) ========
 	// =====================================
 	app.get('/', function(req, res) {
-		res.render('index.ejs', {
+		res.render('index.html', {
             user: req.user
         }); // load the index.ejs file
 	});
@@ -72,39 +72,45 @@ module.exports = function(app, passport, multer) {
 		req.logout();
 		res.redirect('/');
 	});
-
+    // =====================================
+	// UPLOAD ==============================
+	// =====================================
+    // shows the upload form
 	app.get('/upload', isLoggedIn, function (req, res) {
         res.render('uploadFilePage.html', {
 			user: req.user
 		})
 	});
 
+    // process upload
 	app.post('/upload', function(req,res){
 		multer(req,res,(err) => {
             if (err) {
 				console.log(err);
                 res.end('Error uploading file.')
             }
+            // Wait for drop down subject
             /*connection.query('insert into file(filename,filepath,subjectID,ownerID)
             values (?,?,?,?)',[req.file.fileName,req.body.subjectID,req.])*/
             //res.end('File is uploaded.')
             console.log(req.body); //form fields
         	console.log(req.file); //form files
 			//res.status(204).end();
+            res.render({user: req.user})
 			res.redirect('/')
         })
 	})
 
-	app.get('/delete/:id',(req,res) => {
-	    fs.unlink(path.join('./uploads/',req.params.id), (err) => {
+	app.get('/delete/:path',(req,res) => {
+	    fs.unlink(path.join('./uploads/',req.params.path), (err) => {
 	        if(err) throw err
 	        console.log('Successfully delete!!');
 	    })
 	    res.redirect('/')
 	})
 
-	app.get('/uploads/:id', (req,res) => {
-	    fs.createReadStream(path.join('./uploads/', req.params.id)).pipe(res)
+	app.get('/uploads/:path', (req,res) => {
+	    fs.createReadStream(path.join('./uploads/', req.params.path)).pipe(res)
 	})
 
 	app.get('/show',(req,res) => {
