@@ -42,20 +42,17 @@ module.exports = function(passport) {
         passReqToCallback : true // allows us to pass in the req from our route (lets us check if a user is logged in or not)
     },
     function(req, username, password, done) {
-        if (username)
-            username = username.toLowerCase(); // Use lower-case e-mails to avoid case-sensitive e-mail matching
-
         // asynchronous
         process.nextTick(function() {
-            var sql = 'select * from user where username = ?;'
+            var sql = 'select * from user where username = ?'
             connection.query(sql, [username] ,(err, result) => {
                 if (err)
                     return done(err);
 
                 // if no user is found, return the message
-                if (!result[0])
+                if (!result[0]){
                     return done(null, false, req.flash('loginMessage', 'No user found.'));
-
+                }
                 if (!bcrypt.compareSync(password, result[0].password)){
                     return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.'));
                 }
