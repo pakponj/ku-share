@@ -12,7 +12,7 @@
 <body>
     <% if (user) { %>
     <div class="user-loggedin">
-        <p>Logged in as <strong><%= user.email %></strong></p>
+        <p>Logged in as <strong><%= user.username %></strong></p>
     </div>
     <div class="container">
     <% } %>
@@ -31,7 +31,8 @@
                 <h3><span class="fa fa-user"></span> Local</h3>
 
                     <p>
-                        <strong>id</strong>: <%= user.id %><br>
+                        <strong>id</strong>: <%= user.userID %><br>
+                        <strong>username</strong>: <%= user.username %><br/>
                         <strong>email</strong>: <%= user.email %><br>
                         <strong>password</strong>: <%= user.password %>
                     </p>

@@ -5,7 +5,6 @@ var app     = express()
 var port    = process.env.PORT ||3000
 var passport = require('passport');
 var flash = require('connect-flash');
-var mongoose = require('mongoose');
 
 var multer = require('multer');
 var morgan      = require('morgan');
