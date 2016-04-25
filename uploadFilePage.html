@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <title>Upload File(s)!</title>
@@ -26,6 +26,9 @@
         includeApp.controller('HeaderCtrl', ['$scope', function ($scope) {
             $scope.header = { name: 'header.html', url: 'header.html' };
         }]);
+        //includeApp.headerCtrl = function ($scope) {
+        //    $scope.header = { name: "header.html", url: "header.html" };
+        //};
     </script>
 
     <!-- Material Design fonts -->
@@ -42,8 +45,6 @@
             /*padding-top: 80px;*/
             /*background-color: white;*/
         }
-
-
 
         /*.collapse {
             background-color: white;
@@ -65,11 +66,12 @@
     </style>
 
 </head>
-<body>
+<body ng-app="includeApp">
     <!--Fixed Navbar-->
     <div ng-controller="HeaderCtrl">
         <div ng-include="header.url"></div>
     </div>
+    <!--<div ng-include="'header.html'"></div>-->
     <!--<nav class="navbar navbar-fixed-top" id="mainNavbar">
         <div class="container">
             <div class="navbar-header">
@@ -106,7 +108,6 @@
             </nav>
         </div>
     </nav>-->
-
     <!--Upload Form-->
     <div class="container col-md-6">
         <div class="well">
