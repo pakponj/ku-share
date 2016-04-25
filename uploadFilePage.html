@@ -21,6 +21,15 @@
 
     <!--other scripts-->
     <script src="scripts/requestApp.js"></script>
+    <script type="text/javascript">
+        var includeApp = angular.module('includeApp', []);
+        includeApp.controller('HeaderCtrl', ['$scope', function ($scope) {
+            $scope.header = { name: 'header.html', url: 'header.html' };
+        }]);
+        //includeApp.headerCtrl = function ($scope) {
+        //    $scope.header = { name: "header.html", url: "header.html" };
+        //};
+    </script>
 
     <!-- Material Design fonts -->
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
@@ -36,8 +45,6 @@
             /*padding-top: 80px;*/
             /*background-color: white;*/
         }
-
-
 
         /*.collapse {
             background-color: white;
@@ -59,9 +66,13 @@
     </style>
 
 </head>
-<body>
+<body ng-app="includeApp">
     <!--Fixed Navbar-->
-    <nav class="navbar navbar-fixed-top" id="mainNavbar">
+    <div ng-controller="HeaderCtrl">
+        <div ng-include="header.url"></div>
+    </div>
+    <!--<div ng-include="'header.html'"></div>-->
+    <!--<nav class="navbar navbar-fixed-top" id="mainNavbar">
         <div class="container">
             <div class="navbar-header">
                 <div class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbarCollapsePart" aria-controls="navbarCollapsePart">
@@ -96,7 +107,7 @@
                 </ul>
             </nav>
         </div>
-    </nav>
+    </nav>-->
 
     <!--Upload Form-->
     <div class="container col-md-6">
