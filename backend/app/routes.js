@@ -7,6 +7,9 @@ var connection = mysql.createConnection({
     database: 'authen_test'
 })
 
+var fs = require('fs');
+var path = require('path');
+
 module.exports = function(app, passport, multer) {
 	// =====================================
 	// HOME PAGE (with login links) ========
