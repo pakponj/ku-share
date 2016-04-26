@@ -102,22 +102,6 @@ module.exports = function(app, passport, multer) {
         });
 	});
 
-    app.get('/api/upload/subjects', (req,res) => {
-        connection.query('select * from category as c inner join subject as s on c.categoryID = s.categoryID',(err, result) => {
-            if(err) throw err;
-            return res.json(result);
-        });
-    });
-
-	app.get('/api/delete/:path',(req,res) => {
-        connection.query('DELETE FROM file WHERE fileName = ',[req.params.path],(err, result) => {
-    	    fs.unlink(path.join('./uploads/',req.params.path), (err) => {
-    	        if(err) throw err;
-    	        console.log('Successfully delete!!');
-    	    });
-        });
-	    res.redirect('/');
-	});
 
 	app.get('/uploads/:path', (req,res) => {
 	    fs.createReadStream(path.join('./uploads/', req.params.path)).pipe(res)
@@ -157,6 +141,35 @@ module.exports = function(app, passport, multer) {
             res.render('table.html',result);
         });
     });
+
+    // =====================================
+	// API ==============================
+	// =====================================
+    // api get subjects
+    app.get('/api/upload/subjects', (req,res) => {
+        connection.query('select * from subject order by subjectName',(err, result) => {
+            if(err) throw err;
+            return res.json(result);
+        });
+    });
+
+    app.get('/api/upload/catagories', (req,res) => {
+        connection.query('select * from category as c inner join subject as s on c.categoryID = s.categoryID',(err, result) => {
+            if(err) throw err;
+            return res.json(result);
+        });
+    });
+
+    //api delete file
+	app.get('/api/delete/:path',(req,res) => {
+        connection.query('DELETE FROM file WHERE fileName = ? ',[req.params.path],(err, result) => {
+    	    fs.unlink(path.join('./uploads/',req.params.path), (err) => {
+    	        if(err) throw err;
+    	        console.log('Successfully delete!!');
+    	    });
+        });
+	    res.redirect('/');
+	});
 };
 
 // route middleware to make sure

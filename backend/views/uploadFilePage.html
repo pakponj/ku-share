@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="uploadApp">
 <head>
     <title>Upload File(s)!</title>
     <!-- Mobile support -->
@@ -24,6 +24,7 @@
     <script src="scripts/requestApp.js"></script>
     <script src="scripts/includeHeader.js"></script>
     <script src="scripts/dataService.js"></script>
+    <script src="../app/uploadApp.js"></script>
 
     <!-- Material Design fonts -->
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
@@ -35,11 +36,6 @@
     <link rel="stylesheet" type="text/css" href="../scripts/material/css/ripples.min.css">
 
     <style>
-        body {
-            /*padding-top: 80px;*/
-            /*background-color: white;*/
-        }
-
         #mainNavbar {
             padding: 20px;
             background-color: white;
@@ -52,81 +48,37 @@
     </style>
 
 </head>
-<body>
-    <!--Fixed Navbar-->
-    <!--<nav class="navbar navbar-fixed-top" id="mainNavbar">
-        <div class="container">
-            <div class="navbar-header">
-                <div class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbarCollapsePart" aria-controls="navbarCollapsePart">
-                    <span class="material-icons" aria-hidden="true">menu</span>
-                </div>
-                <a href="#" class="navbar-brand">
-                    <i class="material-icons">share</i>
-                    Welcome to KUShare!
-                </a>
-            </div>
-            <nav class="collapse navbar-collapse" id="navbarCollapsePart">
-                <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <form class="navbar-form">
-                            <div class="form-group">
-                                <input type="text" class="form-control col-xs-12" placeholder="Search KUShare">
-                            </div>
-                        </form>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="material-icons">storage</i>
-                            Library
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="material-icons">account_circle</i>
-                            ANONYMOUS
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-    </nav>-->
-    <div ng-app="includeApp" ng-controller="HeaderCtrl">
+<body ng-controller="dropdownCtrl">
+    <!-- <div ng-app="includeApp" ng-controller="HeaderCtrl">
         <div ng-include="header.url"></div>
-    </div>
+    </div> -->
 
     <!--Upload Form-->
-    <div class="container col-md-6">
+    <div class="container col-md-6 col-xs-12 col-sm-12 col-sm-12">
         <div class="well" align="center">
             <form class="form-horizontal" enctype="multipart/form-data" method="post" action="/upload">
                 <fieldset>
                     <legend>Upload Form</legend>
-                    <div class="form-group">
-                        <label for="subject" class="col-md-2 control-label">Subject</label>
-
-                        <div class="col-md-10">
-                            <input type="text" class="form-control" id="subject" placeholder="Subject" />
-                        </div>
+                    <div class="form-group col-xs-12 col-sm-12 col-md-12">
+                        <label for="singleSelect" class="col-sm-12 col-md-3">Subject</label>
+                        <select class="col-xs-12 col-sm-12 col-md-9" name="subjectID">
+                            <option ng-repeat="subject in subjects" value="{{subject.subjectID}}">{{subject.subjectName}}</option>
+                        </select><br>
                     </div>
 
-                    <div class="form-group">
-                        <label for="filename" class="col-md-2 control-label">Filename</label>
-
-                        <div class="col-md-10">
-                            <input type="text" class="form-control" id="filename" name="filename" placeholder="FileName" />
-                        </div>
+                    <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <label for="filename" class="col-xs-12 col-sm-12 col-md-3 control-label">Filename</label>
+                        <input type="text" class="form-control col-xs-12 col-sm-12 col-md-9" id="filename" name="filename" placeholder="FileName" />
                     </div>
 
-                    <label for="inputFile" class="col-md-2 control-label">File</label>
-
-                    <div class="col-md-10">
-                        <input type="file" name="upl" id="inputFile">
+                    <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <label for="inputFile" class="col-md-3 col-sm-12 col-xs-12 col-lg-3 control-label">File</label>
+                        <input class="col-md-9 col-sm-12 col-xs-12 col-lg-9" type="file" name="upl" id="inputFile">
                     </div>
 
-                    <div class="form-group">
-                        <div class="col-md-10 col-md-offset-2">
-                            <input type="reset" class="btn btn-default" value="Cancel">
-                            <input type="submit" class="btn btn-primary">
-                        </div>
+                    <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <input type="reset" class="btn btn-default col-sm-12 col-md-6" value="Cancel">
+                        <input type="submit" class="btn btn-primary col-sm-12 col-md-6">
                     </div>
                 </fieldset>
             </form>

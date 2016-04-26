@@ -1,5 +1,0 @@
-Final starts from advanced query blah blah
-left join right join full join division exist not exist...
-ex. how operations perform on null value
-normalization
-integrity constraint

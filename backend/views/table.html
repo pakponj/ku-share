@@ -160,9 +160,9 @@
                     </thead>
                     <tbody>
                         <tr ng-repeat="file in data" ng-init="">
-                            <td><a href={{file.categoryName}}  target="_blank" >{{ file.categoryName }} </td>
+                            <td><a href={{'category/'+file.categoryName}}  target="_blank" >{{ file.categoryName }} </td>
                             </a>
-                            <td><a href={{file.subjectUrl}} target="_blank" > {{ file.subjectName }} </td>
+                            <td><a href={{'subject/'+file.subjectName}} target="_blank" > {{ file.subjectName }} </td>
                             </a>
                             <td><a href={{file.nameURL}} target="_blank">{{ file.name }} </td>
                             </a>
@@ -188,4 +188,3 @@
     </div>
 </body>
 </html>
-
