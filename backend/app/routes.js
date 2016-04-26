@@ -89,11 +89,11 @@ module.exports = function(app, passport, multer) {
 				console.log(err);
                 res.end('Error uploading file.')
             }
-            /*connection.query('INSERT INTO file(fileName,filePath,subjectID,ownerID)
-            values (?,?,?,?)',[req.file.filename,req.file.filename,req.body.subjectID,req.user.userID],(err,result) => {
+            connection.query('INSERT INTO file (fileName,filePath,subjectID,ownerID) values (?,?,?,?)',[req.file.filename,req.file.filename,req.body.subjectID,req.user.userID],(err,result) => {
+                if(err) throw err;
                 console.log(req.body); //form fields
             	console.log(req.file); //form files
-            });*/
+            });
             console.log(req.file.filename);
             console.log('/'+req.file.filename);
             console.log(req.body); //form fields
@@ -102,9 +102,9 @@ module.exports = function(app, passport, multer) {
         });
 	});
 
-
     app.get('/api/upload/subjects', (req,res) => {
-        connection.query('select * from subject',(err, result) => {
+        connection.query('select * from category as c inner join subject as s on c.categoryID = s.categoryID',(err, result) => {
+            if(err) throw err;
             return res.json(result);
         });
     });
