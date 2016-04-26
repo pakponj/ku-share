@@ -13,7 +13,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.4/angular-resource.min.js"></script>
     <script src="scripts/material/js/material.min.js">
         $.material.init();
-    </script>
+    </script>    
     <script src="scripts/material/js/ripples.min.js"></script>
 
     <!-- Dropdown.js -->
@@ -21,6 +21,7 @@
 
     <!--other scripts-->
     <script src="scripts/requestApp.js"></script>
+    <script src="scripts/includeHeader.js"></script>
 
     <!-- Material Design fonts -->
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
@@ -30,7 +31,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/4.0.1/bootstrap-material-design.css">
     <link rel="stylesheet" type="text/css" href="../scripts/material/css/ripples.min.css">
-
+    
     <style>
         body {
             /*padding-top: 80px;*/
@@ -49,9 +50,9 @@
     </style>
 
 </head>
-<body>
+<body ng-app="includeApp">
     <!--Fixed Navbar-->
-    <nav class="navbar navbar-fixed-top" id="mainNavbar">
+    <!--<nav class="navbar navbar-fixed-top" id="mainNavbar">
         <div class="container">
             <div class="navbar-header">
                 <div class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbarCollapsePart" aria-controls="navbarCollapsePart">
@@ -86,11 +87,15 @@
                 </ul>
             </nav>
         </div>
-    </nav>
+    </nav>-->
+    <div ng-controller="HeaderCtrl">
+        <div ng-include="header.url"></div>
+    </div>
+
 
     <!--Upload Form-->
     <div class="container col-md-6">
-        <div class="well">
+        <div class="well" align="center">
             <form class="form-horizontal" enctype="multipart/form-data" method="post" action="/upload">
                 <fieldset>
                     <legend>Upload Form</legend>
