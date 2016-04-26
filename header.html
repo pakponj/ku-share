@@ -1,5 +1,10 @@
 ﻿<!--<script type="text/ng-template" id="header.html">-->
-    <nav class="navbar navbar-fixed-top" id="mainNavbar">
+<script type="text/javascript">
+    angular.module('loginApp', []).controller('loginCtrl', function ($scope) {
+        
+    });
+</script>
+<nav class="navbar navbar-fixed-top" id="mainNavbar">
         <div class="container">
             <div class="navbar-header">
                 <div class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbarCollapsePart" aria-controls="navbarCollapsePart">
@@ -28,7 +33,12 @@
                     <li>
                         <a href="#">
                             <i class="material-icons">account_circle</i>
-                            ANONYMOUS
+                            <div ng-if="user!=null">
+                                {{user.username}}
+                            </div>
+                            <div ng-if="user==null">
+                                ANONYMOUS
+                            </div>
                         </a>
                     </li>
                 </ul>
