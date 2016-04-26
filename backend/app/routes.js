@@ -96,7 +96,7 @@ module.exports = function(app, passport, multer) {
             console.log(req.body); //form fields
         	console.log(req.file); //form files
 			//res.status(204).end();
-            res.render({user: req.user})
+            //res.render({user: req.user})
 			res.redirect('/')
         })
 	})
@@ -119,7 +119,11 @@ module.exports = function(app, passport, multer) {
 			//res.render(result)
 			res.status(204).end()
 		})
-	})
+    })
+
+    app.get('/viewDocument',(req,res)=>{
+        res.render('viewDocumentPage.html');	
+    })
 };
 
 // route middleware to make sure
