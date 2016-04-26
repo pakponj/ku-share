@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html ng-app="testApp">
     <head>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
@@ -131,14 +131,14 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-model="categories" ng-repeat="cat in categories">
-                            <td><a href={{category/+cat.categoryName}}  target="_blank" >{{ cat.categoryName }} </td>
+                        <tr ng-app="tableApps" ng-repeat="file in data">
+                            <td><a href={{file.categoryName}}  target="_blank" >{{ file.categoryName }} </td>
                             </a>
-                            <td><a href={{item.subjectUrl}} target="_blank" > {{ item.subject }} </td>
+                            <td><a href={{file.subjectUrl}} target="_blank" > {{ file.subject }} </td>
                             </a>
-                            <td><a href={{item.nameURL}} target="_blank" >{{ item.name }} </td>
+                            <td><a href={{file..nameURL}} target="_blank">{{ file.name }} </td>
                             </a>
-                            <td><a href={{item.ownerURL}} target="_blank" > {{ item.owner }} </td>
+                            <td><a href={{file.ownerURL}} target="_blank"> {{ file.owner }} </td>
                             </a>
                         </tr>
                     </tbody>

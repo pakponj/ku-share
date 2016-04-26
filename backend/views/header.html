@@ -1,4 +1,6 @@
-﻿<script src="scripts/dataService.js"></script>
+﻿<script src="scripts/includeHeader.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.4/angular-cookies.min.js"></script>
+
 <nav class="navbar navbar-fixed-top" id="mainNavbar" style="background-color: white">
         <div class="container">
             <div class="navbar-header">
@@ -26,13 +28,13 @@
                             Library
                         </a>
                     </li>
-                    <li ng-app="serviceApp" ng-controller="userServiceCtrl">
+                    <li ng-app="includeApp" ng-controller="userCtrl" ng-model="username" ng-init="getUsername()">
                         <a href="#">
-                            <div ng-if="{{username}}">
+                            <div ng-if="getUsername()!=null">
                                 <i class="material-icons">account_circle</i>
-                                {{username}}
+                                {{getUsername()}}
                             </div>
-                            <div ng-bind="user" ng-if="{{username}}==null">
+                            <div ng-if="getUsername()==null">
                                 <i class="material-icons">account_circle</i>
                                 ANONYMOUS
                             </div>
