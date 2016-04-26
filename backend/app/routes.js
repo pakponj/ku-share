@@ -79,7 +79,7 @@ module.exports = function(app, passport, multer) {
 	app.get('/upload', isLoggedIn, function (req, res) {
         res.render('uploadFilePage.html', {
 			user: req.user
-		})
+		});
 	});
 
     // process upload
@@ -89,41 +89,74 @@ module.exports = function(app, passport, multer) {
 				console.log(err);
                 res.end('Error uploading file.')
             }
-            // Wait for drop down subject
-            /*connection.query('insert into file(filename,filepath,subjectID,ownerID)
-            values (?,?,?,?)',[req.file.fileName,req.body.subjectID,req.])*/
-            //res.end('File is uploaded.')
+            /*connection.query('INSERT INTO file(fileName,filePath,subjectID,ownerID)
+            values (?,?,?,?)',[req.file.filename,req.file.filename,req.body.subjectID,req.user.userID],(err,result) => {
+                console.log(req.body); //form fields
+            	console.log(req.file); //form files
+            });*/
+            console.log(req.file.filename);
+            console.log('/'+req.file.filename);
             console.log(req.body); //form fields
-        	console.log(req.file); //form files
-			//res.status(204).end();
-            //res.render({user: req.user})
-			res.redirect('/')
-        })
-	})
+            console.log(req.file); //form files
+		    res.redirect('/');
+        });
+	});
 
-	app.get('/delete/:path',(req,res) => {
-	    fs.unlink(path.join('./uploads/',req.params.path), (err) => {
-	        if(err) throw err
-	        console.log('Successfully delete!!');
-	    })
-	    res.redirect('/')
-	})
+
+    app.get('/api/upload/subjects', (req,res) => {
+        connection.query('select * from subject',(err, result) => {
+            return res.json(result);
+        });
+    });
+
+	app.get('/api/delete/:path',(req,res) => {
+        connection.query('DELETE FROM file WHERE fileName = ',[req.params.path],(err, result) => {
+    	    fs.unlink(path.join('./uploads/',req.params.path), (err) => {
+    	        if(err) throw err;
+    	        console.log('Successfully delete!!');
+    	    });
+        });
+	    res.redirect('/');
+	});
 
 	app.get('/uploads/:path', (req,res) => {
 	    fs.createReadStream(path.join('./uploads/', req.params.path)).pipe(res)
-	})
+	});
 
 	app.get('/show',(req,res) => {
 		connection.query('select * from user', (err, result) => {
 			console.log(result);
 			//res.render(result)
-			res.status(204).end()
-		})
-    })
+			res.status(204).end();
+		});
+    });
 
     app.get('/viewDocument',(req,res)=>{
-        res.render('viewDocumentPage.html');	
-    })
+        res.render('viewDocumentPage.html');
+    });
+
+    // =====================================
+	// UPLOAD ==============================
+	// =====================================
+    // shows categories page
+    app.get('/category', (req,res) => {
+        res.render('table.html');
+    });
+
+    // query all catagories
+    app.get('/api/category',(req,res) => {
+        connection.query('select * from category order by categoryName', (err, result) => {
+            return res.json(result);
+            //return JSON.stringify(result)
+        });
+    });
+
+    // access individual category page
+    app.get('/category/:categoryName', (req,res) => {
+        connection.query('select * from category where categoryName = ?',[req.params.categoryName], (err, result) => {
+            res.render('table.html',result);
+        });
+    });
 };
 
 // route middleware to make sure
