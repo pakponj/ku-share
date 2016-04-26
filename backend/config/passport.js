@@ -28,8 +28,8 @@ module.exports = function(passport) {
     // used to deserialize the user
     passport.deserializeUser(function(id, done) {
         connection.query('select * from user where userID = ?',[id], (err, result) => {
-            done(err, result[0])
-        })
+            done(err, result[0]);
+        });
     });
 
     // =========================================================================
@@ -59,7 +59,7 @@ module.exports = function(passport) {
                 // all is well, return user
                 else
                     return done(null, result[0]);
-            })
+            });
         });
 
     }));
@@ -80,24 +80,23 @@ module.exports = function(passport) {
             if(!req.user) {
                 connection.query('SELECT * FROM user WHERE username = ?', username, function (err, result) {
                     if(err)
-                        return done(err)
+                        return done(err);
                     if(result[0]) {
                         return done(null, false, req.flash('signupMessage', 'That email is already taken.'))
                     } else {
                         connection.query('insert into user (username, password, email) values (?,?,?)', [username,bcrypt.hashSync(password, bcrypt.genSaltSync(12), null),req.body.email], (err, result) => {
                             if(err)
-                                return done(err)
+                                return done(err);
 
                             connection.query('select * from user where username = ?', username , (err, result) => {
                                 console.log(result);
-                                return done(null, result[0])
-                            })
-
-                        })
+                                return done(null, result[0]);
+                            });
+                        });
                     }
-                })
+                });
             } else {
-                return done(null, req.user)
+                return done(null, req.user);
             }
         });
 
