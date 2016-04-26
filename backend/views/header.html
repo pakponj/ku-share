@@ -1,5 +1,5 @@
-﻿<!--<script type="text/ng-template" id="header.html">-->
-    <nav class="navbar navbar-fixed-top" id="mainNavbar" style="background-color: white">
+﻿<script src="scripts/dataService.js"></script>
+<nav class="navbar navbar-fixed-top" id="mainNavbar" style="background-color: white">
         <div class="container">
             <div class="navbar-header">
                 <div class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbarCollapsePart" aria-controls="navbarCollapsePart">
@@ -26,14 +26,19 @@
                             Library
                         </a>
                     </li>
-                    <li>
+                    <li ng-app="serviceApp" ng-controller="userServiceCtrl">
                         <a href="#">
-                            <i class="material-icons">account_circle</i>
-                            ANONYMOUS
+                            <div ng-if="{{username}}">
+                                <i class="material-icons">account_circle</i>
+                                {{username}}
+                            </div>
+                            <div ng-bind="user" ng-if="{{username}}==null">
+                                <i class="material-icons">account_circle</i>
+                                ANONYMOUS
+                            </div>
                         </a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
-<!--</script>-->

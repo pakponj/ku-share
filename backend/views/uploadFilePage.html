@@ -13,7 +13,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.4/angular-resource.min.js"></script>
     <script src="scripts/material/js/material.min.js">
         $.material.init();
-    </script>    
+    </script>
     <script src="scripts/material/js/ripples.min.js"></script>
 
     <!-- Dropdown.js -->
@@ -22,6 +22,7 @@
     <!--other scripts-->
     <script src="scripts/requestApp.js"></script>
     <script src="scripts/includeHeader.js"></script>
+    <script src="scripts/dataService.js"></script>
 
     <!-- Material Design fonts -->
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
@@ -50,7 +51,8 @@
     </style>
 
 </head>
-<body ng-app="includeApp">
+<body>
+    <!--<div ng-app="cookieExample">{{}}</div>-->
     <!--Fixed Navbar-->
     <!--<nav class="navbar navbar-fixed-top" id="mainNavbar">
         <div class="container">
@@ -88,10 +90,9 @@
             </nav>
         </div>
     </nav>-->
-    <div ng-controller="HeaderCtrl">
+    <div ng-app="includeApp" ng-controller="HeaderCtrl">
         <div ng-include="header.url"></div>
     </div>
-
 
     <!--Upload Form-->
     <div class="container col-md-6">
