@@ -10,6 +10,7 @@ backend/*.gz
 backend/pids
 backend/logs
 backend/results
+backend/uploads/*
 backend/node_modules
 backend/npm-debug.log
 homepage.html
