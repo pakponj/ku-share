@@ -2,7 +2,10 @@ var app = angular.module('catApps', ['ngRoute'])
     .config(['$routeProvider','$locationProvider',function ($routeProvider, $locationProvider) {
         // configure the routing rules here
         $routeProvider.when('/category/:categoryName', {
-            controller: 'subjectCtrl',
+            controller: 'subjectCtrl'
+        })
+        .when('view/:openfile', {
+            controller: 'fileOpenCtrl'
         });
 
         // enable HTML5mode to disable hashbang urls
@@ -27,6 +30,18 @@ var app = angular.module('catApps', ['ngRoute'])
             }, function(response) {
                 $scope.data = response.data || "Request failed";
                 $scope.status = response.status;
+                console.log($scope.data);
+            });
+    }])
+    .controller('fileOpenCtrl', ['$scope', '$http', '$routeParams', '$location', function ($scope, $http, $routeParams, $location) {
+        console.log($location.path());
+        var fileToOpen = ($location.path()).substring(location.path().indexOf('/', 1) + 1);
+        console.log(fileToOpen);
+
+        $http.get('/api/view/file/' + fileToOpen)
+            .then(function (response) {
+                $scope.status = response.status;
+                $scope.data = response.data;
                 console.log($scope.data);
             });
     }]);
