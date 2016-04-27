@@ -17,13 +17,13 @@ var app = angular.module('catApps', ['ngRoute'])
     .controller('subjectCtrl',['$scope', '$http', '$routeParams', '$location',function ($scope, $http, $routeParams, $location, $route) {
         console.log($location.path());
         var subject = ($location.path()).substring($location.path().indexOf('/',1)+1);
-        console.log(subject);   
+        console.log(subject);
         //console.log($routeParams.categoryName);
         //console.log($route.current.params);
         //console.log(JSON.stringify($routeParams));
         $http.get("/api/show/"+(subject)+"/subjects")
             .then(function(response) {
-                $scope.category = $routeParams.categoryName;
+                $scope.category = subject;
                 $scope.status = response.status;
                 $scope.data = response.data;
                 console.log($scope.data);

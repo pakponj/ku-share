@@ -146,27 +146,25 @@
                 <li class="next"><a href="#">Next</a></li>
             </ul>
         </div>
-        <ng-view>
-            <div ng-controller="subjectCtrl">
-                <table class="table table-bordered" border="1" style="width:100%">
-                    <col width="30">
-                    <col width="100">
-                    <col width="500">
-                    <col width="100">
-                    <thead>
-                        <tr>
-                            <th>{{categoryName}}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="file in data" ng-init="">
-                            <td><a href={{'/'+file.subjectName}} target="_blank"> {{ file.subjectName }}</a> </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </ng-view>
-        
+        <div ng-controller="subjectCtrl">
+            <table class="table table-bordered" border="1" style="width:100%">
+                <col width="30">
+                <col width="100">
+                <col width="500">
+                <col width="100">
+                <thead>
+                    <tr>
+                        <th>{{category}} subjects</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="file in data" ng-init="">
+                        <td><a href={{'/subject/'+file.subjectName}} target="_blank"> {{ file.subjectName }}</a> </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
         <div align="center">
             <ul class="pagination">
                 <li class="previous"><a href="#">Previous</a></li>

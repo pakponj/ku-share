@@ -103,31 +103,44 @@ module.exports = function(app, passport, multer) {
 	});
 
     // =====================================
-	// UPLOAD ==============================
+	// SUBJECTS ==============================
 	// =====================================
+    // render subject page
+    app.get('/subject/:subjectName', (req,res) => {
+        res.render('showSubject.html')
+    })
 
 	app.get('/uploads/:path', (req,res) => {
 	    fs.createReadStream(path.join('./uploads/', req.params.path)).pipe(res)
 	});
 
-    app.get('/api/show/subjects', (req, res) => {
-        connection.query('select * from subject', (err, result) => {
-            return res.json(result);
-        })
-    })
-
-	app.get('/show',(req,res) => {
-		connection.query('select * from user', (err, result) => {
-			console.log(result);
-			//res.render(result)
-			res.status(204).end();
-		});
+    // =====================================
+	// VIEWS ============================
+	// =====================================
+    // render view page
+    app.get('/view/:openfile',(req,res)=>{
+        res.render('viewDocumentPage.html');
     });
 
-    app.get('/view/:openfile',(req,res)=>{
-        connection.query('select * from file where fileName = ?', [req.params.openfile], (err, result) => {
-            res.render('viewDocumentPage.html',JSON.stringify(result));
-        })
+    // get path of file
+    app.get('/api/view/file/:openfile', (req,res) => {
+        connection.query('select filePath from file where fileName = ?',[req.params.openfile], (err, result) => {
+            res.json(result);
+        });
+    });
+
+    // access individual category page
+    app.get('/category/:categoryName', (req,res) => {
+        res.render('individualCategory.html');
+    });
+
+    // api get subjects
+    app.get('/api/show/:categoryName/subjects', (req,res) => {
+        connection.query('select * from subject as s,category as cat where cat.categoryID = s.categoryID and categoryName = ? order by s.subjectName',[req.params.categoryName],(err, result) => {
+            console.log("result: "+result);
+            if(err) throw err;
+            return res.json(result);
+        });
     });
 
     // =====================================
@@ -141,27 +154,6 @@ module.exports = function(app, passport, multer) {
     // query all catagories
     app.get('/api/category',(req,res) => {
         connection.query('select * from category order by categoryName', (err, result) => {
-            return res.json(result);
-            //return JSON.stringify(result)
-        });
-    });
-
-    // =====================================
-    // SUBJECT =================================
-    // =====================================
-    // access individual category page
-    app.get('/category/:categoryName', (req,res) => {
-        console.log(req.params.categoryName);
-        res.render('individualCategory.html', {
-            category : req.params.categoryName
-        });
-    });
-
-    // api get subjects
-    app.get('/api/show/:categoryName/subjects', (req,res) => {
-        connection.query('select * from subject as s,category as cat where cat.categoryID = s.categoryID and categoryName = ? order by s.subjectName',[req.params.categoryName],(err, result) => {
-            console.log("result: "+result);
-            if(err) throw err;
             return res.json(result);
         });
     });
