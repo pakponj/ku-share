@@ -25,9 +25,14 @@ includeApp.controller('HeaderCtrl', ['$scope', function ($scope) {
 
 includeApp.controller('userCtrl', ['$scope', '$cookies', function ($scope, $cookies) {
 
+    var now = new Date(),
+        exp = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
+
     $scope.saveUsername = function (username) {
         console.log(username);
-        $cookies.put('username', username);
+        $cookies.put('username', username, {
+            expires: exp
+        });
     };
 
     $scope.getUsername = function () {

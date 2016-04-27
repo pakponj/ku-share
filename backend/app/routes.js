@@ -138,10 +138,19 @@ module.exports = function(app, passport, multer) {
     // access individual category page
     app.get('/category/:categoryName', (req,res) => {
         connection.query('select * from category where categoryName = ?',[req.params.categoryName], (err, result) => {
+            result.total = result.length;
             res.render('table.html',result);
         });
     });
 
+//<<<<<<< HEAD
+//    app.get('/api/searchResult', (req, res) => {
+//        connection.query('select * from file, category where fileName = ?',[req.params.fileName], (err, result) => {
+//            return res.json('table.html', result);
+//        });
+        
+//    })
+//=======
     // =====================================
 	// API ==============================
 	// =====================================
@@ -192,6 +201,7 @@ module.exports = function(app, passport, multer) {
         });
 	    res.redirect('/');
 	});
+//>>>>>>> 95c14d749af77352ea934d6a14d6ba4b1174a0f9
 };
 
 // route middleware to make sure
