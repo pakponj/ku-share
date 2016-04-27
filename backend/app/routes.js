@@ -151,6 +151,7 @@ module.exports = function(app, passport, multer) {
     // =====================================
     // access individual category page
     app.get('/category/:categoryName', (req,res) => {
+        console.log(req.params.categoryName);
         res.render('individualCategory.html', {
             category : req.params.categoryName
         });

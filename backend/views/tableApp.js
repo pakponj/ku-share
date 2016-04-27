@@ -1,6 +1,5 @@
 var app = angular.module('tableApps', []);
 
-
 app.controller('tableCtrl', function ($scope, $http) {
     $http.get("/api/show/catagories")
         .then(function(response) {
