@@ -160,6 +160,7 @@ module.exports = function(app, passport, multer) {
     // api get subjects
     app.get('/api/show/:categoryName/subjects', (req,res) => {
         connection.query('select * from category where categoryName = ? order by categoryName',[req.params.cat],(err, result) => {
+            console.log("result: "+result);
             if(err) throw err;
             return res.json(result);
         });

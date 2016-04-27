@@ -146,7 +146,8 @@
                 <li class="next"><a href="#">Next</a></li>
             </ul>
         </div>
-        <div ng-controller="subjectCtrl">
+        <ng-view>
+            <div ng-controller="subjectCtrl">
                 <table class="table table-bordered" border="1" style="width:100%">
                     <col width="30">
                     <col width="100">
@@ -164,6 +165,8 @@
                     </tbody>
                 </table>
             </div>
+        </ng-view>
+        
         <div align="center">
             <ul class="pagination">
                 <li class="previous"><a href="#">Previous</a></li>
