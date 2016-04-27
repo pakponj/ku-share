@@ -154,9 +154,17 @@ module.exports = function(app, passport, multer) {
     // access individual category page
     app.get('/category/:categoryName', (req,res) => {
         connection.query('select * from category where categoryName = ?',[req.params.categoryName], (err, result) => {
+            result.total = result.length;
             res.render('table.html',result);
         });
     });
+
+    app.get('/api/searchResult', (req, res) => {
+        connection.query('select * from file, category where fileName = ?',[req.params.fileName], (err, result) => {
+            return res.json('table.html', result);
+        });
+        
+    })
 };
 
 // route middleware to make sure
