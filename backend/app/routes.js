@@ -102,6 +102,12 @@ module.exports = function(app, passport, multer) {
         });
 	});
 
+    app.get('/api/show/subjects',(req, res) => {
+        connection.query('select * from subject',(err, result) => {
+            return res.json(result)
+        })
+    });
+
     // =====================================
 	// SUBJECTS ==============================
 	// =====================================
