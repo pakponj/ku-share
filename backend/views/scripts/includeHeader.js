@@ -43,7 +43,7 @@ includeApp.controller('userCtrl', ['$scope', '$cookies', function ($scope, $cook
 }]);
 
 includeApp.controller('dropdownCtrl', function ($scope, $http) {
-    $http.get("/api/upload/subjects")
+    $http.get("/api/show/subjects")
         .then(function(response) {
             $scope.status = response.status;
             $scope.subjects = response.data;

@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html ng-app="tableApps">
 <head>
     <title>Welcome to KUShare</title>
@@ -94,7 +94,7 @@
                     </div>
                 </div>
                 <div class="col-xs-2"></div>
-                <div class="col-xs-1" <!--ng-controller="headerCtrl"-->>
+                <div class="col-xs-1" ng-controller="headerCtrl">
                         <div class="dropdown">
                             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                             Library
@@ -161,10 +161,8 @@
                     </thead>
                     <tbody>
                         <tr ng-repeat="file in data" ng-init="">
-                            <td><a href={{file.categoryName}} target="_blank">{{ file.categoryName }}</a></td>
+                            <td><a href={{file.categoryName}} target="_blank" >{{ file.categoryName }}</a> </td>
                             <td><a href={{file.subjectUrl}} target="_blank"> {{ file.subjectName }}</a> </td>
-                            <td><a href={{file.nameURL}} target="_blank">{{ file.file }}</a> </td>
-                            <td><a href={{file.ownerURL}} target="_blank"> {{ file.owner }}</a> </td>
                         </tr>
                     </tbody>
                 </table>

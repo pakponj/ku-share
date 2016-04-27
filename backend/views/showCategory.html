@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html ng-app="tableApps">
 <head>
     <title>Welcome to KUShare</title>
@@ -153,18 +153,12 @@
                     <col width="100">
                     <thead>
                         <tr>
-                            <th>Category </th>
-                            <th>Subject</th>
-                            <th>File Name</th>
-                            <th>Owner</th>
+                            <th>Categories</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr ng-repeat="file in data" ng-init="">
-                            <td><a href={{file.categoryName}} target="_blank">{{ file.categoryName }}</a></td>
-                            <td><a href={{file.subjectUrl}} target="_blank"> {{ file.subjectName }}</a> </td>
-                            <td><a href={{file.nameURL}} target="_blank">{{ file.file }}</a> </td>
-                            <td><a href={{file.ownerURL}} target="_blank"> {{ file.owner }}</a> </td>
+                            <td><a href={{'category/'+file.categoryName}} target="_blank">{{ file.categoryName }}</a></td>
                         </tr>
                     </tbody>
                 </table>
