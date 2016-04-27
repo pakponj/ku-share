@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="uploadApp">
+<html ng-app="includeApp">
 <head>
     <title>Upload File(s)!</title>
     <!-- Mobile support -->
@@ -24,7 +24,6 @@
     <script src="scripts/requestApp.js"></script>
     <script src="scripts/includeHeader.js"></script>
     <script src="scripts/dataService.js"></script>
-    <script src="../app/uploadApp.js"></script>
 
     <!-- Material Design fonts -->
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
@@ -48,13 +47,13 @@
     </style>
 
 </head>
-<body ng-controller="dropdownCtrl">
-    <!-- <div ng-app="includeApp" ng-controller="HeaderCtrl">
+<body>
+    <div  ng-controller="HeaderCtrl">
         <div ng-include="header.url"></div>
-    </div> -->
+    </div>
 
     <!--Upload Form-->
-    <div class="container col-md-6 col-xs-12 col-sm-12 col-sm-12">
+    <div ng-controller="dropdownCtrl" class="container col-md-6 col-xs-12 col-sm-12 col-sm-12">
         <div class="well" align="center">
             <form class="form-horizontal" enctype="multipart/form-data" method="post" action="/upload">
                 <fieldset>

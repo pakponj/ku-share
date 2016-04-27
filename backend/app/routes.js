@@ -154,12 +154,34 @@ module.exports = function(app, passport, multer) {
     });
 
     app.get('/api/upload/catagories', (req,res) => {
-        connection.query('select * from category as c inner join subject as s on c.categoryID = s.categoryID',(err, result) => {
+        connection.query('select * from category as c inner join subject as s on c.categoryID = s.categoryID order by categoryName',(err, result) => {
             if(err) throw err;
             return res.json(result);
         });
     });
 
+    app.get('/api/search/:item',(req,res) => {
+        var itemArrays = []
+        connection.query('select fileID,fileName from file where file.fileName like ?',[
+            '%'+req.params.item+'%'],(err,result) => {
+            if(err) throw err;
+            itemArrays = itemArrays.concat(result);
+            connection.query('select userID,username from user where username like ?',['%'+req.params.item+'%'], (err, result) => {
+                if(err) throw err;
+                itemArrays = itemArrays.concat(result);
+                connection.query('select subjectID,subjectName from subject where subjectName like ?', ['%'+req.params.item+'%'], (err, result) => {
+                    if(err) throw err;
+                    itemArrays = itemArrays.concat(result);
+                    connection.query('select * from category where categoryName like ?',['%'+req.params.item+'%'], (err,result) => {
+                        if(err) throw err;
+                        itemArrays = itemArrays.concat(result);
+                        console.log(itemArrays);
+                        return res.json(itemArrays)
+                    })
+                })
+            })
+        })
+    });
     //api delete file
 	app.get('/api/delete/:path',(req,res) => {
         connection.query('DELETE FROM file WHERE fileName = ? ',[req.params.path],(err, result) => {
