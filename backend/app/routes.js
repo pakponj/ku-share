@@ -82,6 +82,12 @@ module.exports = function(app, passport, multer) {
 		});
 	});
 
+    app.get('/api/upload/show/subject',(req, res) => {
+         connection.query('select * from subject order by subjectName',(err,result) => {
+            return res.json(result)
+        });
+    });
+
     // process upload
 	app.post('/upload',(req,res) => {
 		multer(req,res,(err) => {
@@ -146,6 +152,7 @@ module.exports = function(app, passport, multer) {
         });
     });
 
+    // query by subject
     app.get('/api/search/by/subject/:item', (req,res) => {
         connection.query('SELECT * FROM file AS f INNER JOIN subject AS s ON f.subjectID = s.subjectID INNER JOIN category AS c ON c.categoryID = s.categoryID WHERE s.subjectID = ?', [req.params.item], (err,result) => {
             if(err) throw err;
@@ -153,6 +160,7 @@ module.exports = function(app, passport, multer) {
         });
     });
 
+    // query by category
     app.get('/api/search/by/category/:item', (req,res) => {
         connection.query('SELECT * FROM file AS f INNER JOIN subject AS s ON f.subjectID = s.subjectID INNER JOIN category AS c ON s.categoryID = c.categoryID WHERE c.categoryID = ?', [req.params.item], (err, result) => {
             if(err) throw err;
@@ -160,6 +168,7 @@ module.exports = function(app, passport, multer) {
         });
     });
 
+    // search all item in database
     app.get('/api/search/all/:item',(req,res) => {
         var itemArrays = []
         connection.query('select fileID,fileName from file where file.fileName like ?',[
@@ -176,10 +185,10 @@ module.exports = function(app, passport, multer) {
                         if(err) throw err;
                         itemArrays = itemArrays.concat(result);
                         return res.json(itemArrays)
-                    })
-                })
-            })
-        })
+                    });
+                });
+            });
+        });
     });
     //api delete file
 	app.get('/api/delete/:path',(req,res) => {
