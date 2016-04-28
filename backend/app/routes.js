@@ -118,8 +118,8 @@ module.exports = function(app, passport, multer) {
     // =====================================
     // SEARCH ==============================
     // =====================================
-    app.get('/category', (req, res) => {
-        res.render('table.html')
+    app.get('/category/:categoryID', (req, res) => {
+        res.render('showFilesByCategory.html')
     });
 
     // =====================================
@@ -204,6 +204,7 @@ module.exports = function(app, passport, multer) {
             });
         });
     });
+
     //api delete file
 	app.get('/api/delete/:path',(req,res) => {
         connection.query('DELETE FROM file WHERE fileName = ? ',[req.params.path],(err, result) => {
