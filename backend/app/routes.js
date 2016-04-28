@@ -116,6 +116,13 @@ module.exports = function(app, passport, multer) {
     });
 
     // =====================================
+    // SEARCH ==============================
+    // =====================================
+    app.get('/category', (req, res) => {
+        res.render('table.html')
+    });
+
+    // =====================================
 	// VIEWS ===============================
 	// =====================================
     // render view page
@@ -178,7 +185,6 @@ module.exports = function(app, passport, multer) {
     // search all item in database
     app.get('/api/search/all/:item',(req,res) => {
         var itemArrays = []
-        //SELECT f.fileID,f.fileName,f.filePath,s.subjectID,s.subjectName,c.categoryID,c.categoryName,u.userID,u.username FROM file as f INNER JOIN subject AS s ON f.subjectID = s.subjectID INNER JOIN user AS u ON u.userID = f.ownerID INNER JOIN category AS c ON c.categoryID = s.categoryID
         connection.query('SELECT f.fileID,f.fileName,f.filePath,s.subjectID,s.subjectName,c.categoryID,c.categoryName,u.userID,u.username FROM file as f INNER JOIN subject AS s ON f.subjectID = s.subjectID INNER JOIN user AS u ON u.userID = f.ownerID INNER JOIN category AS c ON c.categoryID = s.categoryID WHERE f.fileName like ?',[
             '%'+req.params.item+'%'],(err,result) => {
             if(err) throw err;
