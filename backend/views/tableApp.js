@@ -1,6 +1,4 @@
-var app = angular.module('tableApps', []);
-
-app.controller('tableCtrl', function ($scope, $http) {
+var app=angular.module('tableApps', []);app.controller('tableCtrl', function ($scope, $http) {
     $http.get("/api/show/category")
         .then(function(response) {
             $scope.status = response.status;

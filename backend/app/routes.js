@@ -5,7 +5,7 @@ var connection = mysql.createConnection({
     user    : 'root',
     password: '1234',
     database: 'kushare'
-})
+});
 
 var fs = require('fs');
 var path = require('path');
@@ -89,7 +89,7 @@ module.exports = function(app, passport, multer) {
 				console.log(err);
                 res.end('Error uploading file.')
             }
-            connection.query('INSERT INTO file (fileName,filePath,subjectID,ownerID) values (?,?,?,?)',[req.file.filename,req.file.filename,req.body.subjectID,req.user.userID],(err,result) => {
+            connection.query('INSERT INTO file (fileName,filePath,subjectID,ownerID) values (?,?,?,?)',[req.body.filename,req.file.filename,req.body.subjectID,req.user.userID],(err,result) => {
                 if(err) throw err;
                 console.log(req.body); //form fields
             	console.log(req.file); //form files
@@ -101,31 +101,6 @@ module.exports = function(app, passport, multer) {
 		    res.redirect('/');
         });
 	});
-
-    app.get('/api/show/subjects',(req, res) => {
-        connection.query('select * from subject order by subjectName',(err, result) => {
-            return res.json(result)
-        })
-    });
-
-    // =====================================
-	// SUBJECTS ==============================
-	// =====================================
-    // render subject page
-    app.get('/subject/:subjectName', (req,res) => {
-        res.render('showSubject.html');
-    })
-
-    // access individual category page
-    app.get('/category/:categoryName', (req,res) => {
-        res.render('individualCategory.html');
-    });
-
-    app.get('/api/show/category', (req,res) => {
-        connection.query('SELECT * FROM category', (err, result) => {
-            return res.json(result);
-        });
-    });
 
     // =====================================
 	// VIEWS ============================
@@ -146,29 +121,6 @@ module.exports = function(app, passport, multer) {
         });
     });
 
-    // api get subjects
-    app.get('/api/show/:categoryName/subjects', (req,res) => {
-        connection.query('select * from subject as s,category as cat where cat.categoryID = s.categoryID and categoryName = ? order by s.subjectName',[req.params.categoryName],(err, result) => {
-            console.log("result: "+result);
-            if(err) throw err;
-            return res.json(result);
-        });
-    });
-
-    // =====================================
-    // CATEGORY ==============================
-    // =====================================
-    // shows categories page
-    app.get('/category', (req,res) => {
-        res.render('showCategory.html');
-    });
-
-    // query all catagories
-    app.get('/api/category',(req,res) => {
-        connection.query('select * from category order by categoryName', (err, result) => {
-            return res.json(result);
-        });
-    });
     // =====================================
 	// BROWSE ==============================
 	// =====================================
@@ -177,7 +129,8 @@ module.exports = function(app, passport, multer) {
     });
 
     app.get('/api/show/browse', (req,res) => {
-        connection.query('SELECT * FROM file as f INNER JOIN subject as s ON f.subjectID = s.subjectID INNER JOIN user as u ON u.userID = f.userID', (req,res) => {
+        connection.query('SELECT f.fileID,f.fileName,f.filePath,s.subjectID,s.subjectName,c.categoryID,c.categoryName,u.userID,u.username FROM file as f INNER JOIN subject AS s ON f.subjectID = s.subjectID INNER JOIN user AS u ON u.userID = f.ownerID INNER JOIN category AS c ON c.categoryID = s.categoryID', (err,result) => {
+            if(err) throw err;
             return res.json(result);
         });
     });
@@ -193,7 +146,21 @@ module.exports = function(app, passport, multer) {
         });
     });
 
-    app.get('/api/search/:item',(req,res) => {
+    app.get('/api/search/by/subject/:item', (req,res) => {
+        connection.query('SELECT * FROM file AS f INNER JOIN subject AS s ON f.subjectID = s.subjectID INNER JOIN category AS c ON c.categoryID = s.categoryID WHERE s.subjectID = ?', [req.params.item], (err,result) => {
+            if(err) throw err;
+            return res.json(result);
+        });
+    });
+
+    app.get('/api/search/by/category/:item', (req,res) => {
+        connection.query('SELECT * FROM file AS f INNER JOIN subject AS s ON f.subjectID = s.subjectID INNER JOIN category AS c ON s.categoryID = c.categoryID WHERE c.categoryID = ?', [req.params.item], (err, result) => {
+            if(err) throw err;
+            return res.json(result);
+        });
+    });
+
+    app.get('/api/search/all/:item',(req,res) => {
         var itemArrays = []
         connection.query('select fileID,fileName from file where file.fileName like ?',[
             '%'+req.params.item+'%'],(err,result) => {
