@@ -1,0 +1,174 @@
+﻿<!DOCTYPE html>
+<html ng-app="catApps">
+<head>
+    <title>Welcome to the Library!</title>
+
+    <!--main scripts-->
+    <script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo=" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.4/angular.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.4/angular-resource.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.4/angular-cookies.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.4/angular-route.min.js"></script>
+    <script src="../scripts/material/js/material.min.js">
+        $.material.init();
+    </script>
+    <script src="../scripts/material/js/ripples.min.js"></script>
+
+    <!-- Dropdown.js -->
+    <link href="//cdn.rawgit.com/FezVrasta/dropdown.js/master/jquery.dropdown.css" rel="stylesheet">
+
+    <!--other scripts-->
+    <script src="../categoryApp.js"></script>
+
+    <!-- Material Design fonts -->
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!--css-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/4.0.1/bootstrap-material-design.css">
+    <link rel="stylesheet" type="text/css" href="../scripts/material/css/ripples.min.css">
+    <style>
+        #loginbox {
+            min-width: 250px;
+            padding: 14px 14px 0;
+            overflow: hidden;
+        }
+
+        #img_container {
+            width: 100%;
+            position: relative;
+            background-image: url(test.jpg);
+            background-repeat: repeat;
+            height: 1000px;
+            background-size: cover;
+            background-position: center center;
+        }
+
+        #inside_comp {
+            position: absolute;
+            right: 100px;
+            top: 500px;
+            color: white;
+            text-shadow: rgba(0,0,0,0.8) 0 1px 3px;
+            font-size: 16pt;
+        }
+
+        #header {
+            background-image: url(test.jpg);
+        }
+
+        #shallowbg {
+            //background-image: url(test.jpg);
+        }
+
+        #sharebtn {
+            background-color: Transparent;
+            border: none;
+            cursor: pointer;
+            overflow: hidden;
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-1">
+                    <button class="btn btn-info " type="button">
+                        <i class="glyphicon glyphicon-home"></i>
+                    </button>
+                </div>
+                <div class="col-xs-6">
+                    <div class="input-group">
+                        <input type="text" class="form-control " placeholder="Search your subject" />
+                        <span class="input-group-btn">
+                            <button class="btn btn-info" type="button">
+                                <i class="glyphicon glyphicon-search"></i>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-xs-2"></div>
+                <div class="col-xs-1">
+                    <div class="dropdown">
+                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            Library
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li ng-repeat="items in contents"><a href={{items.url}}>{{items.name}}</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-xs-1">
+                    <div class="dropwdown" align="left">
+                        <button class="btn btn-default dropdown-toggle" type="button"
+                                id="loginMenu" data-toggle="dropdown" area-haspopup="true" aria-expanded="true">
+                            <i class="glyphicon glyphicon-align-justify"></i>
+                        </button>
+                        <ul class="dropdown-menu" id="loginbox">
+                            <div class="col-md-12">
+                                Sign in
+                                <br>
+                                <br>
+                                <input type="text" class="form-control" placeholder="Username"><br>
+                                <input type="text" class="form-control" placeholder="Password"><br>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary btn-block">Sign Up</button>
+                                </div>
+                                <br>
+                            </div>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <br><br><br>
+    <div class="container" id="shallowbg">
+        <div align="center">
+            <ul class="pagination">
+                <li class="previous"><a href="#">Previous</a></li>
+                <li class="active"><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li class="next"><a href="#">Next</a></li>
+            </ul>
+        </div>
+        <div ng-controller="tableCatCtrl">
+            <table class="table table-bordered" border="1" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Category </th>
+                        <th>Subject</th>
+                        <th>File Name</th>
+                        <th>Owner</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="file in data" ng-init="">
+                        <td><a href='/category/{{file.categoryID}}' target="_blank">{{ file.categoryName }}</a></td>
+                        <td><a href={{file.subjectUrl}} target="_blank"> {{ file.subjectName }}</a> </td>
+                        <td><a href='/view/{{file.nameURL}}' target="_blank">{{ file.fileName }}</a> </td>
+                        <td><a href="#" target="_blank"> {{ file.username }}</a> </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div align="center">
+            <ul class="pagination">
+                <li class="previous"><a href="#">Previous</a></li>
+                <li class="active"><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li class="next"><a href="#">Next</

@@ -145,10 +145,6 @@
         </div>
         <div ng-controller="searchResultCtrl">
             <table class="table table-bordered" border="1" style="width:100%">
-                <col width="30">
-                <col width="100">
-                <col width="500">
-                <col width="100">
                 <thead>
                     <tr>
                         <th>Category </th>
@@ -159,7 +155,7 @@
                 </thead>
                 <tbody>
                     <tr ng-repeat="file in data" ng-init="">
-                        <td><a href={{file.categoryName}} target="_blank">{{ file.categoryName }}</a></td>
+                        <td><a href='/category/{{file.categoryID}}' target="_blank">{{ file.categoryName }}</a></td>
                         <td><a href={{file.subjectUrl}} target="_blank"> {{ file.subjectName }}</a> </td>
                         <td><a href='/view/{{file.nameURL}}' target="_blank">{{ file.fileName }}</a> </td>
                         <td><a href="#" target="_blank"> {{ file.username }}</a> </td>

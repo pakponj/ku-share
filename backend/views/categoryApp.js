@@ -7,11 +7,11 @@ var app = angular.module('catApps', ['ngRoute', 'ngCookies'])
         .when('view/:openfile', {
             controller: 'fileOpenCtrl'
         })
-        .when('/category', {
-            controller: 'tableCatCtrl'
-        })
         .when('/search/:item', {
             controller: 'searchResultCtrl'
+        })
+        .when('/category/:categoryID', {
+            controller: 'tableCatCtrl'
         });
 
         // enable HTML5mode to disable hashbang urls
@@ -53,14 +53,12 @@ var app = angular.module('catApps', ['ngRoute', 'ngCookies'])
         $scope.header = { name: 'header.html', url: 'header.html' };
     }])
 
-    .controller('tableCatCtrl', function ($scope, $http) {
-        $http.get("/api/show/category")
+    .controller('tableCatCtrl', function ($scope, $http, $location) {
+        var categoryinfo = ($location.path()).substring($location.path().indexOf('/', 1) + 1);
+        $http.get('/api/search/by/category/'+categoryinfo)
             .then(function (response) {
                 $scope.status = response.status;
                 $scope.data = response.data;
-            }, function (response) {
-                $scope.data = response.data || "Request failed";
-                $scope.status = response.status;
             });
     })
 
@@ -91,15 +89,6 @@ var app = angular.module('catApps', ['ngRoute', 'ngCookies'])
             });
     }])
 
-    //.controller('searchSenderCtrl', ['$scope', '$http', function ($scope, $http) {
-    //    console.log($scope.searchInfo);
-    //    $http.get('/api/search/all/' + $scope.searchInfo)
-    //        .then(function (response) {
-    //            $scope.data = response.data;
-    //            $scope.status = response.status;
-    //        });
-    //}])
-
     .controller('searchResultCtrl', ['$scope', '$http', '$location', function ($scope, $http, $location) {
         console.log($location.search().searchInfo);
         $http.get('/api/search/all/' + $location.search().searchInfo)
@@ -108,8 +97,10 @@ var app = angular.module('catApps', ['ngRoute', 'ngCookies'])
                 $scope.status = response.status;
             });
 
+    }])
+    
+    .controller('showFileBySubjectCtrl',['$scope', '$http', '$location', function($scope, $http, $location) {
+    
     }]);
 
-    //.controller('disableSettingCtrl'. ['$scope', function($scope){
-    
-    //}]);
+}]);

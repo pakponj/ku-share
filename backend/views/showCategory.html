@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html ng-app="catApps">
 <head>
-    <title>Welcome to KUShare</title>
+    <title>Welcome to the Library!</title>
 
-    <<!--main scripts-->
+    <!--main scripts-->
     <script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo=" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.4/angular.js"></script>
@@ -29,7 +29,6 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/4.0.1/bootstrap-material-design.css">
     <link rel="stylesheet" type="text/css" href="../scripts/material/css/ripples.min.css">
-
     <style>
         #loginbox {
             min-width: 250px;
@@ -74,11 +73,7 @@
     </style>
 </head>
 <body>
-    <div ng-controller="HeaderCtrl">
-        <div ng-include="header.url"></div>
-    </div>
-
-    <!--<nav class="navbar navbar-default navbar-fixed-top">
+    <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container">
             <div class="row">
                 <div class="col-xs-1">
@@ -98,16 +93,16 @@
                 </div>
                 <div class="col-xs-2"></div>
                 <div class="col-xs-1">
-                        <div class="dropdown">
-                            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    <div class="dropdown">
+                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                             Library
                             <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li  ng-repeat="items in contents"><a href={{items.url}}>{{items.name}}</a></li>
-                            </ul>
-                        </div>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li ng-repeat="items in contents"><a href={{items.url}}>{{items.name}}</a></li>
+                        </ul>
                     </div>
+                </div>
                 <div class="col-xs-1">
                     <div class="dropwdown" align="left">
                         <button class="btn btn-default dropdown-toggle" type="button"
@@ -134,7 +129,7 @@
                 </div>
             </div>
         </div>
-    </nav>-->
+    </nav>
     <br><br><br>
     <div class="container" id="shallowbg">
         <div align="center">
@@ -149,23 +144,25 @@
             </ul>
         </div>
         <div ng-controller="tableCatCtrl">
-                <table class="table table-bordered" border="1" style="width:100%">
-                    <col width="30">
-                    <col width="100">
-                    <col width="500">
-                    <col width="100">
-                    <thead>
-                        <tr>
-                            <th>Categories</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="file in data" ng-init="">
-                            <td><a href={{'category/'+file.categoryName}} target="_blank">{{ file.categoryName }}</a></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+            <table class="table table-bordered" border="1" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Category </th>
+                        <th>Subject</th>
+                        <th>File Name</th>
+                        <th>Owner</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="file in data" ng-init="">
+                        <td><a href='/category/{{file.categoryID}}' target="_blank">{{ file.categoryName }}</a></td>
+                        <td><a href={{file.subjectUrl}} target="_blank"> {{ file.subjectName }}</a> </td>
+                        <td><a href='/view/{{file.nameURL}}' target="_blank">{{ file.fileName }}</a> </td>
+                        <td><a href="#" target="_blank"> {{ file.username }}</a> </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
         <div align="center">
             <ul class="pagination">
                 <li class="previous"><a href="#">Previous</a></li>
@@ -178,5 +175,7 @@
             </ul>
         </div>
     </div>
-</body> 
+    </form>
+    </div>
+</body>
 </html>
