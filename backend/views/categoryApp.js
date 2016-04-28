@@ -1,4 +1,4 @@
-var app = angular.module('catApps',['ngRoute', 'ngCookies'])
+var app = angular.module('catApps', ['ngRoute', 'ngCookies'])
     .config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
         // configure the routing rules here
         $routeProvider.when('/category/:categoryName', {
@@ -18,11 +18,11 @@ var app = angular.module('catApps',['ngRoute', 'ngCookies'])
         });
     }])
 
-    .controller('subjectCtrl',['$scope', '$http', '$location',function ($scope, $http, $location) {
+    .controller('subjectCtrl', ['$scope', '$http', '$location', function ($scope, $http, $location) {
         //console.log($location.path());
-        var subject = ($location.path()).substring($location.path().indexOf('/',1)+1);
+        var subject = ($location.path()).substring($location.path().indexOf('/', 1) + 1);
         console.log(subject);
-        $http.get("/api/show/"+(subject)+"/subjects")
+        $http.get("/api/show/" + (subject) + "/subjects")
             .then(function (response) {
                 $scope.status = response.status;
                 $scope.data = response.data;
@@ -80,7 +80,7 @@ var app = angular.module('catApps',['ngRoute', 'ngCookies'])
 
     }])
 
-    .controller('dropdownCtrl', ['$scope','$http', function ($scope, $http) {
+    .controller('dropdownCtrl', ['$scope', '$http', function ($scope, $http) {
         $http.get('/api/upload/show/subject')
             .then(function (response) {
                 $scope.subjects = response.data;
@@ -88,8 +88,25 @@ var app = angular.module('catApps',['ngRoute', 'ngCookies'])
             });
     }])
 
-    .controller('searchSender', ['$scope', function ($scope) {
-        var $scope
-    }])
+    //.controller('searchSenderCtrl', ['$scope', '$http', function ($scope, $http) {
+    //    console.log($scope.searchInfo);
+    //    $http.get('/api/search/all/' + $scope.searchInfo)
+    //        .then(function (response) {
+    //            $scope.data = response.data;
+    //            $scope.status = response.status;
+    //        });
+    //}])
 
-    .controller('searchResultCtrl', ['$scope', ]);
+    .controller('searchResultCtrl', ['$scope', '$http', '$location', function ($scope, $http, $location) {
+        console.log($location.search('searchInfo'));
+        $http.get('/api/search/all/' + $locatin.search('searchInfo'))
+            .then(function (response) {
+                $scope.data = response.data;
+                $scope.status = response.status;
+            });
+
+    }]);
+
+    //.controller('disableSettingCtrl'. ['$scope', function($scope){
+    
+    //}]);
