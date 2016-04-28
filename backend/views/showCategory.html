@@ -1,26 +1,25 @@
 <!DOCTYPE html>
-<html ng-app="tableApps">
+<html ng-app="catApps">
 <head>
     <title>Welcome to KUShare</title>
 
-    <!--main scripts-->
+    <<!--main scripts-->
     <script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo=" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.4/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.4/angular.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.4/angular-resource.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.4/angular-cookies.min.js"></script>
-    <script src="scripts/material/js/material.min.js">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.4/angular-route.min.js"></script>
+    <script src="../scripts/material/js/material.min.js">
         $.material.init();
     </script>
-    <script src="scripts/material/js/ripples.min.js"></script>
+    <script src="../scripts/material/js/ripples.min.js"></script>
 
     <!-- Dropdown.js -->
     <link href="//cdn.rawgit.com/FezVrasta/dropdown.js/master/jquery.dropdown.css" rel="stylesheet">
 
     <!--other scripts-->
-    <script src="scripts/includeHeader.js"></script>
-    <script src="scripts/dataService.js"></script>
-    <script src="tableApp.js"></script>
+    <script src="../categoryApp.js"></script>
 
     <!-- Material Design fonts -->
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
@@ -30,6 +29,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/4.0.1/bootstrap-material-design.css">
     <link rel="stylesheet" type="text/css" href="../scripts/material/css/ripples.min.css">
+
     <style>
         #loginbox {
             min-width: 250px;
@@ -73,8 +73,12 @@
         }
     </style>
 </head>
-<body ng-controller="tableCtrl">
-    <nav class="navbar navbar-default navbar-fixed-top">
+<body>
+    <div ng-controller="HeaderCtrl">
+        <div ng-include="header.url"></div>
+    </div>
+
+    <!--<nav class="navbar navbar-default navbar-fixed-top">
         <div class="container">
             <div class="row">
                 <div class="col-xs-1">
@@ -93,7 +97,7 @@
                     </div>
                 </div>
                 <div class="col-xs-2"></div>
-                <div class="col-xs-1" <!--ng-controller="headerCtrl"-->>
+                <div class="col-xs-1">
                         <div class="dropdown">
                             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                             Library
@@ -130,7 +134,7 @@
                 </div>
             </div>
         </div>
-    </nav>
+    </nav>-->
     <br><br><br>
     <div class="container" id="shallowbg">
         <div align="center">
@@ -144,7 +148,7 @@
                 <li class="next"><a href="#">Next</a></li>
             </ul>
         </div>
-        <div <!--ng-controller="subjectCtrl"-->>
+        <div ng-controller="tableCatCtrl">
                 <table class="table table-bordered" border="1" style="width:100%">
                     <col width="30">
                     <col width="100">
@@ -174,7 +178,5 @@
             </ul>
         </div>
     </div>
-    </form>
-    </div>
-</body>
+</body> 
 </html>
