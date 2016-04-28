@@ -1,7 +1,7 @@
 var app = angular.module('tableApps', []);
 
 app.controller('tableCtrl', function ($scope, $http) {
-    $http.get("/api/show/catagories")
+    $http.get("/api/show/category")
         .then(function(response) {
             $scope.status = response.status;
             $scope.data = response.data;

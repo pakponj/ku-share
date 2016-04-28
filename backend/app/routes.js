@@ -59,7 +59,7 @@ module.exports = function(app, passport, multer) {
 	// =====================================
 	// we will want this protected so you have to be logged in to visit
 	// we will use route middleware to verify this (the isLoggedIn function)
-	app.get('/profile', isLoggedIn, function(req, res) {
+	app.get('/profile', isLoggedIn, (req, res) => {
 		res.render('profile.ejs', {
 			user : req.user // get the user out of session and pass to template
 		});
@@ -68,7 +68,7 @@ module.exports = function(app, passport, multer) {
 	// =====================================
 	// LOGOUT ==============================
 	// =====================================
-	app.get('/logout', function(req, res) {
+	app.get('/logout', (req, res) => {
 		req.logout();
 		res.redirect('/');
 	});
@@ -76,14 +76,14 @@ module.exports = function(app, passport, multer) {
 	// UPLOAD ==============================
 	// =====================================
     // shows the upload form
-	app.get('/upload', isLoggedIn, function (req, res) {
+	app.get('/upload', isLoggedIn, (req, res) => {
         res.render('uploadFilePage.html', {
 			user: req.user
 		});
 	});
 
     // process upload
-	app.post('/upload', function(req,res){
+	app.post('/upload',(req,res) => {
 		multer(req,res,(err) => {
             if (err) {
 				console.log(err);
@@ -113,31 +113,37 @@ module.exports = function(app, passport, multer) {
 	// =====================================
     // render subject page
     app.get('/subject/:subjectName', (req,res) => {
-        res.render('showSubject.html')
+        res.render('showSubject.html');
     })
 
-	app.get('/uploads/:path', (req,res) => {
-	    fs.createReadStream(path.join('./uploads/', req.params.path)).pipe(res)
-	});
+    // access individual category page
+    app.get('/category/:categoryName', (req,res) => {
+        res.render('individualCategory.html');
+    });
+
+    app.get('/api/show/category', (req,res) => {
+        connection.query('SELECT * FROM category', (err, result) => {
+            return res.json(result);
+        });
+    });
 
     // =====================================
 	// VIEWS ============================
 	// =====================================
     // render view page
-    app.get('/view/:openfile',(req,res)=>{
+    app.get('/view/:openfile',(req,res) => {
         res.render('viewDocumentPage.html');
     });
+
+    app.get('/uploads/:path', (req,res) => {
+	    fs.createReadStream(path.join('./uploads/', req.params.path)).pipe(res)
+	});
 
     // get path of file
     app.get('/api/view/file/:openfile', (req,res) => {
         connection.query('select filePath from file where fileName = ?',[req.params.openfile], (err, result) => {
             res.json(result);
         });
-    });
-
-    // access individual category page
-    app.get('/category/:categoryName', (req,res) => {
-        res.render('individualCategory.html');
     });
 
     // api get subjects
@@ -163,9 +169,22 @@ module.exports = function(app, passport, multer) {
             return res.json(result);
         });
     });
+    // =====================================
+	// BROWSE ==============================
+	// =====================================
+    app.get('/browse', (req,res) => {
+        res.render('table.html');
+    });
+
+    app.get('/api/show/browse', (req,res) => {
+        connection.query('SELECT * FROM file as f INNER JOIN subject as s ON f.subjectID = s.subjectID INNER JOIN user as u ON u.userID = f.userID', (req,res) => {
+            return res.json(result);
+        });
+    });
+
 
     // =====================================
-	// API =================================
+	// OTHER API ===========================
 	// =====================================
     app.get('/api/show/catagories', (req,res) => {
         connection.query('select * from category order by categoryName',(err, result) => {
