@@ -60,7 +60,7 @@ module.exports = function(app, passport, multer) {
 	// we will want this protected so you have to be logged in to visit
 	// we will use route middleware to verify this (the isLoggedIn function)
 	app.get('/profile', isLoggedIn, (req, res) => {
-		res.render('profile.ejs', {
+		res.render('profile.html', {
 			user : req.user // get the user out of session and pass to template
 		});
 	});
@@ -95,7 +95,7 @@ module.exports = function(app, passport, multer) {
 				console.log(err);
                 res.end('Error uploading file.')
             }
-            connection.query('INSERT INTO file (fileName,filePath,subjectID,ownerID) values (?,?,?,?)',[req.body.filename,req.file.filename,req.body.subjectID,req.user.userID],(err,result) => {
+            connection.query('INSERT INTO file (fileName,filePath,uploadTime,subjectID,ownerID) values (?,?,NOW(),?,?)',[req.body.filename,req.file.filename,req.body.subjectID,req.user.userID],(err,result) => {
                 if(err) throw err;
                 console.log(req.body); //form fields
             	console.log(req.file); //form files

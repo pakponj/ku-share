@@ -78,17 +78,17 @@ module.exports = function(passport) {
         process.nextTick(function() {
             // if the user is not already logged in:
             if(!req.user) {
-                connection.query('SELECT * FROM user WHERE username = ?', username, function (err, result) {
+                connection.query('SELECT username,email FROM user WHERE username = ?', username, function (err, result) {
                     if(err)
                         return done(err);
                     if(result[0]) {
                         return done(null, false, req.flash('signupMessage', 'That email is already taken.'))
                     } else {
-                        connection.query('insert into user (username, password, email) values (?,?,?)', [username,bcrypt.hashSync(password, bcrypt.genSaltSync(12), null),req.body.email], (err, result) => {
+                        connection.query('insert into user (username, password, email,joinDate) values (?,?,?,NOW())', [username,bcrypt.hashSync(password, bcrypt.genSaltSync(12), null),req.body.email], (err, result) => {
                             if(err)
                                 return done(err);
 
-                            connection.query('select * from user where username = ?', username , (err, result) => {
+                            connection.query('select username,email from user where username = ?', username , (err, result) => {
                                 console.log(result);
                                 return done(null, result[0]);
                             });

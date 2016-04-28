@@ -4,6 +4,7 @@ CREATE TABLE user(
     username VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
+    joinDate DATETIME NOT NULL DEFAULT NOW(),
     admin INT(2) NOT NULL DEFAULT 0,
     PRIMARY KEY (`userID`)
 );
@@ -33,6 +34,7 @@ CREATE TABLE file(
     fileID INT NOT NULL AUTO_INCREMENT,
     fileName VARCHAR(255) COLLATE utf8_unicode_ci NOT NULL,
     filePath VARCHAR(255) NOT NULL,
+    uploadTime DATETIME NOT NULL,
     subjectID INT NOT NULL,
     ownerID INT NOT NULL,
     PRIMARY KEY (`fileID`),
@@ -44,6 +46,7 @@ DROP TABLE IF EXISTS `comment`;
 CREATE TABLE comment(
     commentID INT NOT NULL AUTO_INCREMENT,
     detail LONGTEXT COLLATE utf8_unicode_ci NOT NULL,
+    commentTime DATETIME NOT NULL,
     userID INT NOT NULL,
     fileID INT NOT NULL,
     PRIMARY KEY (`commentID`),
