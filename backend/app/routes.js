@@ -109,7 +109,14 @@ module.exports = function(app, passport, multer) {
 	});
 
     // =====================================
-	// VIEWS ============================
+    // SEARCH ==============================
+    // =====================================
+    app.get('/search',(req, res) => {
+        res.render('table.html');
+    });
+
+    // =====================================
+	// VIEWS ===============================
 	// =====================================
     // render view page
     app.get('/view/:openfile',(req,res) => {
@@ -200,6 +207,10 @@ module.exports = function(app, passport, multer) {
         });
 	    res.redirect('/');
 	});
+    // 404 redirect to homepage
+    app.get('*', (req, res) => {
+        res.redirect('/');
+    });
 };
 
 // route middleware to make sure
