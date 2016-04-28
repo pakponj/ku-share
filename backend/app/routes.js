@@ -122,6 +122,10 @@ module.exports = function(app, passport, multer) {
         res.render('showFilesByCategory.html')
     });
 
+    app.get('/subject/:subjectID', (req, res) => {
+        res.render('showFilesBySubject.html')
+    });
+
     // =====================================
 	// VIEWS ===============================
 	// =====================================

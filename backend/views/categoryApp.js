@@ -99,8 +99,13 @@ var app = angular.module('catApps', ['ngRoute', 'ngCookies'])
 
     }])
     
-    .controller('showFileBySubjectCtrl',['$scope', '$http', '$location', function($scope, $http, $location) {
-    
+    .controller('showFilesBySubjectCtrl',['$scope', '$http', '$location', function($scope, $http, $location) {
+        var subjectinfo = ($location.path()).substring($location.path().indexOf('/', 1) + 1);
+        console.log(subjectinfo);
+        $http.get('/api/search/by/subject/' + subjectinfo)
+            .then(function (response) {
+                $scope.data = response.data;
+                $scope.status = response.status;
+            });
     }]);
 
-}]);
