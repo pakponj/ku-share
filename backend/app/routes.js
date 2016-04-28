@@ -168,7 +168,7 @@ module.exports = function(app, passport, multer) {
 
     // query by subject
     app.get('/api/search/by/subject/:item', (req,res) => {
-        connection.query('SELECT * FROM file AS f INNER JOIN subject AS s ON f.subjectID = s.subjectID INNER JOIN category AS c ON c.categoryID = s.categoryID WHERE s.subjectID = ?', [req.params.item], (err,result) => {
+        connection.query('SELECT f.fileID,f.fileName,f.filePath,s.subjectID,s.subjectName,c.categoryID,c.categoryName,u.userID,u.username FROM file AS f INNER JOIN subject AS s ON f.subjectID = s.subjectID INNER JOIN category AS c ON c.categoryID = s.categoryID INNER JOIN user as u ON u.userID = f.ownerID WHERE s.subjectID = ?', [req.params.item], (err,result) => {
             if(err) throw err;
             return res.json(result);
         });
@@ -176,7 +176,7 @@ module.exports = function(app, passport, multer) {
 
     // query by category
     app.get('/api/search/by/category/:item', (req,res) => {
-        connection.query('SELECT * FROM file AS f INNER JOIN subject AS s ON f.subjectID = s.subjectID INNER JOIN category AS c ON s.categoryID = c.categoryID WHERE c.categoryID = ?', [req.params.item], (err, result) => {
+        connection.query('SELECT f.fileID,f.fileName,f.filePath,s.subjectID,s.subjectName,c.categoryID,c.categoryName,u.userID,u.username FROM file AS f INNER JOIN subject AS s ON f.subjectID = s.subjectID INNER JOIN category AS c ON c.categoryID = s.categoryID INNER JOIN user as u ON u.userID = f.ownerID WHERE c.categoryID = ?', [req.params.item], (err, result) => {
             if(err) throw err;
             return res.json(result);
         });
