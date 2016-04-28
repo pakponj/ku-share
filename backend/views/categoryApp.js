@@ -9,6 +9,9 @@ var app = angular.module('catApps', ['ngRoute', 'ngCookies'])
         })
         .when('/category', {
             controller: 'tableCatCtrl'
+        })
+        .when('/search/:item', {
+            controller: 'searchResultCtrl'
         });
 
         // enable HTML5mode to disable hashbang urls
@@ -98,8 +101,8 @@ var app = angular.module('catApps', ['ngRoute', 'ngCookies'])
     //}])
 
     .controller('searchResultCtrl', ['$scope', '$http', '$location', function ($scope, $http, $location) {
-        console.log($location.search('searchInfo'));
-        $http.get('/api/search/all/' + $locatin.search('searchInfo'))
+        console.log($location.search().searchInfo);
+        $http.get('/api/search/all/' + $location.search().searchInfo)
             .then(function (response) {
                 $scope.data = response.data;
                 $scope.status = response.status;

@@ -208,9 +208,9 @@ module.exports = function(app, passport, multer) {
 	    res.redirect('/');
 	});
     // 404 redirect to homepage
-    app.get('*', (req, res) => {
-        res.redirect('/');
-    });
+    //app.get('*', (req, res) => {
+    //    res.redirect('/');
+    //});
 };
 
 // route middleware to make sure
