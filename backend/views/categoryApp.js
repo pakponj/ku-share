@@ -44,4 +44,7 @@ var app = angular.module('catApps', ['ngRoute'])
                 $scope.data = response.data;
                 console.log($scope.data);
             });
+    }])
+    .controller('HeaderCtrl', ['$scope', function ($scope) {
+        $scope.header = { name: 'header.html', url: 'header.html' };
     }]);
