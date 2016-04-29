@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html ng-app="includeApp">
+<head>
+    <title>Upload File(s)!</title>
+    <!-- Mobile support -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!--main scripts-->
+    <script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo=" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.4/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.4/angular-resource.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.4/angular-cookies.min.js"></script>
+    <script src="scripts/material/js/material.min.js">
+        $.material.init();
+    </script>
+    <script src="scripts/material/js/ripples.min.js"></script>
+
+    <!-- Dropdown.js -->
+    <link href="//cdn.rawgit.com/FezVrasta/dropdown.js/master/jquery.dropdown.css" rel="stylesheet">
+
+    <!--other scripts-->
+    <script src="scripts/requestApp.js"></script>
+    <script src="scripts/includeHeader.js"></script>
+    <script src="scripts/dataService.js"></script>
+
+    <!-- Material Design fonts -->
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!--css-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/4.0.1/bootstrap-material-design.css">
+    <link rel="stylesheet" type="text/css" href="../scripts/material/css/ripples.min.css">
+
+    <style>
+        #wellarea{
+             vertical-align: middle
+        }
+        #mainNavbar {
+            padding: 20px;
+            background-color: white;
+            position: relative;
+        }
+
+        #navbarCollapsePart {
+            background-color: white;
+        }
+    </style>
+
+</head>
+<body><br><br><br>
+    <div  ng-controller="HeaderCtrl">
+        <div ng-include="header.url"></div>
+    </div>
+    <div class="col-md-3"></div>
+    <!--Upload Form-->
+    <div  ng-controller="dropdownCtrl" class="container col-md-6 col-xs-12 col-sm-12 col-sm-12">
+        <div class="well" id="wellarea">
+           <center>
+            <form class="form-horizontal" enctype="multipart/form-data" method="post" action="/upload">
+                <fieldset>
+                    <legend>Upload Form</legend>
+                    <div class="form-group col-xs-12 col-sm-12 col-md-12">                
+                       <form >
+                        <label for="singleSelect" class="col-sm-12 col-md-3">Subject</label>
+                        <select class="col-xs-12 col-sm-12 col-md-9" name="subjectID">
+                            <option ng-repeat="subject in subjects" value="{{subject.subjectID}}">{{subject.subjectName}}</option>
+                        </select><br>
+                        </form>
+                    </div>
+
+                    <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <label for="filename" class="col-xs-12 col-sm-12 col-md-3 control-label">Filename</label>
+                        <input type="text" class="form-control col-xs-12 col-sm-12 col-md-9" id="filename" name="filename" placeholder="FileName" />
+                    </div>
+
+                    <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <label for="inputFile" class="col-md-3 col-sm-12 col-xs-12 col-lg-3 control-label">File</label>
+                        <input class="col-md-9 col-sm-12 col-xs-12 col-lg-9" type="file" name="upl" id="inputFile">
+                    </div>
+
+                    <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <input type="reset" class="btn btn-default col-sm-12 col-md-6" value="Cancel">
+                        <input type="submit" class="btn btn-primary col-sm-12 col-md-6">
+                    </div>
+                </fieldset>
+            </form>
+            </center>
+        </div>
+    </div>
+</body>
+</html>

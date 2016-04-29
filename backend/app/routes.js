@@ -69,13 +69,13 @@ module.exports = function(app, passport, multer) {
         var userID = req.session.passport.user;
         var info = [];
         connection.query('SELECT u.username,u.email,u.joinDate FROM user AS u WHERE u.userID = ?',[userID], (err,result) => {
-            info = info.concat(result);
+            info.push(result);
             console.log(info);
             connection.query('SELECT f.filename,f.fileID,f.uploadTime,cat.categoryID,cat.categoryName,s.subjectID,s.subjectName FROM file AS f,user AS u, category AS cat, subject AS s WHERE f.ownerID = u.userID AND u.userID = ? AND s.subjectID = f.subjectID AND s.categoryID = cat.categoryID',[userID], (err, result) => {
-                info = info.concat(result);
+                info.push(result);
                 console.log(info);
                 connection.query('SELECT com.detail,com.commentTime,u.userID,username,f.fileID,f.fileName FROM file AS f, comment AS com, user AS u WHERE com.userID = u.userID AND u.userID = ? AND f.fileID = com.fileID',[userID], (err, result) => {
-                    info = info.concat(result);
+                    info.push(result);
                     console.log(info);
                     return res.json(info);
                 });

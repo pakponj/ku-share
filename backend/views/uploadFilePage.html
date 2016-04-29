@@ -40,7 +40,6 @@
             background-color: white;
             position: relative;
         }
-
         #navbarCollapsePart {
             background-color: white;
         }
@@ -51,10 +50,11 @@
     <div  ng-controller="HeaderCtrl">
         <div ng-include="header.url"></div>
     </div>
-
+    <div class="col-md-3"></div>
     <!--Upload Form-->
-    <div ng-controller="dropdownCtrl" class="container col-md-6 col-xs-12 col-sm-12 col-sm-12">
-        <div class="well" align="center">
+    <div  ng-controller="dropdownCtrl" class="container col-md-12 col-xs-12 col-sm-12 col-sm-12">
+        <div class="well" id="wellarea">
+           <center>
             <form class="form-horizontal" enctype="multipart/form-data" method="post" action="/upload">
                 <fieldset>
                     <legend>Upload Form</legend>
@@ -81,6 +81,7 @@
                     </div>
                 </fieldset>
             </form>
+            </center>
         </div>
     </div>
 </body>
