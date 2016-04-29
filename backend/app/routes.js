@@ -206,24 +206,10 @@ module.exports = function(app, passport, multer) {
 
     // search all item in database
     app.get('/api/search/all/:item',(req,res) => {
-        var itemArrays = []
-        connection.query('SELECT f.fileID,f.fileName,f.filePath,s.subjectID,s.subjectName,c.categoryID,c.categoryName,u.userID,u.username FROM file as f INNER JOIN subject AS s ON f.subjectID = s.subjectID INNER JOIN user AS u ON u.userID = f.ownerID INNER JOIN category AS c ON c.categoryID = s.categoryID WHERE f.fileName like ?',[
-            '%'+req.params.item+'%'],(err,result) => {
+        var searchItem = '%'+req.params.item+'%'
+        connection.query('SELECT DISTINCT f.fileID,f.fileName,f.filePath,s.subjectID,s.subjectName,c.categoryID,c.categoryName,u.userID,u.username FROM file as f INNER JOIN subject AS s ON f.subjectID = s.subjectID INNER JOIN user AS u ON u.userID = f.ownerID INNER JOIN category AS c ON c.categoryID = s.categoryID WHERE f.fileName like ? OR u.username LIKE ? OR s.subjectName LIKE ? OR c.categoryName LIKE ?',[searchItem,searchItem,searchItem,searchItem], (err,result) => {
             if(err) throw err;
-            itemArrays = itemArrays.concat(result);
-            connection.query('SELECT f.fileID,f.fileName,f.filePath,s.subjectID,s.subjectName,c.categoryID,c.categoryName,u.userID,u.username FROM file as f INNER JOIN subject AS s ON f.subjectID = s.subjectID INNER JOIN user AS u ON u.userID = f.ownerID INNER JOIN category AS c ON c.categoryID = s.categoryID WHERE u.username LIKE ?',['%'+req.params.item+'%'], (err, result) => {
-                if(err) throw err;
-                itemArrays = itemArrays.concat(result);
-                connection.query('SELECT f.fileID,f.fileName,f.filePath,s.subjectID,s.subjectName,c.categoryID,c.categoryName,u.userID,u.username FROM file as f INNER JOIN subject AS s ON f.subjectID = s.subjectID INNER JOIN user AS u ON u.userID = f.ownerID INNER JOIN category AS c ON c.categoryID = s.categoryID WHERE s.subjectName LIKE ?', ['%'+req.params.item+'%'], (err, result) => {
-                    if(err) throw err;
-                    itemArrays = itemArrays.concat(result);
-                    connection.query('SELECT f.fileID,f.fileName,f.filePath,s.subjectID,s.subjectName,c.categoryID,c.categoryName,u.userID,u.username FROM file as f INNER JOIN subject AS s ON f.subjectID = s.subjectID INNER JOIN user AS u ON u.userID = f.ownerID INNER JOIN category AS c ON c.categoryID = s.categoryID WHERE c.categoryName LIKE ?',['%'+req.params.item+'%'], (err,result) => {
-                        if(err) throw err;
-                        itemArrays = itemArrays.concat(result);
-                        return res.json(itemArrays)
-                    });
-                });
-            });
+            return res.json(result)
         });
     });
 

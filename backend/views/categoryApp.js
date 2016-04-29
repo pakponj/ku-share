@@ -5,6 +5,7 @@ var app = angular.module('catApps', ['ngRoute', 'ngCookies'])
             controller: 'subjectCtrl'
         })
         .when('view/:openfile', {
+            templateUrl: 'header.html',
             controller: 'fileOpenCtrl'
         })
         .when('/search/:item', {
@@ -38,24 +39,26 @@ var app = angular.module('catApps', ['ngRoute', 'ngCookies'])
     .controller('fileOpenCtrl', ['$scope', '$http', '$routeParams', '$location', function ($scope, $http, $routeParams, $location) {
         //console.log($routeParams)
         //console.log($location.path());
-        var fileToOpen = ($location.path()).substring(location.path().indexOf('/', 1) + 1);
+        var fileToOpen = ($location.path()).substring($location.path().indexOf('/', 1) + 1);
         console.log(fileToOpen);
 
-        $http.get('/api/view/file/' + fileToOpen)
-            .then(function (response) {
-                $scope.status = response.status;
-                $scope.data = response.data;
-                console.log($scope.data);
-            });
+        //$http.get('/api/view/file/' + fileToOpen)
+        //    .then(function (response) {
+        //        $scope.status = response.status;
+        //        $scope.data = response.data;
+        //        console.log($scope.data);
+        //    });
     }])
 
     .controller('HeaderCtrl', ['$scope', function ($scope) {
+
         $scope.header = { name: 'header.html', url: 'header.html' };
     }])
 
     .controller('tableCatCtrl', function ($scope, $http, $location) {
         var categoryinfo = ($location.path()).substring($location.path().indexOf('/', 1) + 1);
-        $http.get('/api/search/by/category/'+categoryinfo)
+
+        $http.get('/api/search/by/category/' + categoryinfo)
             .then(function (response) {
                 $scope.status = response.status;
                 $scope.data = response.data;
@@ -67,16 +70,20 @@ var app = angular.module('catApps', ['ngRoute', 'ngCookies'])
         var now = new Date(),
             exp = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
 
+        var userCookie;
+
         $scope.saveUsername = function (username) {
             console.log(username);
-            $cookies.put('username', username, {
+            userCookie = username;
+            $cookies.put('username', userCookie, {
                 expires: exp
             });
         };
 
         $scope.getUsername = function () {
-            console.log($cookies.get('username'));
-            return $cookies.get('username');
+            console.log("Cookie: "+userCookie);
+            if (userCookie == null) userCookie = $cookies.get('username');
+            return userCookie;
         };
 
     }])
@@ -94,11 +101,12 @@ var app = angular.module('catApps', ['ngRoute', 'ngCookies'])
         $http.get('/api/search/all/' + $location.search().searchInfo)
             .then(function (response) {
                 $scope.data = response.data;
+                console.log(response.data);
                 $scope.status = response.status;
             });
 
     }])
-    
+
     .controller('showFilesBySubjectCtrl',['$scope', '$http', '$location', function($scope, $http, $location) {
         var subjectinfo = ($location.path()).substring($location.path().indexOf('/', 1) + 1);
         console.log(subjectinfo);
@@ -110,7 +118,7 @@ var app = angular.module('catApps', ['ngRoute', 'ngCookies'])
     }])
 
     .controller('getProfileCtrl', ['$scope', '$http', function($scope, $http){
-    
+
         $http.get('/api/profile/information')
             .then(function (response) {
                 $scope.data = response.data;
@@ -127,4 +135,3 @@ var app = angular.module('catApps', ['ngRoute', 'ngCookies'])
 
     //}])
 ;
-
