@@ -4,10 +4,9 @@ var app = angular.module('catApps', ['ngRoute', 'ngCookies'])
         $routeProvider.when('/category/:categoryName', {
             controller: 'subjectCtrl'
         })
-        .when('view/:openfile', {
-            templateUrl: 'header.html',
-            controller: 'fileOpenCtrl'
-        })
+        //.when('view/:openfile', {
+        //    controller: 'fileOpenCtrl',
+        //})
         .when('/search/:item', {
             controller: 'searchResultCtrl'
         })
@@ -36,18 +35,22 @@ var app = angular.module('catApps', ['ngRoute', 'ngCookies'])
             });
     }])
 
-    .controller('fileOpenCtrl', ['$scope', '$http', '$routeParams', '$location', function ($scope, $http, $routeParams, $location) {
-        //console.log($routeParams)
-        //console.log($location.path());
-        var fileToOpen = ($location.path()).substring($location.path().indexOf('/', 1) + 1);
-        console.log(fileToOpen);
+    .controller('fileOpenCtrl', ['$scope','$http', '$location', function ($scope, $http, $location) {
+            
+            var fileToOpen = ($location.path()).substring($location.path().indexOf('/', 1) + 1);
+            console.log(fileToOpen);
+            
+            if(fileToOpen !== 'filePath') {
+                $http.get('/api/view/file/' + fileToOpen)
+                .then(function (response) {
+                    $scope.filePath = '../scripts/ViewerJS/#../../uploads/' + response.data[0].filePath;
+                    console.log($scope.filePath);
+                    //$scope.fileInfo = $scope.filePath;
+                    //$scope.fileInfo = $scope.filePath;
+                });
+            }
 
-        //$http.get('/api/view/file/' + fileToOpen)
-        //    .then(function (response) {
-        //        $scope.status = response.status;
-        //        $scope.data = response.data;
-        //        console.log($scope.data);
-        //    });
+       
     }])
 
     .controller('HeaderCtrl', ['$scope', function ($scope) {
@@ -73,7 +76,7 @@ var app = angular.module('catApps', ['ngRoute', 'ngCookies'])
         var userCookie;
 
         $scope.saveUsername = function (username) {
-            console.log(username);
+            console.log('Saving  username'+username);
             userCookie = username;
             $cookies.put('username', userCookie, {
                 expires: exp
@@ -81,7 +84,7 @@ var app = angular.module('catApps', ['ngRoute', 'ngCookies'])
         };
 
         $scope.getUsername = function () {
-            console.log("Cookie: "+userCookie);
+            //console.log("Cookie: "+userCookie);
             if (userCookie == null) userCookie = $cookies.get('username');
             return userCookie;
         };

@@ -153,6 +153,7 @@ module.exports = function(app, passport, multer) {
     });
 
     app.get('/uploads/:path', (req,res) => {
+        //return res.json(path.join('./uploads/', req.params.path));
 	    fs.createReadStream(path.join('./uploads/', req.params.path)).pipe(res)
 	});
 

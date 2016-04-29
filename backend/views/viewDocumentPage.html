@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html ng-app="catApps">
+<html xmlns:ng="http://angularjs.org" ng-app="catApps">
 <head>
     <title>Welcome to the Library!</title>
 
@@ -12,12 +12,19 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.4/angular-route.min.js"></script>
     <!--<script src="scripts/material/js/material.js"></script>-->
     <!--<script src="scripts/material/js/ripples.js"></script>-->
-
     <!-- Dropdown.js -->
     <link href="//cdn.rawgit.com/FezVrasta/dropdown.js/master/jquery.dropdown.css" rel="stylesheet">
 
     <!--other scripts-->
     <script src="../categoryApp.js"></script>
+    <script type="text/javascript">
+        angular.module('filters-module', [])
+        .filter('trustAsResourceUrl', ['$sce', function ($sce) {
+            return function (val) {
+        return $sce.trustAsResourceUrl(val);
+    };
+}])
+    </script>
 
     <!-- Material Design fonts -->
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
@@ -28,6 +35,12 @@
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/4.0.1/bootstrap-material-design.css">
     <link rel="stylesheet" type="text/css" href="../scripts/material/css/ripples.min.css">
     <style>
+        .body{
+            margin-top: 30px;
+        }
+        #documentFrame{
+            margin-top: 30px;
+        }
         #loginbox {
             min-width: 250px;
             padding: 14px 14px 0;
@@ -70,10 +83,87 @@
         }
     </style>
 </head>
-<body>
-    <!--<div ng-controller="HeaderCtrl">
-        <div ng-include="header.url"></div>
-    </div>-->
-    <div ng-view></div>
+<body ng-controller="fileOpenCtrl">
+    <nav class="navbar nav-margin navbar-fixed-top col-xs-12 col-sm-12 col-md-12 col-lg-12" id="mainNavbar" style="background-color: white">
+        <div class="container col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="navbar-header col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                <div class="navbar-toggle col-xs-3 col-sm-3" type="button" data-toggle="collapse" data-target="#navbarCollapsePart" aria-controls="navbarCollapsePart">
+                    <span class="material-icons" aria-hidden="true">menu</span>
+                </div>
+                <div class="col-xs-7 col-sm-7">
+                    <a href="#" class="navbar-brand"><i class="material-icons">shareKUSHARE</i></a>
+                </div>
+            </div>
+            <div class="collapse navbar-collapse container-fluid col-xs-12 col-sm-12 col-md-6 col-lg-6" id="navbarCollapsePart" style="overflow-x: hidden" ng-controller="userCtrl">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <form class="navbar-form" method="get" action="/search">
+                            <div class="form-group">
+                                <!--<form method="post" action="/search/>-->
+                                <input type="text" class="form-control col-xs-12" placeholder="Search KUShare" name="searchInfo">
+                                <button class="btn btn-default" type="submit"><i class="material-icons">search</i></button>
+                                <!--</form>-->
+                            </div>
+                        </form>
+                    </li>
+                    <li class="nav-divider" style="padding: 10px; background-color: transparent"></li>
+                    <li>
+                        <a href="#">
+                            <i class="material-icons">storage</i>
+                            Library
+                        </a>
+                    </li>
+                    <li ng-model="username">
+                        <a href="#">
+                            <div ng-if="getUsername()!=null">
+                                <i class="material-icons">account_circle</i>
+                                {{getUsername()}}
+                            </div>
+                            <div ng-if="getUsername()==null">
+                                <i class="material-icons">account_circle</i>
+                                ANONYMOUS
+                            </div>
+                        </a>
+                    </li>
+                    <li class="dropdown" align="left">
+                        <button class="btn btn-default dropdown-toggle" type="button"
+                                data-toggle="dropdown" area-haspopup="true" aria-expanded="true">
+                            <i class="material-icons">settings</i>
+                        </button>
+                        <div class="dropdown-menu" id="loginbox">
+                            <form method="post" action="/login">
+                                <div class="col-md-12">
+                                    Sign in
+                                    <br>
+                                    <br>
+                                    <input type="text" class="form-control" placeholder="Username" ng-model="username" name="username"><br>
+                                    <input type="password" class="form-control" placeholder="Password" name="password"><br>
+                                    <div class="form-group">
+                                        <input type="submit" class="btn btn-primary btn-block" ng-click="saveUsername(username)" value="Sign in">
+                                        <div ng-if="getUsername()==null">
+                                            <button class="btn btn-primary btn-block" action="/signup">Sign Up</button>
+                                        </div>
+                                    </div>
+                                    <!--<div class="form-group"></div>-->
+                                    <br>
+                                </div>
+                            </form>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <br />
+    <br />
+    <br />
+    <div ng-show="filePath!=='filePath'">
+        <iframe id="documentFrame" src={{filePath}} width='800' height='600' allowfullscreen webkitallowfullscreen></iframe>
+            
+    </div>
+    <!--<div>{{filePath}}</div>--> 
+    <!--<div>Hello world</div>-->
+    <!--<iframe id="documentFrame" ng-preload width='800' height='600' allowfullscreen webkitallowfullscreen></iframe>-->
+    <!--<iframe id="documentFrame" src="../scripts/ViewerJS/../../uploads/stableMatching.pdf" width='800' height='600' allowfullscreen webkitallowfullscreen></iframe>-->
 </body>
 </html>
