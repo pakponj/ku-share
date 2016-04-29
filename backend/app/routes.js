@@ -127,6 +127,19 @@ module.exports = function(app, passport, multer) {
 	});
 
     // =====================================
+    // COMMENT =============================
+    // =====================================
+    app.post('/api/comment', (res, req) => {
+        var userID = req.session.passport.user;
+        connection.query('INSERT INTO comment(detail,userID,fileID) values(?,?,?)',[req.body.commentDetail,userID,req.body.fileID], (err,result) => {
+                if(err) throw err;
+                connection.query('SELECT * FROM comment AS com WHERE com.fileID = ?',[req.body.fileID], (req,res) => {
+                    return res.json(result);
+            });
+        });
+    });
+
+    // =====================================
     // SEARCH ==============================
     // =====================================
     app.get('/search',(req, res) => {
@@ -159,7 +172,7 @@ module.exports = function(app, passport, multer) {
 
     // get path of file
     app.get('/api/view/file/:openfile', (req,res) => {
-        connection.query('select filePath from file where fileName = ?',[req.params.openfile], (err, result) => {
+        connection.query('select * from file where fileName = ?',[req.params.openfile], (err, result) => {
             res.json(result);
         });
     });
@@ -177,7 +190,6 @@ module.exports = function(app, passport, multer) {
             return res.json(result);
         });
     });
-
 
     // =====================================
 	// OTHER API ===========================
@@ -224,6 +236,13 @@ module.exports = function(app, passport, multer) {
         });
 	    res.redirect('/');
 	});
+
+    app.get('/api/username', (req,res) => {
+        var userID = req.session.passport.user;
+        connection.query('SELECT username FROM user WHERE userID = ?', [userID], (err, result) => {
+            return res.json(result);
+        });
+    });
     // 404 redirect to homepage
     //app.get('*', (req, res) => {
     //    res.redirect('/');

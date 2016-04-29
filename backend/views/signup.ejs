@@ -1,10 +1,35 @@
-<!-- views/signup.ejs -->
 <!doctype html>
-<html>
+<html ng-app="catApps">
 <head>
     <title>Node Authentication</title>
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <!-- Mobile support -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--main scripts-->
+    <script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo=" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.4/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.4/angular-resource.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.4/angular-cookies.min.js"></script>
+    <script src="scripts/material/js/material.min.js">
+        $.material.init();
+    </script>
+    <script src="scripts/material/js/ripples.min.js"></script>
+    <!-- Dropdown.js -->
+    <link href="//cdn.rawgit.com/FezVrasta/dropdown.js/master/jquery.dropdown.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.4/angular-route.min.js"></script>
+    <!--other scripts-->
+    <script src="/categoryApp.js"></script>
+    <!-- Material Design fonts -->
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--css-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/4.0.1/bootstrap-material-design.css">
+    <link rel="stylesheet" type="text/css" href="../scripts/material/css/ripples.min.css">
+    <!-- load fontawesome -->
     <style>
         body        { padding-top:80px; }
     </style>
