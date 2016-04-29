@@ -2,7 +2,7 @@
 
 <nav class="navbar nav-margin navbar-fixed-top col-xs-12 col-sm-12 col-md-12 col-lg-12" id="mainNavbar" style="background-color: white">
         <div class="container col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <div class="navbar-header col-xs-12 col-sm-12 col-md-6 col-lg-6">
+            <div class="navbar-header col-xs-12 col-sm-12 col-md-5 col-lg-5">
                 <div class="navbar-toggle col-xs-3 col-sm-3" type="button" data-toggle="collapse" data-target="#navbarCollapsePart" aria-controls="navbarCollapsePart">
                     <span class="material-icons" aria-hidden="true">menu</span>
                 </div>
@@ -10,7 +10,7 @@
                     <a href="#" class="navbar-brand"><i class="material-icons">shareKUSHARE</i></a>
                 </div>
             </div>
-            <div class="collapse navbar-collapse container-fluid col-xs-12 col-sm-12 col-md-6 col-lg-6" id="navbarCollapsePart" style="overflow-x: hidden">
+            <div class="collapse navbar-collapse container-fluid col-xs-12 col-sm-12 col-md-7 col-lg-7" id="navbarCollapsePart" style="overflow-x: hidden" ng-controller="userCtrl">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
                         <form class="navbar-form" method="get" action="/search">
@@ -29,7 +29,7 @@
                             Library
                         </a>
                     </li>
-                    <li ng-app="includeApp" ng-controller="userCtrl" ng-model="username" ng-init="getUsername()">
+                    <li ng-model="username" ng-init="getUsername()">
                         <a href="#">
                             <div ng-if="getUsername()!=null">
                                 <i class="material-icons">account_circle</i>
@@ -41,27 +41,29 @@
                             </div>
                         </a>
                     </li>
-                    <li class="dropdown" align="left">
+                    <li class="dropdown" align="left" ng-controller="userCtrl">
                             <button class="btn btn-default dropdown-toggle" type="button"
-                                    id="loginMenu" data-toggle="dropdown" area-haspopup="true" aria-expanded="true">
+                                    data-toggle="dropdown" area-haspopup="true" aria-expanded="true">
                                 <i class="material-icons">settings</i>
                             </button>
-                            <ul class="dropdown-menu" id="loginbox">
+                            <div class="dropdown-menu" id="loginbox">
+                                <form method="post" action="/login">
                                 <div class="col-md-12">
                                     Sign in
                                     <br>
                                     <br>
-                                    <input type="text" class="form-control" placeholder="Username"><br>
-                                    <input type="text" class="form-control" placeholder="Password"><br>
+                                    <input type="text" class="form-control" placeholder="Username" ng-model="username" name="username"><br>
+                                    <input type="password" class="form-control" placeholder="Password" name="password"><br>
                                     <div class="form-group">
-                                        <button type="submit" class="btn btn-primary btn-block">Sign in</button>
-                                    </div>
-                                    <div class="form-group">
-                                        <button type="submit" class="btn btn-primary btn-block">Sign Up</button>
+                                        <input type="submit" class="btn btn-primary btn-block" ng-click="saveUsername(username)" value="Sign in">
+                                        <div ng-if="getUsername()==null">
+                                            <button class="btn btn-primary btn-block" action="/signup">Sign Up</button>
+                                        </div>
                                     </div>
                                     <br>
                                 </div>
-                            </ul>
+                                </form>
+                            </div>
                      </li>
                 </ul>
             </div>

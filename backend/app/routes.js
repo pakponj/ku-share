@@ -177,7 +177,6 @@ module.exports = function(app, passport, multer) {
         });
     });
 
-
     // =====================================
 	// OTHER API ===========================
 	// =====================================
@@ -223,6 +222,13 @@ module.exports = function(app, passport, multer) {
         });
 	    res.redirect('/');
 	});
+
+    app.get('/api/username', (req,res) => {
+        var userID = req.session.passport.user;
+        connection.query('SELECT username FROM user WHERE userID = ?', [userID], (err, result) => {
+            return res.json(result);
+        });
+    });
     // 404 redirect to homepage
     //app.get('*', (req, res) => {
     //    res.redirect('/');

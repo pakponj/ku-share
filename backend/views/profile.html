@@ -16,84 +16,91 @@
         <!-- Dropdown.js -->
         <link href="//cdn.rawgit.com/FezVrasta/dropdown.js/master/jquery.dropdown.css" rel="stylesheet">
         <!--other scripts-->
-        <script src="../categoryApp.js"></script>
+        <script src="/categoryApp.js"></script>
         <!-- Material Design fonts -->
         <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <!--css-->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/4.0.1/bootstrap-material-design.css">
-        <link rel="stylesheet" type="text/css" href="../scripts/material/css/ripples.min.css">
+        <link rel="stylesheet" type="text/css" href="./scripts/material/css/ripples.min.css">
         <style>
             .nav-tabs > li, .nav-pills > li {
-            float:none;
-            display:inline-block;
-            *display:inline; /* ie7 fix */
-            zoom:1; /* hasLayout ie7 trigger */
+                float:none;
+                display:inline-block;
+                *display:inline; /* ie7 fix */
+                zoom:1; /* hasLayout ie7 trigger */
             }
             .nav-tabs, .nav-pills {
-            text-align:center;
+                text-align:center;
             }
             .panel{border-bottom:0;
-            border-left:0;
-            border-right:0;}
+                border-left:0;
+                border-right:0;}
             .panel.with-nav-tabs .panel-heading{
-            padding: 5px 5px 0 5px;
+                padding: 5px 5px 0 5px;
             }
             .panel.with-nav-tabs .nav-tabs{
-            border-bottom: none;
+                border-bottom: none;
             }
             .panel.with-nav-tabs .nav-justified{
-            margin-bottom: -1px;
+                margin-bottom: -1px;
             }
             .modal {
-            text-align: center;
+                text-align: center;
             }
             .modal:before {
-            display: inline-block;
-            vertical-align: middle;
-            content: " ";
-            height: 100%;
+                display: inline-block;
+                vertical-align: middle;
+                content: " ";
+                height: 100%;
             }
             .modal-dialog {
-            display: inline-block;
-            text-align: left;
-            vertical-align: middle;
+                display: inline-block;
+                text-align: left;
+                vertical-align: middle;
             }
             #loginbox{
-            min-width: 250px;
-            padding: 14px 14px 0;
-            overflow:hidden;
+                min-width: 250px;
+                padding: 14px 14px 0;
+                overflow:hidden;
             }
             #img_container {
-            width: 100%;
-            position: relative;
-            background-image: url(test.jpg);
-            background-repeat: repeat;
-            height: 1000px;
-            background-size: cover;
-            background-position: center center;
+                width: 100%;
+                position: relative;
+                background-image: url(test.jpg);
+                background-repeat: repeat;
+                height: 1000px;
+                background-size: cover;
+                background-position: center center;
             }
             #inside_comp{
-            position: absolute;
-            right: 100px;
-            top: 500px;
-            color: white;
-            text-shadow: rgba(0,0,0,0.8) 0 1px 3px;
-            font-size: 16pt;
+                position: absolute;
+                right: 100px;
+                top: 500px;
+                color: white;
+                text-shadow: rgba(0,0,0,0.8) 0 1px 3px;
+                font-size: 16pt;
             }
             #header{
-            background-image: url(test.jpg);
-            }
-            #shallowbg{
-            background-image: url(wallpaper/bg.png);
+                background-image: url(test.jpg);
             }
             #sharebtn {
-            background-color: Transparent;
-            border: none;
-            cursor:pointer;
-            overflow: hidden;
-            outline:none;
+                background-color: Transparent;
+                border: none;
+                cursor:pointer;
+                overflow: hidden;
+                outline:none;
+            }
+            .space-table {
+                border-collapse: separate;
+                border-spacing: 1.25em;
+            }
+            .nav-margin {
+                margin-bottom: 30px;
+            }
+            .pro-margin {
+                margin-top: 30px;
             }
         </style>
     </head>
@@ -101,125 +108,87 @@
         <div ng-controller="HeaderCtrl">
             <div ng-include="header.url"></div>
         </div>
-        <br><br><br>
-        <div class="container" id="shallowbg" ng-controller="getProfileCtrl" >
-            <div class="col-md-12" align = center>
-                <h1>Welcome back {{profileInfo[0].username}}</h1>
-            </div>
-            <div  id="navtab">
-                <ul class="nav nav-tabs">
-                    <li class="active"><a data-toggle="tab" href="#info">Info</a></li>
-                    <li><a data-toggle="tab" href="#upload">Upload History</a></li>
-                    <li><a data-toggle="tab" href="#comment">Comment History</a></li>
-                </ul>
-            </div>
-            <div class="tab-content">
-                <div id="info" align="center" class="tab-pane fade in active">
-                    <form ng-repeat="user in profileInfo">
-                        <!--<h1>NAME IS JOHNNNN CENNNAA</h1>-->
-                        <div class="well well-info">
-                            {{user.username}}<br />
-                            {{user.email}}<br />
-                            {{user.joinDate}}<br />
-                        </div>
-                    </form>
+        <div class="container pro-margin">
+            <div class="container col-xs-12 col-sm-12 col-md-12 col-lg-12" id="shallowbg" ng-controller="getProfileCtrl" >
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" align = center>
+                    <h1>Welcome back {{profileInfo[0].username}}</h1>
                 </div>
-                <div id="info" class="tab-pane fade">
-                    <h3>Menu 1</h3>
-                    <p>Some content in menu 1.</p>
+                <div id="navtab" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a data-toggle="tab" href="#info">Info</a></li>
+                        <li><a data-toggle="tab" href="#upload">Upload History</a></li>
+                        <li><a data-toggle="tab" href="#comment">Comment History</a></li>
+                    </ul>
                 </div>
-                <div id="upload" class="tab-pane fade">
-                    <table class="table table-bordered" border="1" style="width:100%">
-                        <thead>
-                            <tr>
-                                <th>Category </th>
-                                <th>Subject</th>
-                                <th>File Name</th>
-                                <th>Date</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="item in uploadHistory">
-                                <td><a href='/categoey/{{item.categoryID}}' target="_blank">{{ item.categoryName }} </a></td>
-                                <td><a href='subject/{{item.subjectID}}' target="_blank"> {{ item.subjectName }} </a></td>
-                                <td><a href='/view/{{item.filename}}' target="_blank">{{ item.filename }} </a></td>
-                                <td>{{ item.uploadTime }} </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div id="comment" class="tab-pane fade ">
-                    <table class="table table-bordered" border="1" style="width:100%">
-                        <col width="100">
-                        <col width="500">
-                        <col width="60">
-                        <thead>
-                            <tr>
-                                <th>File Name </th>
-                                <th>Comment</th>
-                                <th>Date</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="item in commentHistory">
-                                <td><a href='/view/{{item.fileName}}' target="_blank">{{ item.fileName }} </a></td>
-                                <td>{{item.detail}}</td>
-                                <td>{{item.commentTime}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-        <div class="modal fade" id="signupform" >
-            <div class="modal-dialog ">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1><span class="fa fa-sign-in"></span> Signup</h1>
-                        <div class="form-group">
-                        </div>
-                        <div class="modal-body" >
-                            <div class="col-md-">TESTER</div>
-                            <div class="container">
-                                <div class="form-group">
-                                    <br>
-                                    <label>Username</label><br>
-                                    <input type="password" name="username">
-                                </div>
-                                <!-- LOGIN FORM -->
-                                <form action="/signup" method="post">
-                                    <div class="form-group">
-                                        <label>Email</label><br>
-                                        <input type="text" name="email">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Password</label><br>
-                                        <input type="password" ng-model="pass1" name="password">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Confirm Password</label><br>
-                                        <input type="password" ng-model="pass2" >
-                                        <div ng-if="pass1==null">
-                                            PASSWORD NULL !!!
-                                        </div>
-                                        <div ng-if="pass1==pass2 && pass1!=null">
-                                            PASSWORD MATCH !!!
-                                        </div>
-                                        <div ng-if="pass1!=pass2">
-                                            PASSWORD NOT MATCH !!!
-                                        </div>
-                                    </div>
-                                    <button type="submit" class="btn btn-warning btn-lg">Signup</button>
-                                </form>
+                <div class="tab-content col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <div id="info" align="center" class="tab-pane fade in active">
+                        <form ng-repeat="user in profileInfo">
+                            <div class="well well-info">
+                                <table class="space-table">
+                                    <tr>
+                                        <td>Username</td>
+                                        <td>{{user.username}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>E-mail</td>
+                                        <td>{{user.email}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Join date</td>
+                                        <td>{{user.joinDate}}</td>
+                                    </tr>
+                                </table>
                             </div>
-                        </div>
+                        </form>
                     </div>
-                    <div class="modal-footer">
-                        <p>Already have an account? <a href="/login">Login</a></p>
-                        <p>Or go <a href="/">home</a>.</p>
+                    <div id="info" class="tab-pane fade">
+                        <h3>Menu 1</h3>
+                        <p>Some content in menu 1.</p>
+                    </div>
+                    <div id="upload" class="tab-pane fade">
+                        <table class="table table-bordered" border="1" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>Category </th>
+                                    <th>Subject</th>
+                                    <th>File Name</th>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="item in uploadHistory">
+                                    <td><a href='/categoey/{{item.categoryID}}' target="_blank">{{ item.categoryName }} </a></td>
+                                    <td><a href='subject/{{item.subjectID}}' target="_blank"> {{ item.subjectName }} </a></td>
+                                    <td><a href='/view/{{item.filename}}' target="_blank">{{ item.filename }} </a></td>
+                                    <td>{{ item.uploadTime }} </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="comment" class="tab-pane fade ">
+                        <table class="table table-bordered" border="1" style="width:100%">
+                            <col width="100">
+                            <col width="500">
+                            <col width="60">
+                            <thead>
+                                <tr>
+                                    <th>File Name </th>
+                                    <th>Comment</th>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="item in commentHistory">
+                                    <td><a href='/view/{{item.fileName}}' target="_blank">{{ item.fileName }} </a></td>
+                                    <td>{{item.detail}}</td>
+                                    <td>{{item.commentTime}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
+
     </body>
 </html>

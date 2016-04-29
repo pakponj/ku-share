@@ -29,84 +29,99 @@
         <link rel="stylesheet" type="text/css" href="../scripts/material/css/ripples.min.css">
         <style>
             #loginbox{
-            min-width: 250px;
-            padding: 14px 14px 0;
-            overflow:hidden;
+                min-width: 250px;
+                padding: 14px 14px 0;
+                overflow:hidden;
             }
             #img_container {
-            width: 100%;
-            position: relative;
-            background-image: url(resource/background.jpg);
-            background-repeat: repeat;
-            height: 600px;
-            background-size: cover;
-            background-position: center center;
+                width: 100%;
+                position: relative;
+                background-image: url(resource/background.jpg);
+                background-repeat: repeat;
+                height: 600px;
+                background-size: cover;
+                background-position: center center;
             }
             #inside_comp{
-            position: absolute;
-            right: 100px;
-            top: 110px;
-            color: white;
-            text-shadow: rgba(0,0,0,0.8) 0 1px 3px;
-            font-size: 16pt;
+                text-align: center;
+                color: white;
+                text-shadow: rgba(0,0,0,0.8) 0 1px 3px;
+                font-size: 16pt;
+            }
+            .comp-text {
+                margin-top: 60%;
+            }
+            @media screen and (min-width: 520px) {
+                #inside_comp {
+                    position: absolute;
+                    right: 100px;
+                    top: 110px;
+                    color: white;
+                    text-shadow: rgba(0,0,0,0.8) 0 1px 3px;
+                    font-size: 16pt;
+                }.comp-text{
+                    margin-top: 0%;
+                }
             }
             #header{
-            background-image: url(test.jpg);
+                background-image: url(test.jpg);
             }
             #sharebtn {
-            color:  aliceblue;
-            background-color: Transparent;
-            border-color: white;
-            cursor:pointer;
-            overflow: hidden;
-            outline:none;
+                color:  aliceblue;
+                background-color: Transparent;
+                border-color: white;
+                cursor:pointer;
+                overflow: hidden;
+                outline:none;
+            }
+            img {
+                max-width: 100%;
+                height: auto;
+                width: auto;
+            }
+            .nav-margin {
+                margin-bottom: 30px;
             }
         </style>
     </head>
-    <body id="bg">
+    <body>
         <div ng-controller="HeaderCtrl">
             <div ng-include="header.url"></div>
         </div>
-        <div class="container" id="shallowbg">
-            <div class="col-xs-12" id="img_container" align="center">
-                >
-                <div id="inside_comp">
+        <div class="container">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="img_container">
+                <div id="inside_comp" class="comp-text">
                     <h1>KU Share</h1>
                     <p>Share you knowledge from youself to others</p>
                     <p><a class="btn btn-primary btn-lg" href="/upload" role="button" id="sharebtn">Share Now</a></p>
                 </div>
             </div>
-            <form role="form"  class="form-inline">
+            <div>
                 <div class="form-group">
-                    <div class="col-xs-2"></div>
-                    <div class="col-xs-4" align="center">
+                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" align="center">
                         <h1>What is KUShare?</h1>
-                        <h3>
-                            KU Share is the website that allow each individual to share what they want to others and allow user to rate, recommend
-                            , and vote for the slide that they love.
-                        </h3>
+                        <p>
+                            KU Share is the website that allow each individual to share what they want to others and allow user to rate, recommend, and vote for the slide that they love.
+                        </p>
                     </div>
-                    <div class="col-xs-4" >
+                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" >
                         <img src="resource/image1.jpg">
                     </div>
-                    <div class="col-ms-2"></div>
                 </div>
-            </form>
-            <form role="form"  class="form-inline">
+            </div>
+            <div>
                 <div class="form-group">
-                    <div class="col-xs-2"></div>
-                    <div class="col-xs-4" >
+                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" >
                         <img src="resource/image2.jpg">
                     </div>
-                    <div class="col-xs-4" align="center">
+                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" align="center">
                         <h1>Why KUShare?</h1>
-                        <h3>
+                        <p>
                             KU Share offer fast and easy ways of upload for user, allowing user to easily share many type of files such as Word, PDF, and PPT by just one click to shared.
-                        </h3>
+                        </p>
                     </div>
-                    <div class="col-ms-2"></div>
                 </div>
-            </form>
+            </div>
         </div>
     </body>
 </html>
