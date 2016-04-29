@@ -35,22 +35,22 @@ var app = angular.module('catApps', ['ngRoute', 'ngCookies'])
             });
     }])
 
-    .controller('fileOpenCtrl', ['$scope','$http', '$location', function ($scope, $http, $location) {
-            
-            var fileToOpen = ($location.path()).substring($location.path().indexOf('/', 1) + 1);
-            console.log(fileToOpen);
-            
-            if(fileToOpen !== 'filePath') {
-                $http.get('/api/view/file/' + fileToOpen)
-                .then(function (response) {
-                    $scope.filePath = '../scripts/ViewerJS/#../../uploads/' + response.data[0].filePath;
-                    console.log($scope.filePath);
-                    //$scope.fileInfo = $scope.filePath;
-                    //$scope.fileInfo = $scope.filePath;
-                });
-            }
+    .controller('fileOpenCtrl', ['$scope', '$http', '$location', function ($scope, $http, $location) {
 
-       
+        var fileToOpen = ($location.path()).substring($location.path().indexOf('/', 1) + 1);
+        console.log(fileToOpen);
+
+        if (fileToOpen !== 'filePath') {
+            $http.get('/api/view/file/' + fileToOpen)
+            .then(function (response) {
+                $scope.filePath = '../scripts/ViewerJS/#../../uploads/' + response.data[0].filePath;
+                console.log($scope.filePath);
+                //$scope.fileInfo = $scope.filePath;
+                //$scope.fileInfo = $scope.filePath;
+            });
+        }
+
+
     }])
 
     .controller('HeaderCtrl', ['$scope', function ($scope) {
@@ -76,7 +76,7 @@ var app = angular.module('catApps', ['ngRoute', 'ngCookies'])
         var userCookie;
 
         $scope.saveUsername = function (username) {
-            console.log('Saving  username'+username);
+            console.log('Saving  username' + username);
             userCookie = username;
             $cookies.put('username', userCookie, {
                 expires: exp
@@ -110,7 +110,7 @@ var app = angular.module('catApps', ['ngRoute', 'ngCookies'])
 
     }])
 
-    .controller('showFilesBySubjectCtrl',['$scope', '$http', '$location', function($scope, $http, $location) {
+    .controller('showFilesBySubjectCtrl', ['$scope', '$http', '$location', function ($scope, $http, $location) {
         var subjectinfo = ($location.path()).substring($location.path().indexOf('/', 1) + 1);
         console.log(subjectinfo);
         $http.get('/api/search/by/subject/' + subjectinfo)
@@ -120,7 +120,7 @@ var app = angular.module('catApps', ['ngRoute', 'ngCookies'])
             });
     }])
 
-    .controller('getProfileCtrl', ['$scope', '$http', function($scope, $http){
+    .controller('getProfileCtrl', ['$scope', '$http', function ($scope, $http) {
 
         $http.get('/api/profile/information')
             .then(function (response) {
@@ -132,6 +132,12 @@ var app = angular.module('catApps', ['ngRoute', 'ngCookies'])
             });
     }])
 
+    .controller('getCommentsCtrl', ['$scope', '$http', function ($scope, $http) {
+        $http.get('')
+            .then(function (response) {
+                $scope.comments = response.data;
+            });
+    }]);
     //.controller('getViewDocumentCtrl', ['$scope', '$http', function ($scope, $http) {
     //    var filePath = ($location.path()).substring($location.path().indexOf('/', 1) + 1);
     //    $http.get('/api/view/file/' + filePath);

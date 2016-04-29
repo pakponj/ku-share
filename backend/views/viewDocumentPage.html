@@ -161,9 +161,22 @@
         <iframe id="documentFrame" src={{filePath}} width='800' height='600' allowfullscreen webkitallowfullscreen></iframe>
             
     </div>
-    <!--<div>{{filePath}}</div>--> 
-    <!--<div>Hello world</div>-->
-    <!--<iframe id="documentFrame" ng-preload width='800' height='600' allowfullscreen webkitallowfullscreen></iframe>-->
-    <!--<iframe id="documentFrame" src="../scripts/ViewerJS/../../uploads/stableMatching.pdf" width='800' height='600' allowfullscreen webkitallowfullscreen></iframe>-->
+    <form method="post" action="/comment">
+        
+        <div class="form-group">
+            <input type="text" name="commentDetail" placeholder="Comment Here!"/> 
+            <input type="submit" value="Comment" />
+        </div>
+        
+        <ul ng-repeat="comment in comments">
+            <li class="well well-info">
+                {{comment.detail}}<br />
+                {{comment.commentTime}}<br />
+                {{comment.username}}<br />
+            </li>
+        </ul>
+
+    </form>
+
 </body>
 </html>
