@@ -83,7 +83,7 @@
         }
     </style>
 </head>
-<body ng-controller="fileOpenCtrl">
+<body>
     <nav class="navbar nav-margin navbar-fixed-top col-xs-12 col-sm-12 col-md-12 col-lg-12" id="mainNavbar" style="background-color: white">
         <div class="container col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div class="navbar-header col-xs-12 col-sm-12 col-md-6 col-lg-6">
@@ -157,26 +157,28 @@
     <br />
     <br />
     <br />
-    <div ng-show="filePath!=='filePath'">
-        <iframe id="documentFrame" src={{filePath}} width='800' height='600' allowfullscreen webkitallowfullscreen></iframe>
-            
-    </div>
-    <form method="post" action="/comment">
-        
-        <div class="form-group">
-            <input type="text" name="commentDetail" placeholder="Comment Here!"/> 
-            <input type="submit" value="Comment" />
-        </div>
-        
-        <ul ng-repeat="comment in comments">
-            <li class="well well-info">
-                {{comment.detail}}<br />
-                {{comment.commentTime}}<br />
-                {{comment.username}}<br />
-            </li>
-        </ul>
+    <!--<div ng-controller='postCommentCtrl'>
+    </div>-->
+        <div ng-controller="fileOpenCtrl">
+            <iframe id="documentFrame" src={{filePath}} width='800' height='600' allowfullscreen webkitallowfullscreen></iframe>
 
-    </form>
+        </div>
+        <div ng-controller="postCommentCtrl">
+
+            <!--<div class="form-group">
+            </div>-->
+                <input type="text" name="commentDetail" ng-model="commentDetail" placeholder="Comment Here!" required/>
+                <button ng-click="SendData()">Comment</button>
+
+            <ul ng-repeat="comment in comments">
+                <li class="well well-info">
+                    {{comment.detail}}<br />
+                    {{comment.commentTime}}<br />
+                    {{comment.username}}<br />
+                </li>
+            </ul>
+
+        </div>
 
 </body>
 </html>

@@ -35,7 +35,7 @@ var app = angular.module('catApps', ['ngRoute', 'ngCookies'])
             });
     }])
 
-    .controller('fileOpenCtrl', ['$scope', '$http', '$location', function ($scope, $http, $location) {
+    .controller('fileOpenCtrl', ['$scope', '$http', '$location', 'commentService', function ($scope, $http, $location, commentService) {
 
         var fileToOpen = ($location.path()).substring($location.path().indexOf('/', 1) + 1);
         console.log(fileToOpen);
@@ -44,6 +44,10 @@ var app = angular.module('catApps', ['ngRoute', 'ngCookies'])
             $http.get('/api/view/file/' + fileToOpen)
             .then(function (response) {
                 $scope.filePath = '../scripts/ViewerJS/#../../uploads/' + response.data[0].filePath;
+                //$scope.fileID = response.data[0].fileID;
+                //$scope.userID = response.data[0].userID;
+                //commentService.setUserID = response.data[0].userID;
+                commentService.setFileID(response.data[0].fileID);
                 console.log($scope.filePath);
                 //$scope.fileInfo = $scope.filePath;
                 //$scope.fileInfo = $scope.filePath;
@@ -132,15 +136,61 @@ var app = angular.module('catApps', ['ngRoute', 'ngCookies'])
             });
     }])
 
-    .controller('getCommentsCtrl', ['$scope', '$http', function ($scope, $http) {
-        $http.get('')
-            .then(function (response) {
-                $scope.comments = response.data;
-            });
-    }]);
+    //.controller('getCommentsCtrl', ['$scope', '$http', function ($scope, $http) {
+    //    $http.get('')
+    //        .then(function (response) {
+    //            $scope.comments = response.data;
+    //        });
+    //}])
     //.controller('getViewDocumentCtrl', ['$scope', '$http', function ($scope, $http) {
     //    var filePath = ($location.path()).substring($location.path().indexOf('/', 1) + 1);
     //    $http.get('/api/view/file/' + filePath);
 
     //}])
-;
+
+    //.controller('postCommentCtrl', ['$scope', '$http']);
+    .controller('postCommentCtrl', ['$scope', '$http', 'commentService', function ($scope, $http, commentService) {
+        $scope.SendData = function () {
+            console.log('sending data...')
+            var body = $.param({
+                commentDetail: $scope.commentDetail,
+                fileID: commentService.getFileID()
+            });
+            console.log(body);
+            $http.post('/api/comment', body)
+                .then(function (response) {
+                    $scope.comments = reponse.data
+                });
+        }
+    }]);
+
+app.service('commentService', function () {
+    var userID, fileID;
+
+    var setUserID = function (newUserID) {
+        userID = newUserID;
+    };
+
+    var setFileID = function (newFileID) {
+        fileID = newFileID;
+    };
+
+    var getUserID = function () { return userID; };
+    var getFileID = function () { return fileID; };
+
+    return {
+        setUserID: setUserID,
+        setFileID: setFileID,
+        getUserID: getUserID,
+        getFileID: getFileID
+    };
+});
+
+//var postComment = function ($scope, $http) {
+//    var commentDatum = { commentDetail: commentDetail, userID: $scope.userID, fileID: $scope.fileID };
+//    console.log(commentDatum);
+//    $http.post('/api/comment', {commentDetail: commentDetail,userID: $scope.userID, fileID: $scope.fileID}).then(function(response){
+//        $scope.comments = response.data;
+//    });
+//};
+
