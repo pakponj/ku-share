@@ -36,10 +36,10 @@ var app = angular.module('catApps', ['ngRoute', 'ngCookies'])
     }])
 
     .controller('fileOpenCtrl', ['$scope', '$http', '$routeParams', '$location', function ($scope, $http, $routeParams, $location) {
-        console.log($routeParams)
+        //console.log($routeParams)
         //console.log($location.path());
-        //var fileToOpen = ($location.path()).substring(location.path().indexOf('/', 1) + 1);
-        //console.log(fileToOpen);
+        var fileToOpen = ($location.path()).substring(location.path().indexOf('/', 1) + 1);
+        console.log(fileToOpen);
 
         $http.get('/api/view/file/' + fileToOpen)
             .then(function (response) {
@@ -119,5 +119,12 @@ var app = angular.module('catApps', ['ngRoute', 'ngCookies'])
                 $scope.uploadHistory = $scope.data[1];
                 $scope.commentHistory = $scope.data[2];
             });
-    }]);
+    }])
+
+    //.controller('getViewDocumentCtrl', ['$scope', '$http', function ($scope, $http) {
+    //    var filePath = ($location.path()).substring($location.path().indexOf('/', 1) + 1);
+    //    $http.get('/api/view/file/' + filePath);
+
+    //}])
+;
 
