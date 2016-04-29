@@ -73,7 +73,7 @@
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-default navbar-fixed-top">
+    <!--<nav class="navbar navbar-default navbar-fixed-top">
         <div class="container">
             <div class="row">
                 <div class="col-xs-1">
@@ -129,7 +129,10 @@
                 </div>
             </div>
         </div>
-    </nav>
+    </nav>-->
+    <div ng-controller="HeaderCtrl">
+        <div ng-include="header.url"></div>
+    </div>
     <br><br><br>
     <div class="container" id="shallowbg">
         <div align="center">
@@ -156,7 +159,7 @@
                 <tbody>
                     <tr ng-repeat="file in data" ng-init="">
                         <td><a href='/category/{{file.categoryID}}' target="_blank">{{ file.categoryName }}</a></td>
-                        <td><a href={{file.subjectUrl}} target="_blank"> {{ file.subjectName }}</a> </td>
+                        <td><a href='/subject/{{file.subjectUD}}' target="_blank"> {{ file.subjectName }}</a> </td>
                         <td><a href='/view/{{file.nameURL}}' target="_blank">{{ file.fileName }}</a> </td>
                         <td><a href="#" target="_blank"> {{ file.username }}</a> </td>
                     </tr>

@@ -107,5 +107,17 @@ var app = angular.module('catApps', ['ngRoute', 'ngCookies'])
                 $scope.data = response.data;
                 $scope.status = response.status;
             });
+    }])
+
+    .controller('getProfileCtrl', ['$scope', '$http', function($scope, $http){
+    
+        $http.get('/api/profile/information')
+            .then(function (response) {
+                $scope.data = response.data;
+                $scope.status = response.status;
+                $scope.profileInfo = $scope.data[0];
+                $scope.uploadHistory = $scope.data[1];
+                $scope.commentHistory = $scope.data[2];
+            });
     }]);
 
