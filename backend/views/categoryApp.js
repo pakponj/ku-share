@@ -94,11 +94,12 @@ var app = angular.module('catApps', ['ngRoute', 'ngCookies'])
         $http.get('/api/search/all/' + $location.search().searchInfo)
             .then(function (response) {
                 $scope.data = response.data;
+                console.log(response.data);
                 $scope.status = response.status;
             });
 
     }])
-    
+
     .controller('showFilesBySubjectCtrl',['$scope', '$http', '$location', function($scope, $http, $location) {
         var subjectinfo = ($location.path()).substring($location.path().indexOf('/', 1) + 1);
         console.log(subjectinfo);
@@ -110,7 +111,7 @@ var app = angular.module('catApps', ['ngRoute', 'ngCookies'])
     }])
 
     .controller('getProfileCtrl', ['$scope', '$http', function($scope, $http){
-    
+
         $http.get('/api/profile/information')
             .then(function (response) {
                 $scope.data = response.data;
@@ -120,4 +121,3 @@ var app = angular.module('catApps', ['ngRoute', 'ngCookies'])
                 $scope.commentHistory = $scope.data[2];
             });
     }]);
-

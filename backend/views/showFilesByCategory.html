@@ -156,9 +156,9 @@
                 <tbody>
                     <tr ng-repeat="file in data" ng-init="">
                         <td><a href='/category/{{file.categoryID}}' target="_blank">{{ file.categoryName }}</a></td>
-                        <td><a href='/subject/{{file.subjectID}}' target="_blank"> {{ file.subjectName }}</a> </td>
-                        <td><a href='/view/{{file.nameURL}}' target="_blank">{{ file.fileName }}</a> </td>
-                        <td><a href="#" target="_blank"> {{ file.username }}</a> </td>
+                        <td><a href='/subject/{{file.subjectID}}' target="_blank"> {{ file.subjectName }}</a></td>
+                        <td><a href='/view/{{file.fileName}}' target="_blank">{{ file.fileName }}</a></td>
+                        <td>{{ file.username }}</td>
                     </tr>
                 </tbody>
             </table>
