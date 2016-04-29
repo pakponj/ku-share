@@ -228,7 +228,7 @@ module.exports = function(app, passport, multer) {
     });
 
     //api delete file
-	app.get('/api/delete/:path',(req,res) => {
+	app.delete('/api/delete/:path',(req,res) => {
         connection.query('DELETE FROM file WHERE fileName = ? ',[req.params.path],(err, result) => {
     	    fs.unlink(path.join('./uploads/',req.params.path), (err) => {
     	        if(err) throw err;

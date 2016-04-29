@@ -88,7 +88,7 @@ module.exports = function(passport) {
                             if(err)
                                 return done(err);
 
-                            connection.query('select username,email from user where username = ?', username , (err, result) => {
+                            connection.query('select * from user where username = ?', username , (err, result) => {
                                 console.log(result);
                                 return done(null, result[0]);
                             });
