@@ -1,12 +1,10 @@
-﻿<!DOCTYPE html>
-<html>
+<!DOCTYPE html>
+<html ng-app="catApps">
     <head>
         <title>Welcome to KUShare</title>
-
         <!-- Mobile support -->
         <meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
         <!--main scripts-->
         <script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo=" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
@@ -17,147 +15,98 @@
             $.material.init();
         </script>
         <script src="scripts/material/js/ripples.min.js"></script>
-
         <!-- Dropdown.js -->
         <link href="//cdn.rawgit.com/FezVrasta/dropdown.js/master/jquery.dropdown.css" rel="stylesheet">
-
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.4/angular-route.min.js"></script>
         <!--other scripts-->
-        <script src="scripts/requestApp.js"></script>
-        <script src="scripts/includeHeader.js"></script>
-        <script src="scripts/dataService.js"></script>
-
+        <script src="/categoryApp.js"></script>
         <!-- Material Design fonts -->
         <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
         <!--css-->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/4.0.1/bootstrap-material-design.css">
         <link rel="stylesheet" type="text/css" href="../scripts/material/css/ripples.min.css">
-
         <style>
             #loginbox{
-                min-width: 250px;
-                padding: 14px 14px 0;
-                overflow:hidden;
+            min-width: 250px;
+            padding: 14px 14px 0;
+            overflow:hidden;
             }
             #img_container {
-                width: 100%;
-                position: relative;
-                background-image: url(test.jpg);
-                background-repeat: repeat;
-                height: 1000px;
-                background-size: cover;
-                background-position: center center;
+            width: 100%;
+            position: relative;
+            background-image: url(resource/background.jpg);
+            background-repeat: repeat;
+            height: 600px;
+            background-size: cover;
+            background-position: center center;
             }
-
             #inside_comp{
-                  position: absolute;
-                  right: 100px;
-                  top: 500px;
-                  color: white;
-                  text-shadow: rgba(0,0,0,0.8) 0 1px 3px;
-                  font-size: 16pt;
-
+            position: absolute;
+            right: 100px;
+            top: 110px;
+            color: white;
+            text-shadow: rgba(0,0,0,0.8) 0 1px 3px;
+            font-size: 16pt;
             }
             #header{
-                background-image: url(test.jpg);
-
+            background-image: url(test.jpg);
             }
             #sharebtn {
-                background-color: Transparent;
-                border: none;
-                cursor:pointer;
-                overflow: hidden;
-                outline:none;
+            color:  aliceblue;
+            background-color: Transparent;
+            border-color: white;
+            cursor:pointer;
+            overflow: hidden;
+            outline:none;
             }
         </style>
-
     </head>
     <body id="bg">
-
-       <nav class="navbar navbar-default navbar-fixed-top">
-          <div class="container" >
-              <div class="row" >
-                <div class="col-xs-1">
-                        <button class="btn btn-info " type="button">
-                            <i class="glyphicon glyphicon-home"></i>
-                        </button>
-                </div>
-                <div class="col-xs-6">
-                    <div class="input-group">
-                        <input type="text" class="form-control " placeholder="Search your subject" />
-
-                        <span class="input-group-btn">
-                            <button class="btn btn-info " type="button">
-                                <i class="glyphicon glyphicon-search"></i>
-                            </button>
-                        </span>
-                    </div>
-                  </div><div class="col-xs-3"></div>
-                <div class="col-xs-1">
-
-
-                    <div class="dropdown">
-                       <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                Library
-                            <span class="caret"></span>
-                      </button>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Action</a></li>
-                            <li><a href="#">Another action</a></li>
-                            <li><a href="#">Something else here</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#">Separated link</a></li>
-                        </ul>
-                    </div>
-
-                </div>
-                <div class="col-xs-1">
-                  <div class="dropwdown" ng-app="includeApp" ng-controller="userCtrl">
-                      <button class="btn btn-default dropdown-toggle" type="button"
- id="loginMenu" data-toggle="dropdown" area-haspopup="true" aria-expanded = "true">
-                      <i class="glyphicon glyphicon-align-justify"></i>
-                      </button>
-                      <ul class="dropdown-menu" id="loginbox">
-                          <form method="post" action="/login">
-                             <div class="col-md-12">
-                              Sign in
-                          <br>
-                          <br>
-                          <input type="text" class="form-control" placeholder="Username" ng-model="username" name="username"><br>
-                            <input type="password" class = "form-control" placeholder="Password" name="password"><br>
-                                    <div class="form-group">
-    								    <input type="submit" ng-click="saveUsername(username)" class="btn btn-primary btn-block" value="Sign in">
-                                        <a href="/signup" class="btn btn-primary btn-block" >Sign up</a>
-    				                </div>
-                                </div>
-                          </form>
-
-
-                      </ul>
-                  </div>
-                </div>
-
-              </div>
-
-
-            </div>
-
-        </nav>
-
-        <div class="container">
-
-           <div class="col-xs-12" id="img_container" align="center">>
+        <div ng-controller="HeaderCtrl">
+            <div ng-include="header.url"></div>
+        </div>
+        <div class="container" id="shallowbg">
+            <div class="col-xs-12" id="img_container" align="center">
+                >
                 <div id="inside_comp">
-                    Share you Slide for the Others <br>
-                    <button class="button" id="sharebtn">Share Now</button>
-
-               </div>
-
-           </div>
-         </div>
-
+                    <h1>KU Share</h1>
+                    <p>Share you knowledge from youself to others</p>
+                    <p><a class="btn btn-primary btn-lg" href="/upload" role="button" id="sharebtn">Share Now</a></p>
+                </div>
+            </div>
+            <form role="form"  class="form-inline">
+                <div class="form-group">
+                    <div class="col-xs-2"></div>
+                    <div class="col-xs-4" align="center">
+                        <h1>What is KUShare?</h1>
+                        <h3>
+                            KU Share is the website that allow each individual to share what they want to others and allow user to rate, recommend
+                            , and vote for the slide that they love.
+                        </h3>
+                    </div>
+                    <div class="col-xs-4" >
+                        <img src="resource/image1.jpg">
+                    </div>
+                    <div class="col-ms-2"></div>
+                </div>
+            </form>
+            <form role="form"  class="form-inline">
+                <div class="form-group">
+                    <div class="col-xs-2"></div>
+                    <div class="col-xs-4" >
+                        <img src="resource/image2.jpg">
+                    </div>
+                    <div class="col-xs-4" align="center">
+                        <h1>Why KUShare?</h1>
+                        <h3>
+                            KU Share offer fast and easy ways of upload for user, allowing user to easily share many type of files such as Word, PDF, and PPT by just one click to shared.
+                        </h3>
+                    </div>
+                    <div class="col-ms-2"></div>
+                </div>
+            </form>
+        </div>
     </body>
-
 </html>
