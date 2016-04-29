@@ -46,7 +46,7 @@ DROP TABLE IF EXISTS `comment`;
 CREATE TABLE comment(
     commentID INT NOT NULL AUTO_INCREMENT,
     detail LONGTEXT COLLATE utf8_unicode_ci NOT NULL,
-    commentTime DATETIME NOT NULL,
+    commentTime DATETIME NOT NULL DEFAULT NOW(),
     userID INT NOT NULL,
     fileID INT NOT NULL,
     PRIMARY KEY (`commentID`),
