@@ -73,63 +73,77 @@
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-default navbar-fixed-top">
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-1">
-                    <button class="btn btn-info " type="button">
-                        <i class="glyphicon glyphicon-home"></i>
-                    </button>
+    <!--Can't use HeaderCtrl because controller keeps calling-->
+    <nav class="navbar nav-margin navbar-fixed-top col-xs-12 col-sm-12 col-md-12 col-lg-12" id="mainNavbar" style="background-color: white">
+        <div class="container col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="navbar-header col-xs-12 col-sm-12 col-md-5 col-lg-5">
+                <div class="navbar-toggle col-xs-3 col-sm-3" type="button" data-toggle="collapse" data-target="#navbarCollapsePart" aria-controls="navbarCollapsePart">
+                    <span class="material-icons" aria-hidden="true">menu</span>
                 </div>
-                <div class="col-xs-6">
-                    <div class="input-group">
-                        <input type="text" class="form-control " placeholder="Search your subject" />
-                        <span class="input-group-btn">
-                            <button class="btn btn-info" type="button">
-                                <i class="glyphicon glyphicon-search"></i>
-                            </button>
-                        </span>
-                    </div>
+                <div class="col-xs-7 col-sm-7">
+                    <a href="/" target="_self" class="navbar-brand"><i class="material-icons">shareKUSHARE</i></a>
                 </div>
-                <div class="col-xs-2"></div>
-                <div class="col-xs-1">
-                    <div class="dropdown">
-                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                            Library
-                            <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li ng-repeat="items in contents"><a href={{items.url}}>{{items.name}}</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-xs-1">
-                    <div class="dropwdown" align="left">
-                        <button class="btn btn-default dropdown-toggle" type="button"
-                                id="loginMenu" data-toggle="dropdown" area-haspopup="true" aria-expanded="true">
-                            <i class="glyphicon glyphicon-align-justify"></i>
-                        </button>
-                        <ul class="dropdown-menu" id="loginbox">
-                            <div class="col-md-12">
-                                Sign in
-                                <br>
-                                <br>
-                                <input type="text" class="form-control" placeholder="Username"><br>
-                                <input type="text" class="form-control" placeholder="Password"><br>
-                                <div class="form-group">
-                                    <button type="submit" class="btn btn-primary btn-block">Sign in</button>
-                                </div>
-                                <div class="form-group">
-                                    <button type="submit" class="btn btn-primary btn-block">Sign Up</button>
-                                </div>
-                                <br>
+            </div>
+            <div class="collapse navbar-collapse container-fluid col-xs-12 col-sm-12 col-md-7 col-lg-7" id="navbarCollapsePart" style="overflow-x: hidden">
+                <ul class="nav navbar-nav navbar-right" ng-controller="userCtrl" ng-init="getUsername()">
+                    <li>
+                        <form class="navbar-form" method="get" action="/search">
+                            <div class="form-group">
+                                <!--<form method="post" action="/search/>-->
+                                <input type="text" class="form-control col-xs-12" placeholder="Search KUShare" name="searchInfo">
+                                <button class="btn btn-default" type="submit"><i class="material-icons">search</i></button>
+                                <!--</form>-->
                             </div>
-                        </ul>
-                    </div>
-                </div>
+                        </form>
+                    </li>
+                    <li class="nav-divider" style="padding: 10px; background-color: transparent"></li>
+                    <li>
+                        <a href="/browse" target="_self">
+                            <i class="material-icons">storage</i>
+                            Library
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/profile" target="_self" ng-if="username!='ANONYMOUS'">
+                            <i class="material-icons">account_circle</i>
+                            {{username}}
+                        </a>
+                        <a href="#" ng-if="username=='ANONYMOUS'">
+                            <i class="material-icons">account_circle</i>
+                            ANONYMOUS
+                        </a>
+                    </li>
+                    <li class="dropdown" align="left">
+                        <button class="btn btn-default dropdown-toggle" type="button"
+                                data-toggle="dropdown" area-haspopup="true" aria-expanded="true">
+                            <i class="material-icons">settings</i>
+                        </button>
+                        <div class="dropdown-menu" id="loginbox">
+                            <div ng-if="username=='ANONYMOUS'">
+                                <form method="post" action="/login">
+                                    <div class="col-md-12">
+                                        Sign in
+                                        <br>
+                                        <br>
+                                        <input type="text" class="form-control" placeholder="Username" ng-model="username" name="username" ng-init="username=ANONYMOUS"><br>
+                                        <input type="password" class="form-control" placeholder="Password" name="password"><br>
+                                        <div class="form-group">
+                                            <input type="submit" class="btn btn-primary btn-block" value="Sign in">
+                                        </div>
+                                    </div>
+                                </form>
+                                <a href="/signup" target="_self"><button class="btn btn-primary btn-block">Sign Up</button></a>
+                            </div>
+                            <div ng-if="username!='ANONYMOUS'">
+                                <a href="/logout" target="_parent" class="btn btn-danger form-control">logout</a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
             </div>
         </div>
     </nav>
+
     <br><br><br>
     <div class="container" id="shallowbg">
         <div ng-controller="showFilesBySubjectCtrl">
@@ -152,5 +166,6 @@
                 </tbody>
             </table>
         </div>
-    </body>
+    </div>
+</body>
 </html>

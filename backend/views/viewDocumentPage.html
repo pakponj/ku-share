@@ -102,8 +102,8 @@
                     <a href="/" target="_self" class="navbar-brand"><i class="material-icons">shareKUSHARE</i></a>
                 </div>
             </div>
-            <div class="collapse navbar-collapse container-fluid col-xs-12 col-sm-12 col-md-7 col-lg-7" id="navbarCollapsePart" style="overflow-x: hidden" ng-controller="userCtrl">
-                <ul class="nav navbar-nav navbar-right">
+            <div class="collapse navbar-collapse container-fluid col-xs-12 col-sm-12 col-md-7 col-lg-7" id="navbarCollapsePart" style="overflow-x: hidden">
+                <ul class="nav navbar-nav navbar-right" ng-controller="userCtrl" ng-init="getUsername()">
                     <li>
                         <form class="navbar-form" method="get" action="/search">
                             <div class="form-group">
@@ -116,17 +116,17 @@
                     </li>
                     <li class="nav-divider" style="padding: 10px; background-color: transparent"></li>
                     <li>
-                        <a href="#">
+                        <a href="/browse" target="_self">
                             <i class="material-icons">storage</i>
                             Library
                         </a>
                     </li>
                     <li>
-                        <a href="/profile" target="_parent" ng-if="getUsername()!=null">
+                        <a href="/profile" target="_self" ng-if="username!='ANONYMOUS'">
                             <i class="material-icons">account_circle</i>
-                            {{getUsername()}}
+                            {{username}}
                         </a>
-                        <a href="#" ng-if="getUsername()==null">
+                        <a href="#" ng-if="username=='ANONYMOUS'">
                             <i class="material-icons">account_circle</i>
                             ANONYMOUS
                         </a>
@@ -137,27 +137,23 @@
                             <i class="material-icons">settings</i>
                         </button>
                         <div class="dropdown-menu" id="loginbox">
-                            <div ng-if="getUsername()==null">
+                            <div ng-if="username=='ANONYMOUS'">
                                 <form method="post" action="/login">
                                     <div class="col-md-12">
                                         Sign in
                                         <br>
                                         <br>
-                                        <input type="text" class="form-control" placeholder="Username" ng-model="username" name="username" ng-init="username=null"><br>
+                                        <input type="text" class="form-control" placeholder="Username" ng-model="username" name="username" ng-init="username=ANONYMOUS"><br>
                                         <input type="password" class="form-control" placeholder="Password" name="password"><br>
                                         <div class="form-group">
-                                            <input type="submit" class="btn btn-primary btn-block" ng-click="saveUsername(username)" value="Sign in">
-                                            <div ng-if="getUsername()==null">
-                                                <!--<br />-->
-                                                <button class="btn btn-primary btn-block" action="/signup">Sign Up</button>
-                                            </div>
+                                            <input type="submit" class="btn btn-primary btn-block" value="Sign in">
                                         </div>
-                                        <br>
                                     </div>
                                 </form>
+                                <a href="/signup" target="_self"><button class="btn btn-primary btn-block">Sign Up</button></a>
                             </div>
-                            <div ng-if="getUsername()!=null">
-                                <a href="/logout" target="_parent" class="btn btn-danger form-control" ng-click="logoutUser()">logout</a>
+                            <div ng-if="username!='ANONYMOUS'">
+                                <a href="/logout" target="_parent" class="btn btn-danger form-control">logout</a>
                             </div>
                         </div>
                     </li>
@@ -165,6 +161,8 @@
             </div>
         </div>
     </nav>
+
+
 
     <br />
     <br />
