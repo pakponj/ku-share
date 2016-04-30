@@ -129,11 +129,16 @@ module.exports = function(app, passport, multer) {
     // =====================================
     // COMMENT =============================
     // =====================================
-    app.post('/api/comment', (res, req) => {
-        var userID = req.session.passport.user;
-        connection.query('INSERT INTO comment(detail,userID,fileID) values(?,?,?)',[req.body.commentDetail,userID,req.body.fileID], (err,result) => {
+    app.post('/api/comment', (req, res) => {
+        //var userID = req.session.passport.user;
+        console.log('REQ: '+req.body);
+        console.log('commentdetail: ',req.body.commentDetail);
+        console.log('userid: ', req.body.userID);
+        console.log('fileid: ', req.body.fileID);
+        connection.query('INSERT INTO comment(detail,userID,fileID) values(?,?,?)',[req.body.commentDetail,req.body.userID,req.body.fileID], (err,result) => {
                 if(err) throw err;
-                connection.query('SELECT * FROM comment AS com WHERE com.fileID = ?',[req.body.fileID], (req,res) => {
+                console.log('Insert completed...');
+                connection.query('SELECT * FROM comment WHERE comment.fileID = ?',[req.body.fileID], (err, result) => {
                     return res.json(result);
             });
         });

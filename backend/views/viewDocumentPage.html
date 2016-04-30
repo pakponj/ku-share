@@ -167,8 +167,11 @@
 
             <!--<div class="form-group">
             </div>-->
-                <input type="text" name="commentDetail" ng-model="commentDetail" placeholder="Comment Here!" required/>
+            <form>
+                <input type="text" ng-model="commentDetail" placeholder="Comment Here!" required />
+                <!--<input type="text" ng-model="dataToSend.commentDetail" placeholder="Comment Here!" required/>-->
                 <button ng-click="SendData()">Comment</button>
+            </form>
 
             <ul ng-repeat="comment in comments">
                 <li class="well well-info">

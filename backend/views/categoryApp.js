@@ -47,8 +47,10 @@ var app = angular.module('catApps', ['ngRoute', 'ngCookies'])
                 //$scope.fileID = response.data[0].fileID;
                 //$scope.userID = response.data[0].userID;
                 //commentService.setUserID = response.data[0].userID;
+                commentService.setUserID(response.data[0].ownerID);
                 commentService.setFileID(response.data[0].fileID);
                 console.log($scope.filePath);
+                console.log('userID: ',commentService.getUserID());
                 //$scope.fileInfo = $scope.filePath;
                 //$scope.fileInfo = $scope.filePath;
             });
@@ -152,14 +154,30 @@ var app = angular.module('catApps', ['ngRoute', 'ngCookies'])
     .controller('postCommentCtrl', ['$scope', '$http', 'commentService', function ($scope, $http, commentService) {
         $scope.SendData = function () {
             console.log('sending data...')
-            var body = $.param({
+            //Send as JSON
+            var dataToSend = JSON.stringify({
                 commentDetail: $scope.commentDetail,
+                userID: commentService.getUserID(),
                 fileID: commentService.getFileID()
             });
-            console.log(body);
-            $http.post('/api/comment', body)
+            //Send as Object
+            //$scope.dataToSend.userID = commentService.getUserID();
+            //$scope.dataToSend.fileID = commentService.getFileID();
+
+            //console.log($scope.dataToSend);
+            console.log(dataToSend);
+            //$http.post('/api/comment', $scope.dataToSend, 'application/json')
+            //$http.post('/api/comment', dataToSend, 'application/json')
+            $http({
+                method: 'POST',
+                url: '/api/comment',
+                data: dataToSend,
+                headers: {'Content-Type': 'application/json'}
+            })
                 .then(function (response) {
-                    $scope.comments = reponse.data
+                    $scope.comments = response.data
+                }, function(response) {
+                    console.log('Error posting');
                 });
         }
     }]);
