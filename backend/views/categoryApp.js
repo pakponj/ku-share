@@ -44,15 +44,10 @@ var app = angular.module('catApps', ['ngRoute', 'ngCookies'])
             $http.get('/api/view/file/' + fileToOpen)
             .then(function (response) {
                 $scope.filePath = '../scripts/ViewerJS/#../../uploads/' + response.data[0].filePath;
-                //$scope.fileID = response.data[0].fileID;
-                //$scope.userID = response.data[0].userID;
-                //commentService.setUserID = response.data[0].userID;
                 commentService.setUserID(response.data[0].ownerID);
                 commentService.setFileID(response.data[0].fileID);
                 console.log($scope.filePath);
                 console.log('userID: ',commentService.getUserID());
-                //$scope.fileInfo = $scope.filePath;
-                //$scope.fileInfo = $scope.filePath;
             });
         }
 
@@ -131,6 +126,14 @@ var app = angular.module('catApps', ['ngRoute', 'ngCookies'])
             });
     }])
 
+    .controller('browseCtrl', ['$scope', '$http', '$location', function ($scope, $http, $location) {
+        $http.get('/api/show/browse')
+            .then(function (response) {
+                $scope.data = response.data;
+                $scope.status = response.status;
+            });
+    }])
+
     .controller('getProfileCtrl', ['$scope', '$http', function ($scope, $http) {
 
         $http.get('/api/profile/information')
@@ -142,8 +145,8 @@ var app = angular.module('catApps', ['ngRoute', 'ngCookies'])
                 $scope.commentHistory = $scope.data[2];
             });
     }])
-
     .controller('postCommentCtrl', ['$scope', '$http', 'commentService', function ($scope, $http, commentService) {
+
         $scope.SendData = function () {
             console.log('sending data...')
             //Send as JSON
@@ -152,14 +155,7 @@ var app = angular.module('catApps', ['ngRoute', 'ngCookies'])
                 userID: commentService.getUserID(),
                 fileID: commentService.getFileID()
             });
-            //Send as Object
-            //$scope.dataToSend.userID = commentService.getUserID();
-            //$scope.dataToSend.fileID = commentService.getFileID();
-
-            //console.log($scope.dataToSend);
             console.log(dataToSend);
-            //$http.post('/api/comment', $scope.dataToSend, 'application/json')
-            //$http.post('/api/comment', dataToSend, 'application/json')
             $http({
                 method: 'POST',
                 url: '/api/comment',
@@ -172,6 +168,14 @@ var app = angular.module('catApps', ['ngRoute', 'ngCookies'])
                     console.log('Error posting');
                 });
         }
+        $http.get('/api/comment/')
+            .success(function (response) {
+                console.log('=====================================');
+                $http.get('/api/comments/'+commentService.getFileID())
+                    .then(function (response) {
+                        $scope.comments = response.data
+                    });
+            });
     }]);
 
 app.service('commentService', function () {

@@ -73,66 +73,12 @@
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-default navbar-fixed-top">
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-1">
-                    <button class="btn btn-info " type="button">
-                        <i class="glyphicon glyphicon-home"></i>
-                    </button>
-                </div>
-                <div class="col-xs-6">
-                    <div class="input-group">
-                        <input type="text" class="form-control " placeholder="Search your subject" />
-                        <span class="input-group-btn">
-                            <button class="btn btn-info" type="button">
-                                <i class="glyphicon glyphicon-search"></i>
-                            </button>
-                        </span>
-                    </div>
-                </div>
-                <div class="col-xs-2"></div>
-                <div class="col-xs-1">
-                    <div class="dropdown">
-                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                            Library
-                            <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li ng-repeat="items in contents"><a href={{items.url}}>{{items.name}}</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-xs-1">
-                    <div class="dropwdown" align="left">
-                        <button class="btn btn-default dropdown-toggle" type="button"
-                                id="loginMenu" data-toggle="dropdown" area-haspopup="true" aria-expanded="true">
-                            <i class="glyphicon glyphicon-align-justify"></i>
-                        </button>
-                        <ul class="dropdown-menu" id="loginbox">
-                            <div class="col-md-12">
-                                Sign in
-                                <br>
-                                <br>
-                                <input type="text" class="form-control" placeholder="Username"><br>
-                                <input type="text" class="form-control" placeholder="Password"><br>
-                                <div class="form-group">
-                                    <button type="submit" class="btn btn-primary btn-block">Sign in</button>
-                                </div>
-                                <div class="form-group">
-                                    <button type="submit" class="btn btn-primary btn-block">Sign Up</button>
-                                </div>
-                                <br>
-                            </div>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </nav>
+    <div ng-controller="HeaderCtrl">
+        <div ng-include="header.url"></div>
+    </div>
     <br><br><br>
     <div class="container" id="shallowbg">
-        <div ng-controller="showFilesBySubjectCtrl">
+        <div ng-controller="browseCtrl">
             <table class="table table-bordered" border="1" style="width:100%">
                 <thead>
                     <tr>
@@ -143,14 +89,17 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="file in data" ng-init="">
-                        <td><a href='/category/{{file.categoryID}}' target="_blank">{{ file.categoryName }}</a></td>
-                        <td><a href='/subject/{{file.subjectID}}' target="_blank"> {{ file.subjectName }}</a></td>
-                        <td><a href='/view/{{file.fileName}}' target="_blank">{{ file.fileName }}</a></td>
-                        <td>{{ file.username }}</td>
+                    <tr ng-repeat="datum in data" ng-init="">
+                        <td><a href='/category/{{datum.categoryID}}' target="_blank">{{ datum.categoryName }}</a></td>
+                        <td><a href='/subject/{{datum.subjectID}}' target="_blank"> {{ datum.subjectName }}</a></td>
+                        <td><a href='/view/{{datum.fileName}}' target="_blank">{{ datum.fileName }}</a></td>
+                        <td>{{ datum.username }}</td>
                     </tr>
                 </tbody>
             </table>
         </div>
-    </body>
+    </div>
+    </form>
+    </div>
+</body>
 </html>

@@ -123,8 +123,13 @@ module.exports = function(app, passport, multer) {
     // =====================================
     // COMMENT =============================
     // =====================================
-    app.get('/api/comment', (req,res) => {
-        connection.query('SELECT * FROM comment where commentID = ?', [req.body.fileID], (err,result) => {
+    app.get('/api/comment',(req,res) => {
+        console.log('=========== Hello');
+    });
+
+    app.get('/api/comments/:fileId', (req,res) => {
+        console.log('=================',req.params.fileId);
+        connection.query('SELECT * FROM comment AS com INNER JOIN user AS u ON com.userID = u.userID where fileID = ?', [req.params.fileId], (err,result) => {
             return res.json(result);
         });
     });
@@ -179,7 +184,7 @@ module.exports = function(app, passport, multer) {
 	// BROWSE ==============================
 	// =====================================
     app.get('/browse', (req,res) => {
-        res.render('table.html');
+        res.render('browse.html');
     });
 
     app.get('/api/show/browse', (req,res) => {
