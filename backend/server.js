@@ -41,11 +41,6 @@ var storage = multer.diskStorage({
     filename: function (req, file, cb) {
         var oriname = file.originalname;
         var extension = oriname.substr(oriname.indexOf('.'));
-        if(extension === '.ppt' || extension === '.pptx') {
-            extension = '.odp'
-        } else if (extension === '.doc' || extension === '.docx'){
-            extension = '.odt'
-        }
         var filename = req.body.filename + extension;
         cb(null, filename);
     }
