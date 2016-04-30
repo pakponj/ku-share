@@ -55,7 +55,7 @@ module.exports = function(app, passport, multer) {
 	}));
 
 	// =====================================
-	// PROFILE SECTION =========================
+	// PROFILE SECTION =====================
 	// =====================================
 	// we will want this protected so you have to be logged in to visit
 	// we will use route middleware to verify this (the isLoggedIn function)
@@ -115,13 +115,7 @@ module.exports = function(app, passport, multer) {
             }
             connection.query('INSERT INTO file (fileName,filePath,uploadTime,subjectID,ownerID) values (?,?,NOW(),?,?)',[req.body.filename,req.file.filename,req.body.subjectID,req.user.userID],(err,result) => {
                 if(err) throw err;
-                console.log(req.body); //form fields
-            	console.log(req.file); //form files
             });
-            console.log(req.file.filename);
-            console.log('/'+req.file.filename);
-            console.log(req.body); //form fields
-            console.log(req.file); //form files
 		    res.redirect('/');
         });
 	});
@@ -129,15 +123,15 @@ module.exports = function(app, passport, multer) {
     // =====================================
     // COMMENT =============================
     // =====================================
+    app.get('/api/comment', (req,res) => {
+        connection.query('SELECT * FROM comment where commentID = ?', [req.body.fileID], (err,result) => {
+            return res.json(result);
+        });
+    });
+
     app.post('/api/comment', (req, res) => {
-        //var userID = req.session.passport.user;
-        console.log('REQ: '+req.body);
-        console.log('commentdetail: ',req.body.commentDetail);
-        console.log('userid: ', req.body.userID);
-        console.log('fileid: ', req.body.fileID);
-        connection.query('INSERT INTO comment(detail,userID,fileID) values(?,?,?)',[req.body.commentDetail,req.body.userID,req.body.fileID], (err,result) => {
+        connection.query('INSERT INTO comment(detail,userID,fileID,commentTime) values(?,?,?,NOW())',[req.body.commentDetail,req.body.userID,req.body.fileID], (err,result) => {
                 if(err) throw err;
-                console.log('Insert completed...');
                 connection.query('SELECT * FROM comment WHERE comment.fileID = ?',[req.body.fileID], (err, result) => {
                     return res.json(result);
             });
@@ -171,8 +165,7 @@ module.exports = function(app, passport, multer) {
     });
 
     app.get('/uploads/:path', (req,res) => {
-        //return res.json(path.join('./uploads/', req.params.path));
-	    fs.createReadStream(path.join('./uploads/', req.params.path)).pipe(res)
+	    return fs.createReadStream(path.join('./uploads/', req.params.path)).pipe(res)
 	});
 
     // get path of file
@@ -226,13 +219,13 @@ module.exports = function(app, passport, multer) {
     app.get('/api/search/all/:item',(req,res) => {
         var searchItem = '%'+req.params.item+'%'
         connection.query('SELECT DISTINCT f.fileID,f.fileName,f.filePath,s.subjectID,s.subjectName,c.categoryID,c.categoryName,u.userID,u.username FROM file as f INNER JOIN subject AS s ON f.subjectID = s.subjectID INNER JOIN user AS u ON u.userID = f.ownerID INNER JOIN category AS c ON c.categoryID = s.categoryID WHERE f.fileName like ? OR u.username LIKE ? OR s.subjectName LIKE ? OR c.categoryName LIKE ?',[searchItem,searchItem,searchItem,searchItem], (err,result) => {
-            if(err) throw err;
+            if(err) res.redirect('/search');
             return res.json(result)
         });
     });
 
     //api delete file
-	app.delete('/api/delete/:path',(req,res) => {
+	app.get('/api/delete/:path',(req,res) => {
         connection.query('DELETE FROM file WHERE fileName = ? ',[req.params.path],(err, result) => {
     	    fs.unlink(path.join('./uploads/',req.params.path), (err) => {
     	        if(err) throw err;
