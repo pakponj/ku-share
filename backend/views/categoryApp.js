@@ -95,6 +95,11 @@ var app = angular.module('catApps', ['ngRoute', 'ngCookies'])
             return userCookie;
         };
 
+        $scope.logoutUser = function () {
+            console.log('Logging out...')
+            $cookies.remove('username');
+            console.log(username);
+        }
     }])
 
     .controller('dropdownCtrl', ['$scope', '$http', function ($scope, $http) {
@@ -138,19 +143,6 @@ var app = angular.module('catApps', ['ngRoute', 'ngCookies'])
             });
     }])
 
-    //.controller('getCommentsCtrl', ['$scope', '$http', function ($scope, $http) {
-    //    $http.get('')
-    //        .then(function (response) {
-    //            $scope.comments = response.data;
-    //        });
-    //}])
-    //.controller('getViewDocumentCtrl', ['$scope', '$http', function ($scope, $http) {
-    //    var filePath = ($location.path()).substring($location.path().indexOf('/', 1) + 1);
-    //    $http.get('/api/view/file/' + filePath);
-
-    //}])
-
-    //.controller('postCommentCtrl', ['$scope', '$http']);
     .controller('postCommentCtrl', ['$scope', '$http', 'commentService', function ($scope, $http, commentService) {
         $scope.SendData = function () {
             console.log('sending data...')
@@ -203,12 +195,3 @@ app.service('commentService', function () {
         getFileID: getFileID
     };
 });
-
-//var postComment = function ($scope, $http) {
-//    var commentDatum = { commentDetail: commentDetail, userID: $scope.userID, fileID: $scope.fileID };
-//    console.log(commentDatum);
-//    $http.post('/api/comment', {commentDetail: commentDetail,userID: $scope.userID, fileID: $scope.fileID}).then(function(response){
-//        $scope.comments = response.data;
-//    });
-//};
-
