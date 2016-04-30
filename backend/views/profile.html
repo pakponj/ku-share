@@ -96,8 +96,8 @@
                 border-collapse: separate;
                 border-spacing: 1.25em;
             }
-            .nav-margin {
-                margin-bottom: 30px;
+            .head-margin {
+                margin-bottom: 100px;
             }
             .pro-margin {
                 margin-top: 30px;
@@ -105,13 +105,13 @@
         </style>
     </head>
     <body>
-        <div ng-controller="HeaderCtrl">
+        <div ng-controller="HeaderCtrl" class="head-margin">
             <div ng-include="header.url"></div>
         </div>
         <div class="container pro-margin">
             <div class="container col-xs-12 col-sm-12 col-md-12 col-lg-12" id="shallowbg" ng-controller="getProfileCtrl" >
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" align = center>
-                    <h1>Welcome back {{profileInfo[0].username}}</h1>
+                    <h1>Welcome back, {{profileInfo[0].username}}</h1>
                 </div>
                 <div id="navtab" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <ul class="nav nav-tabs">

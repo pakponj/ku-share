@@ -22,13 +22,13 @@
                     </li>
                     <li class="nav-divider" style="padding: 10px; background-color: transparent"></li>
                     <li>
-                        <a href="/browse">
+                        <a href="/browse" target="_self">
                             <i class="material-icons">storage</i>
                             Library
                         </a>
                     </li>
                     <li>
-                        <a href="/profile" target="_parent" ng-if="getUsername()!=null">
+                        <a href="/profile" target="_self" ng-if="getUsername()!=null">
                             <i class="material-icons">account_circle</i>
                             {{getUsername()}}
                         </a>
@@ -53,14 +53,10 @@
                                         <input type="password" class="form-control" placeholder="Password" name="password"><br>
                                         <div class="form-group">
                                             <input type="submit" class="btn btn-primary btn-block" ng-click="saveUsername(username)" value="Sign in">
-                                            <div ng-if="getUsername()==null">
-                                                <!--<br />-->
-                                                <button class="btn btn-primary btn-block" action="/signup">Sign Up</button>
-                                            </div>
                                         </div>
-                                        <br>
                                     </div>
                                 </form>
+                                    <a href="/signup" target="_self"><button class="btn btn-primary btn-block">Sign Up</button></a>
                             </div>
                             <div ng-if="getUsername()!=null">
                                 <a href="/logout" target="_parent" class="btn btn-danger form-control" ng-click="logoutUser()">logout</a>

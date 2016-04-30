@@ -175,15 +175,12 @@
             <iframe id="documentFrame" src={{filePath}} width='800' height='600' allowfullscreen webkitallowfullscreen></iframe>
         </div>
         <div ng-controller="postCommentCtrl">
-
             <form>
-                <div class="form-group">
-                    <input type="text" ng-model="commentDetail" placeholder="Comment Here!" required />
-                    <button ng-click="SendData()">Comment</button>
-                </div>
+                <input type="text" ng-model="commentDetail" placeholder="Comment Here!" required />
+                <button ng-click="SendData()">Comment</button>
             </form>
             <div class="comments">
-                <ul ng-repeat="comment in comments" class="list-unstyled com-mar">
+                <ul ng-repeat="comment in comments" class="list-unstyled">
                     <li class="well well-info li-text-left">
                         {{comment.detail}}<br />
                         Posted by {{comment.username}}<br />

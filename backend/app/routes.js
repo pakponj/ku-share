@@ -125,6 +125,7 @@ module.exports = function(app, passport, multer) {
     // =====================================
     app.get('/api/comment',(req,res) => {
         console.log('=========== Hello');
+        res.end()
     });
 
     app.get('/api/comments/:fileId', (req,res) => {
