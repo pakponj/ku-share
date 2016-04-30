@@ -69,32 +69,50 @@ var app = angular.module('catApps', ['ngRoute', 'ngCookies'])
             });
     })
 
-    .controller('userCtrl', ['$scope', '$cookies', function ($scope, $cookies) {
+    .controller('userCtrl', ['$scope', '$http', function ($scope, $http) {
 
-        var now = new Date(),
-            exp = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
+        //var now = new Date(),
+        //    exp = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
 
-        var userCookie;
+        //var userCookie;
 
-        $scope.saveUsername = function (username) {
-            console.log('Saving  username' + username);
-            userCookie = username;
-            $cookies.put('username', userCookie, {
-                expires: exp
-            });
-        };
+        //$scope.saveUsername = function (username) {
+        //    console.log('Saving  username' + username);
+        //    userCookie = username;
+        //    $cookies.put('username', userCookie, {
+        //        expires: exp
+        //    });
+        //};
+
+        //$scope.getUsername = function () {
+        //    //console.log("Cookie: "+userCookie);
+        //    if (userCookie == null) userCookie = $cookies.get('username');
+        //    return userCookie;
+        //};
+
+        //$scope.logoutUser = function () {
+        //    console.log('Logging out...')
+        //    $cookies.remove('username');
+        //    console.log(username);
+        //}
 
         $scope.getUsername = function () {
-            //console.log("Cookie: "+userCookie);
-            if (userCookie == null) userCookie = $cookies.get('username');
-            return userCookie;
+            $http.get('/api/username')
+                .then(function (response) {
+                    $scope.data = response.data;
+                    //console.log($scope.data);
+                    console.log('Response: ',response)
+                    console.log('Response.data: ', response.data);
+                    //logout case somehow gives a [] response back
+                    if (typeof response.data[0] != 'undefined') $scope.username = response.data[0].username;
+                    else $scope.username = 'ANONYMOUS'
+                }, function (response) {
+                    console.log('Error: failed to get username...');
+                    $scope.username = 'ANONYMOUS';
+                }
+            );
         };
 
-        $scope.logoutUser = function () {
-            console.log('Logging out...')
-            $cookies.remove('username');
-            console.log(username);
-        }
     }])
 
     .controller('dropdownCtrl', ['$scope', '$http', function ($scope, $http) {
