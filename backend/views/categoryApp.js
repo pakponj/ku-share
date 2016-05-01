@@ -43,13 +43,29 @@ var app = angular.module('catApps', ['ngRoute', 'ngCookies'])
         if (fileToOpen !== 'filePath') {
             $http.get('/api/view/file/' + fileToOpen)
             .then(function (response) {
-                $scope.filePath = 'http://docs.google.com/gview?url='+ location.host + '/uploads/' + response.data[0].filePath + '&embedded=true';
-                //$scope.filePath = '../scripts/ViewerJS/#../../uploads/' + response.data[0].filePath;
+                //$scope.filePath = 'http://docs.google.com/gview?url='+ location.host + '/uploads/' + response.data[0].filePath + '&embedded=true';
+                $scope.filePath = '../scripts/ViewerJS/#../../uploads/' + response.data[0].filePath;
                 commentService.setUserID(response.data[0].ownerID);
-                commentService.setFileID(response.data[0].fileID);
+                $scope.fileID = response.data[0].fileID;
+                commentService.setFileID($scope.fileID);
                 console.log($scope.filePath);
                 console.log('userID: ',commentService.getUserID());
+
+                //load comments
+                console.log("Get comments from fileID: ", $scope.fileID);
+
+                $http({
+                    method: 'GET',
+                    url: '/api/comments/'+$scope.fileID
+                })
+                .then(function (response) {
+                    $scope.comments = response.data;
+                }, function () {
+                    console.log('Error: failed to load comments of fileID', commentService.getFileID());
+                })
             });
+
+
         }
 
 
@@ -169,25 +185,39 @@ var app = angular.module('catApps', ['ngRoute', 'ngCookies'])
                     console.log('Error posting');
                 });
         }
-        $http.get('/api/comment/')
-            .success(function (response) {
-                $http.get('/api/comments/'+commentService.getFileID())
-                    .then(function (response) {
-                        console.log('=====================================');
-                        $scope.comments = response.data
-                    });
-            });
 
-            $scope.getDate = function(date){
-                var days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
-                var months = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ]
-                var d = new Date(date);
-                return days[d.getDay()]+' '+d.getFullYear() + "-" + months[d.getMonth()] + "-" + ('0' + d.getDate()).slice(-2) + " " + ('0' + d.getHours()).slice(-2) + ":" + ('0' + d.getMinutes()).slice(-2) + ":" + ('0' + d.getSeconds()).slice(-2);
-            }
+        $scope.commentsFromFileID = '/api/comments/' + commentService.getFileID();
+
+        /*Unused get comments function -> service set fileID slower than this function
+          so commentService.getFileID() returns undefined..., so RIP
+        */
+        $scope.getComments = function () {
+
+            console.log("Get comments from fileID: ", commentService.getFileID());
+
+            $http({
+                method: 'GET',
+                url: $scope.commentsFromFileID
+            })
+            .then(function (response) {
+                $scope.comments = response.data;
+            }, function () {
+                console.log('Error: failed to load comments of fileID', commentService.getFileID());
+            })
+
+        };
+
+        $scope.getDate = function (date) {
+            var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+            var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+            var d = new Date(date);
+            return days[d.getDay()] + ' ' + d.getFullYear() + "-" + months[d.getMonth()] + "-" + ('0' + d.getDate()).slice(-2) + " " + ('0' + d.getHours()).slice(-2) + ":" + ('0' + d.getMinutes()).slice(-2) + ":" + ('0' + d.getSeconds()).slice(-2);
+        };
+
     }]);
 
 app.service('commentService', function () {
-    var userID, fileID;
+    var userID, fileID, commentsFunc;
 
     var setUserID = function (newUserID) {
         userID = newUserID;
@@ -197,8 +227,15 @@ app.service('commentService', function () {
         fileID = newFileID;
     };
 
+    //var setCommentsFunc = function (newCommentsFunc) {
+    //    commentsFunc = newCommentsFunc;
+    //};
+
     var getUserID = function () { return userID; };
     var getFileID = function () { return fileID; };
+    //var showCommentsFunc = function (fileID) {
+    //    commentsFunc(fileID);
+    //};
 
     return {
         setUserID: setUserID,
