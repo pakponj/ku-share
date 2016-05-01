@@ -43,7 +43,8 @@ var app = angular.module('catApps', ['ngRoute', 'ngCookies'])
         if (fileToOpen !== 'filePath') {
             $http.get('/api/view/file/' + fileToOpen)
             .then(function (response) {
-                $scope.filePath = '../scripts/ViewerJS/#../../uploads/' + response.data[0].filePath;
+                $scope.filePath = 'http://docs.google.com/gview?url='+ location.host + '/uploads/' + response.data[0].filePath + '&embedded=true';
+                //$scope.filePath = '../scripts/ViewerJS/#../../uploads/' + response.data[0].filePath;
                 commentService.setUserID(response.data[0].ownerID);
                 commentService.setFileID(response.data[0].fileID);
                 console.log($scope.filePath);

@@ -172,6 +172,7 @@
         <div ng-controller="fileOpenCtrl">
             <iframe id="documentFrame" src={{filePath}} width='800' height='600' allowfullscreen webkitallowfullscreen></iframe>
         </div>
+        <!--<iframe ng-controller="fileOpenCtrl" ng-src="{{filePath}}" style="width:600px; height:500px;" frameborder="0"></iframe>-->
         <div ng-controller="postCommentCtrl">
             <form>
                 <input type="text" ng-model="commentDetail" placeholder="Comment Here!" required />
