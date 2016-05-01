@@ -39,13 +39,10 @@ var storage = multer.diskStorage({
         cb(null, './uploads/')
     },
     filename: function (req, file, cb, err) {
-        var ex = file.originalname.substr(file.originalname.indexOf('.'));
-        if(ex === '.pdf' || ex === '.odp' || ex === '.odt' || ex === '.ods'){
-            var oriname = file.originalname;
-            var extension = oriname.substr(oriname.indexOf('.'));
-            var filename = req.body.filename + extension;
-            cb(null, filename);
-        }
+        var oriname = file.originalname;
+        var extension = oriname.substr(oriname.indexOf('.'));
+        var filename = req.body.filename + extension;
+        cb(null, filename);
     }
 });
 

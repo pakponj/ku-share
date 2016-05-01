@@ -174,7 +174,7 @@ module.exports = function(app, passport, multer) {
 	// VIEWS ===============================
 	// =====================================
     // render view page
-    app.get('/view/:openfile',(req,res) => {
+    app.get('/view/:openfile',isLoggedIn,(req,res) => {
         res.render('viewDocumentPage.html',{
 			user: req.user
 		});

@@ -174,9 +174,9 @@
             <iframe ng-src="{{filePath}}" style="width:600px; height:500px;" frameborder="0"></iframe>
         </div>
         <div ng-controller="postCommentCtrl">
-            <form>
+            <form method="post" ng-submit="SendData()">
                 <input type="text" ng-model="commentDetail" placeholder="Comment Here!" required />
-                <button ng-click="SendData()">Comment</button>
+                <button type="submit">Comment</button>
             </form>
             <div class="comments">
                 <ul ng-repeat="comment in comments" class="list-unstyled">
