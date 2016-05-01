@@ -89,6 +89,11 @@
         .com-mar{
             margin-top: 10px;
         }
+
+        .mar-left-right {
+            margin-left: 50px;
+            margin-right: 50px;
+        }
     </style>
 </head>
 <body>
@@ -171,9 +176,9 @@
     <div align="center" class="col-xs-12 col-sm-12 col-md-12 col-lg-12" ng-controller="fileOpenCtrl">
         <div>
             <!--<iframe id="documentFrame" src={{filePath}} width='800' height='600' allowfullscreen webkitallowfullscreen></iframe>-->
-            <iframe ng-src="{{filePath}}" style="width:600px; height:500px;" frameborder="0"></iframe>
+            <iframe ng-src="{{filePath}}" style="width:100%; height:500px;" frameborder="0"></iframe>
         </div>
-        <div ng-controller="postCommentCtrl">
+        <div ng-controller="postCommentCtrl" class="mar-left-right">
             <form method="post" ng-submit="SendData()">
                 <input type="text" ng-model="commentDetail" placeholder="Comment Here!" required />
                 <button type="submit">Comment</button>
@@ -183,7 +188,7 @@
                     <li class="well well-info li-text-left">
                         {{comment.detail}}<br />
                         Posted by {{comment.username}}<br />
-                        Date {{getDate(comment.commentTime)}}<br />
+                        On {{getDate(comment.commentTime)}}<br />
                     </li>
                 </ul>
             </div>
