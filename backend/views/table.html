@@ -70,6 +70,9 @@
             overflow: hidden;
             outline: none;
         }
+        .body-margin-top {
+            margin-top: 20px
+        }
     </style>
 </head>
 <body>
@@ -78,7 +81,8 @@
     </div>
     <br><br><br>
     <div class="container" id="shallowbg">
-        <div ng-controller="searchResultCtrl">
+        <div ng-controller="searchResultCtrl" class="body-margin-top">
+            <h1>Search Result: {{getSearch()}}</h1>
             <table class="table table-bordered" border="1" style="width:100%">
                 <thead>
                     <tr>

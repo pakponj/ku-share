@@ -126,7 +126,9 @@ var app = angular.module('catApps', ['ngRoute', 'ngCookies'])
                 console.log(response.data);
                 $scope.status = response.status;
             });
-
+        $scope.getSearch = function() {
+            return $location.search().searchInfo
+        }
     }])
 
     .controller('showFilesBySubjectCtrl', ['$scope', '$http', '$location', function ($scope, $http, $location) {
