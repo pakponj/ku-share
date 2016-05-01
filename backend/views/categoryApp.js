@@ -4,9 +4,6 @@ var app = angular.module('catApps', ['ngRoute', 'ngCookies'])
         $routeProvider.when('/category/:categoryName', {
             controller: 'subjectCtrl'
         })
-        //.when('view/:openfile', {
-        //    controller: 'fileOpenCtrl',
-        //})
         .when('/search/:item', {
             controller: 'searchResultCtrl'
         })
@@ -22,9 +19,7 @@ var app = angular.module('catApps', ['ngRoute', 'ngCookies'])
     }])
 
     .controller('subjectCtrl', ['$scope', '$http', '$location', function ($scope, $http, $location) {
-        //console.log($location.path());
         var subject = ($location.path()).substring($location.path().indexOf('/', 1) + 1);
-        console.log(subject);
         $http.get("/api/show/" + (subject) + "/subjects")
             .then(function (response) {
                 $scope.status = response.status;
@@ -38,21 +33,14 @@ var app = angular.module('catApps', ['ngRoute', 'ngCookies'])
     .controller('fileOpenCtrl', ['$scope', '$http', '$location', 'commentService', function ($scope, $http, $location, commentService) {
 
         var fileToOpen = ($location.path()).substring($location.path().indexOf('/', 1) + 1);
-        console.log(fileToOpen);
 
         if (fileToOpen !== 'filePath') {
             $http.get('/api/view/file/' + fileToOpen)
             .then(function (response) {
-                //$scope.filePath = 'http://docs.google.com/gview?url='+ location.host + '/uploads/' + response.data[0].filePath + '&embedded=true';
                 $scope.filePath = '../scripts/ViewerJS/#../../uploads/' + response.data[0].filePath;
                 commentService.setUserID(response.data[0].ownerID);
                 $scope.fileID = response.data[0].fileID;
                 commentService.setFileID($scope.fileID);
-                console.log($scope.filePath);
-                console.log('userID: ',commentService.getUserID());
-
-                //load comments
-                console.log("Get comments from fileID: ", $scope.fileID);
 
                 $http({
                     method: 'GET',
@@ -64,15 +52,10 @@ var app = angular.module('catApps', ['ngRoute', 'ngCookies'])
                     console.log('Error: failed to load comments of fileID', commentService.getFileID());
                 })
             });
-
-
         }
-
-
     }])
 
     .controller('HeaderCtrl', ['$scope', function ($scope) {
-
         $scope.header = { name: 'header.html', url: 'header.html' };
     }])
 
@@ -95,9 +78,6 @@ var app = angular.module('catApps', ['ngRoute', 'ngCookies'])
             $http.get('/api/username')
                 .then(function (response) {
                     $scope.data = response.data;
-                    //console.log($scope.data);
-                    console.log('Response: ',response)
-                    console.log('Response.data: ', response.data);
                     //logout case somehow gives a [] response back
                     if (typeof response.data[0] != 'undefined') $scope.username = response.data[0].username;
                     else $scope.username = 'ANONYMOUS'
@@ -119,11 +99,9 @@ var app = angular.module('catApps', ['ngRoute', 'ngCookies'])
     }])
 
     .controller('searchResultCtrl', ['$scope', '$http', '$location', function ($scope, $http, $location) {
-        console.log($location.search().searchInfo);
         $http.get('/api/search/all/' + $location.search().searchInfo)
             .then(function (response) {
                 $scope.data = response.data;
-                console.log(response.data);
                 $scope.status = response.status;
             });
         $scope.getSearch = function() {
@@ -133,7 +111,6 @@ var app = angular.module('catApps', ['ngRoute', 'ngCookies'])
 
     .controller('showFilesBySubjectCtrl', ['$scope', '$http', '$location', function ($scope, $http, $location) {
         var subjectinfo = ($location.path()).substring($location.path().indexOf('/', 1) + 1);
-        console.log(subjectinfo);
         $http.get('/api/search/by/subject/' + subjectinfo)
             .then(function (response) {
                 $scope.data = response.data;
@@ -173,14 +150,12 @@ var app = angular.module('catApps', ['ngRoute', 'ngCookies'])
     .controller('postCommentCtrl', ['$scope', '$http', 'commentService', function ($scope, $http, commentService) {
 
         $scope.SendData = function () {
-            console.log('sending data...')
             //Send as JSON
             var dataToSend = JSON.stringify({
                 commentDetail: $scope.commentDetail,
                 userID: commentService.getUserID(),
                 fileID: commentService.getFileID()
             });
-            console.log(dataToSend);
             $http({
                 method: 'POST',
                 url: '/api/comment',
@@ -200,9 +175,6 @@ var app = angular.module('catApps', ['ngRoute', 'ngCookies'])
           so commentService.getFileID() returns undefined..., so RIP
         */
         $scope.getComments = function () {
-
-            console.log("Get comments from fileID: ", commentService.getFileID());
-
             $http({
                 method: 'GET',
                 url: $scope.commentsFromFileID
@@ -235,15 +207,8 @@ app.service('commentService', function () {
         fileID = newFileID;
     };
 
-    //var setCommentsFunc = function (newCommentsFunc) {
-    //    commentsFunc = newCommentsFunc;
-    //};
-
     var getUserID = function () { return userID; };
     var getFileID = function () { return fileID; };
-    //var showCommentsFunc = function (fileID) {
-    //    commentsFunc(fileID);
-    //};
 
     return {
         setUserID: setUserID,

@@ -107,7 +107,6 @@ module.exports = function(app, passport, multer) {
 	app.post('/upload',(req,res) => {
 		multer(req,res,(err) => {
             if (err) {
-				console.log(err);
                 res.end('Error uploading file.')
             }
             connection.query('INSERT INTO file (fileName,filePath,uploadTime,subjectID,ownerID) values (?,?,NOW(),?,?)',[req.body.filename,req.file.filename,req.body.subjectID,req.user.userID],(err,result) => {
@@ -267,7 +266,6 @@ module.exports = function(app, passport, multer) {
     app.get('/api/username', (req,res) => {
         if(req.session.passport) {
             var userID = req.session.passport.user;
-            console.log("Current session username: ", userID);
             connection.query('SELECT username FROM user WHERE userID = ?', [userID], (err, result) => {
                 return res.json(result);
             });
