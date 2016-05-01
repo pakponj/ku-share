@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html xmlns:ng="http://angularjs.org" ng-app="catApps">
 <head>
-    <title>Welcome to the Library!</title>
+    <title>View document page</title>
 
     <!--main scripts-->
     <script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo=" crossorigin="anonymous"></script>
@@ -10,8 +10,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.4/angular-resource.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.4/angular-cookies.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.4/angular-route.min.js"></script>
-    <!--<script src="scripts/material/js/material.js"></script>-->
-    <!--<script src="scripts/material/js/ripples.js"></script>-->
     <!-- Dropdown.js -->
     <link href="//cdn.rawgit.com/FezVrasta/dropdown.js/master/jquery.dropdown.css" rel="stylesheet">
 
@@ -70,10 +68,6 @@
             background-image: url(test.jpg);
         }
 
-        #shallowbg {
-            //background-image: url(test.jpg);
-        }
-
         #sharebtn {
             background-color: Transparent;
             border: none;
@@ -112,10 +106,8 @@
                     <li>
                         <form class="navbar-form" method="get" action="/search">
                             <div class="form-group">
-                                <!--<form method="post" action="/search/>-->
                                 <input type="text" class="form-control col-xs-12" placeholder="Search KUShare" name="searchInfo">
                                 <button class="btn btn-default" type="submit"><i class="material-icons">search</i></button>
-                                <!--</form>-->
                             </div>
                         </form>
                     </li>
@@ -175,7 +167,6 @@
 
     <div align="center" class="col-xs-12 col-sm-12 col-md-12 col-lg-12" ng-controller="fileOpenCtrl">
         <div>
-            <!--<iframe id="documentFrame" src={{filePath}} width='800' height='600' allowfullscreen webkitallowfullscreen></iframe>-->
             <iframe ng-src="{{filePath}}" style="width:100%; height:500px;" frameborder="0"></iframe>
         </div>
         <div ng-controller="postCommentCtrl" class="mar-left-right">

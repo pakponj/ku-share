@@ -70,13 +70,10 @@ module.exports = function(app, passport, multer) {
         var info = [];
         connection.query('SELECT u.username,u.email,u.joinDate FROM user AS u WHERE u.userID = ?',[userID], (err,result) => {
             info.push(result);
-            //console.log(info);
             connection.query('SELECT f.filename,f.fileID,f.uploadTime,cat.categoryID,cat.categoryName,s.subjectID,s.subjectName FROM file AS f,user AS u, category AS cat, subject AS s WHERE f.ownerID = u.userID AND u.userID = ? AND s.subjectID = f.subjectID AND s.categoryID = cat.categoryID',[userID], (err, result) => {
                 info.push(result);
-                //console.log(info);
                 connection.query('SELECT com.commentID,com.detail,com.commentTime,u.userID,username,f.fileID,f.fileName FROM file AS f, comment AS com, user AS u WHERE com.userID = u.userID AND u.userID = ? AND f.fileID = com.fileID',[userID], (err, result) => {
                     info.push(result);
-                    //console.log(info);
                     return res.json(info);
                 });
             });
@@ -124,20 +121,16 @@ module.exports = function(app, passport, multer) {
     // COMMENT =============================
     // =====================================
     app.get('/api/comment',(req,res) => {
-        console.log('=========== Hello');
         res.end()
     });
 
     app.get('/api/comments/:fileId', (req,res) => {
-        console.log('=================',req.params.fileId);
         connection.query('SELECT * FROM comment AS com INNER JOIN user AS u ON com.userID = u.userID where fileID = ?', [req.params.fileId], (err,result) => {
             return res.json(result);
         });
     });
 
     app.post('/api/comment', (req, res) => {
-        //var userID = req.session.passport.user;
-        //console.log('UserID in current session', userID)
         connection.query('INSERT INTO comment(detail,userID,fileID,commentTime) values(?,?,?,NOW())',[req.body.commentDetail,req.session.passport.user,req.body.fileID], (err,result) => {
                 if(err) throw err;
                 connection.query('SELECT * FROM comment AS com INNER JOIN user AS u ON com.userID = u.userID where fileID = ?',[req.body.fileID], (err, result) => {
@@ -279,9 +272,9 @@ module.exports = function(app, passport, multer) {
         }
     });
     // 404 redirect to homepage
-    //app.get('*', (req, res) => {
-    //    res.redirect('/');
-    //});
+    app.get('*', (req, res) => {
+        res.redirect('/');
+    });
 };
 
 // route middleware to make sure
