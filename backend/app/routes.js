@@ -136,9 +136,9 @@ module.exports = function(app, passport, multer) {
     });
 
     app.post('/api/comment', (req, res) => {
-        connection.query('INSERT INTO comment(detail,userID,fileID,commentTime) values(?,?,?,NOW())',[req.body.commentDetail,req.body.userID,req.body.fileID], (err,result) => {
+        connection.query('INSERT INTO comment(detail,userID,fileID,commentTime) values(?,?,?,NOW())',[req.body.commentDetail,req.session.passport.user,req.body.fileID], (err,result) => {
                 if(err) throw err;
-                connection.query('SELECT * FROM comment WHERE comment.fileID = ?',[req.body.fileID], (err, result) => {
+                connection.query('SELECT * FROM comment AS com INNER JOIN user AS u ON com.userID = u.userID where fileID = ?',[req.body.fileID], (err, result) => {
                     return res.json(result);
             });
         });
@@ -148,18 +148,24 @@ module.exports = function(app, passport, multer) {
     // SEARCH ==============================
     // =====================================
     app.get('/search',(req, res) => {
-        res.render('table.html');
+        res.render('table.html',{
+			user: req.user
+		});
     });
 
     // =====================================
     // SEARCH ==============================
     // =====================================
     app.get('/category/:categoryID', (req, res) => {
-        res.render('showFilesByCategory.html')
+        res.render('showFilesByCategory.html',{
+			user: req.user
+		})
     });
 
     app.get('/subject/:subjectID', (req, res) => {
-        res.render('showFilesBySubject.html')
+        res.render('showFilesBySubject.html',{
+			user: req.user
+		})
     });
 
     // =====================================
@@ -167,7 +173,9 @@ module.exports = function(app, passport, multer) {
 	// =====================================
     // render view page
     app.get('/view/:openfile',(req,res) => {
-        res.render('viewDocumentPage.html');
+        res.render('viewDocumentPage.html',{
+			user: req.user
+		});
     });
 
     app.get('/uploads/:path', (req,res) => {
@@ -185,7 +193,9 @@ module.exports = function(app, passport, multer) {
 	// BROWSE ==============================
 	// =====================================
     app.get('/browse', (req,res) => {
-        res.render('browse.html');
+        res.render('browse.html',{
+			user: req.user
+		});
     });
 
     app.get('/api/show/browse', (req,res) => {
@@ -231,14 +241,26 @@ module.exports = function(app, passport, multer) {
     });
 
     //api delete file
-	app.get('/api/delete/:path',(req,res) => {
-        connection.query('DELETE FROM file WHERE fileName = ? ',[req.params.path],(err, result) => {
-    	    fs.unlink(path.join('./uploads/',req.params.path), (err) => {
-    	        if(err) throw err;
-    	        console.log('Successfully delete!!');
-    	    });
+	app.get('/api/delete/:id',(req,res) => {
+        connection.query('DELETE FROM comment WHERE fileID = ?',[req.params.id],(err,result) => {
+            connection.query('SELECT * FROM file WHERE fileID = ?', [req.params.id], (err,result) => {
+                fs.unlink(path.join('./uploads/',result[0].filePath), (err) => {
+        	        if(err) throw err;
+                    connection.query('DELETE FROM file WHERE fileID = ? ',[req.params.id],(err, result) => {
+                        if(err) throw err;
+                        console.log('Successfully delete!!');
+                    });
+        	    });
+            });
         });
-	    res.redirect('/');
+        res.redirect('/profile#upload');
+	});
+
+    app.get('/api/delete/comment/:id',(req,res) => {
+        connection.query('DELETE FROM file WHERE fileID = ? ',[req.params.path],(err, result) => {
+
+        });
+	    res.redirect('/profile');
 	});
 
     app.get('/api/username', (req,res) => {

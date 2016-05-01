@@ -72,31 +72,6 @@ var app = angular.module('catApps', ['ngRoute', 'ngCookies'])
 
     .controller('userCtrl', ['$scope', '$http', function ($scope, $http) {
 
-        //var now = new Date(),
-        //    exp = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
-
-        //var userCookie;
-
-        //$scope.saveUsername = function (username) {
-        //    console.log('Saving  username' + username);
-        //    userCookie = username;
-        //    $cookies.put('username', userCookie, {
-        //        expires: exp
-        //    });
-        //};
-
-        //$scope.getUsername = function () {
-        //    //console.log("Cookie: "+userCookie);
-        //    if (userCookie == null) userCookie = $cookies.get('username');
-        //    return userCookie;
-        //};
-
-        //$scope.logoutUser = function () {
-        //    console.log('Logging out...')
-        //    $cookies.remove('username');
-        //    console.log(username);
-        //}
-
         $scope.getUsername = function () {
             $http.get('/api/username')
                 .then(function (response) {
@@ -163,6 +138,13 @@ var app = angular.module('catApps', ['ngRoute', 'ngCookies'])
                 $scope.uploadHistory = $scope.data[1];
                 $scope.commentHistory = $scope.data[2];
             });
+
+        $scope.getDate = function(date){
+            var days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+            var months = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ]
+            var d = new Date(date);
+            return days[d.getDay()]+' '+d.getFullYear() + "-" + months[d.getMonth()] + "-" + ('0' + d.getDate()).slice(-2) + " " + ('0' + d.getHours()).slice(-2) + ":" + ('0' + d.getMinutes()).slice(-2) + ":" + ('0' + d.getSeconds()).slice(-2);
+        }
     }])
     .controller('postCommentCtrl', ['$scope', '$http', 'commentService', function ($scope, $http, commentService) {
 
@@ -189,12 +171,19 @@ var app = angular.module('catApps', ['ngRoute', 'ngCookies'])
         }
         $http.get('/api/comment/')
             .success(function (response) {
-                console.log('=====================================');
                 $http.get('/api/comments/'+commentService.getFileID())
                     .then(function (response) {
+                        console.log('=====================================');
                         $scope.comments = response.data
                     });
             });
+
+            $scope.getDate = function(date){
+                var days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+                var months = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ]
+                var d = new Date(date);
+                return days[d.getDay()]+' '+d.getFullYear() + "-" + months[d.getMonth()] + "-" + ('0' + d.getDate()).slice(-2) + " " + ('0' + d.getHours()).slice(-2) + ":" + ('0' + d.getMinutes()).slice(-2) + ":" + ('0' + d.getSeconds()).slice(-2);
+            }
     }]);
 
 app.service('commentService', function () {

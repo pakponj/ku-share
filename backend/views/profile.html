@@ -135,7 +135,7 @@
                                     </tr>
                                     <tr>
                                         <td>Join date</td>
-                                        <td>{{user.joinDate}}</td>
+                                        <td>{{getDate(user.joinDate)}}</td>
                                     </tr>
                                 </table>
                             </div>
@@ -153,6 +153,7 @@
                                     <th>Subject</th>
                                     <th>File Name</th>
                                     <th>Date</th>
+                                    <th>Option</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -160,7 +161,12 @@
                                     <td><a href='/categoey/{{item.categoryID}}' target="_blank">{{ item.categoryName }} </a></td>
                                     <td><a href='subject/{{item.subjectID}}' target="_blank"> {{ item.subjectName }} </a></td>
                                     <td><a href='/view/{{item.filename}}' target="_blank">{{ item.filename }} </a></td>
-                                    <td>{{ item.uploadTime }} </td>
+                                    <td>
+                                        {{ getDate(item.uploadTime) }}
+                                    </td>
+                                    <td>
+                                        <a href="/api/delete/{{item.fileID}}" target="_self"><button>Delete</button><a/>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -181,7 +187,7 @@
                                 <tr ng-repeat="item in commentHistory">
                                     <td><a href='/view/{{item.fileName}}' target="_blank">{{ item.fileName }} </a></td>
                                     <td>{{item.detail}}</td>
-                                    <td>{{item.commentTime}}</td>
+                                    <td>{{getDate(item.commentTime)}}</td>
                                 </tr>
                             </tbody>
                         </table>
