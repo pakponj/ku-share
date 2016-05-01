@@ -67,6 +67,9 @@ var app = angular.module('catApps', ['ngRoute', 'ngCookies'])
                 $scope.status = response.status;
                 $scope.data = response.data;
             });
+        $scope.getCategoryname = function(){
+            return $scope.data[0].categoryName
+        }
     })
 
     .controller('userCtrl', ['$scope', '$http', function ($scope, $http) {
@@ -117,6 +120,9 @@ var app = angular.module('catApps', ['ngRoute', 'ngCookies'])
                 $scope.data = response.data;
                 $scope.status = response.status;
             });
+        $scope.getSubject = function () {
+            return $scope.data[0].subjectName
+        }
     }])
 
     .controller('browseCtrl', ['$scope', '$http', '$location', function ($scope, $http, $location) {

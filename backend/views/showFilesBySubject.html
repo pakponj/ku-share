@@ -70,6 +70,9 @@
             overflow: hidden;
             outline: none;
         }
+        .body-margin-top {
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
@@ -145,8 +148,9 @@
     </nav>
 
     <br><br><br>
-    <div class="container" id="shallowbg">
+    <div class="container body-margin-top" id="shallowbg">
         <div ng-controller="showFilesBySubjectCtrl">
+            <h1>In {{getSubject()}}</h1>
             <table class="table table-bordered" border="1" style="width:100%">
                 <thead>
                     <tr>

@@ -70,6 +70,9 @@
             overflow: hidden;
             outline: none;
         }
+        .body-margin-top {
+            margin-top: 20px
+        }
     </style>
 </head>
 <body>
@@ -77,8 +80,9 @@
         <div ng-include="header.url"></div>
     </div>
     <br><br><br>
-    <div class="container" id="shallowbg">
+    <div class="container body-margin-top" id="shallowbg">
         <div ng-controller="browseCtrl">
+            <h1>Browse All</h1>
             <table class="table table-bordered" border="1" style="width:100%">
                 <thead>
                     <tr>

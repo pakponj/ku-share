@@ -74,7 +74,7 @@ module.exports = function(app, passport, multer) {
             connection.query('SELECT f.filename,f.fileID,f.uploadTime,cat.categoryID,cat.categoryName,s.subjectID,s.subjectName FROM file AS f,user AS u, category AS cat, subject AS s WHERE f.ownerID = u.userID AND u.userID = ? AND s.subjectID = f.subjectID AND s.categoryID = cat.categoryID',[userID], (err, result) => {
                 info.push(result);
                 //console.log(info);
-                connection.query('SELECT com.detail,com.commentTime,u.userID,username,f.fileID,f.fileName FROM file AS f, comment AS com, user AS u WHERE com.userID = u.userID AND u.userID = ? AND f.fileID = com.fileID',[userID], (err, result) => {
+                connection.query('SELECT com.commentID,com.detail,com.commentTime,u.userID,username,f.fileID,f.fileName FROM file AS f, comment AS com, user AS u WHERE com.userID = u.userID AND u.userID = ? AND f.fileID = com.fileID',[userID], (err, result) => {
                     info.push(result);
                     //console.log(info);
                     return res.json(info);
@@ -257,18 +257,24 @@ module.exports = function(app, passport, multer) {
 	});
 
     app.get('/api/delete/comment/:id',(req,res) => {
-        connection.query('DELETE FROM file WHERE fileID = ? ',[req.params.path],(err, result) => {
-
+        connection.query('DELETE FROM comment WHERE commentID = ? ',[req.params.id],(err, result) => {
+            if(err) throw err;
+            console.log('Delete comment Successfully...');
         });
 	    res.redirect('/profile');
 	});
 
     app.get('/api/username', (req,res) => {
-        var userID = req.session.passport.user;
-        console.log("Current session username: ", userID);
-        connection.query('SELECT username FROM user WHERE userID = ?', [userID], (err, result) => {
-            return res.json(result);
-        });
+        if(req.session.passport) {
+            var userID = req.session.passport.user;
+            console.log("Current session username: ", userID);
+            connection.query('SELECT username FROM user WHERE userID = ?', [userID], (err, result) => {
+                return res.json(result);
+            });
+        }
+        else {
+            res.end()
+        }
     });
     // 404 redirect to homepage
     //app.get('*', (req, res) => {

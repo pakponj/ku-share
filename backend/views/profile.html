@@ -181,6 +181,7 @@
                                     <th>File Name </th>
                                     <th>Comment</th>
                                     <th>Date</th>
+                                    <th>Option</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -188,6 +189,9 @@
                                     <td><a href='/view/{{item.fileName}}' target="_blank">{{ item.fileName }} </a></td>
                                     <td>{{item.detail}}</td>
                                     <td>{{getDate(item.commentTime)}}</td>
+                                    <td>
+                                        <a href="/api/delete/comment/{{item.commentID}}" target="_self"><button>Delete</button><a/>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
