@@ -113,7 +113,7 @@ module.exports = function(app, passport, multer) {
             connection.query('INSERT INTO file (fileName,filePath,uploadTime,subjectID,ownerID) values (?,?,NOW(),?,?)',[req.body.filename,req.file.filename,req.body.subjectID,req.user.userID],(err,result) => {
                 if(err) throw err;
             });
-		    res.redirect('/');
+		    res.redirect('/browse');
         });
 	});
 
@@ -151,16 +151,34 @@ module.exports = function(app, passport, multer) {
     // =====================================
     // SEARCH ==============================
     // =====================================
+    // Render category page
     app.get('/category/:categoryID', (req, res) => {
         res.render('showFilesByCategory.html',{
 			user: req.user
 		})
     });
 
+    // query by category
+    app.get('/api/search/by/category/:item', (req,res) => {
+        connection.query('SELECT f.fileID,f.fileName,f.filePath,s.subjectID,s.subjectName,c.categoryID,c.categoryName,u.userID,u.username FROM file AS f INNER JOIN subject AS s ON f.subjectID = s.subjectID INNER JOIN category AS c ON c.categoryID = s.categoryID INNER JOIN user as u ON u.userID = f.ownerID WHERE c.categoryID = ?', [req.params.item], (err, result) => {
+            if(err) throw err;
+            return res.json(result);
+        });
+    });
+
+    // Render subject page
     app.get('/subject/:subjectID', (req, res) => {
         res.render('showFilesBySubject.html',{
 			user: req.user
 		})
+    });
+
+    // query by subject
+    app.get('/api/search/by/subject/:item', (req,res) => {
+        connection.query('SELECT f.fileID,f.fileName,f.filePath,s.subjectID,s.subjectName,c.categoryID,c.categoryName,u.userID,u.username FROM file AS f INNER JOIN subject AS s ON f.subjectID = s.subjectID INNER JOIN category AS c ON c.categoryID = s.categoryID INNER JOIN user as u ON u.userID = f.ownerID WHERE s.subjectID = ?', [req.params.item], (err,result) => {
+            if(err) throw err;
+            return res.json(result);
+        });
     });
 
     // =====================================
@@ -173,6 +191,7 @@ module.exports = function(app, passport, multer) {
 		});
     });
 
+    // return file in server
     app.get('/uploads/:path', (req,res) => {
 	    return fs.createReadStream(path.join('./uploads/', req.params.path)).pipe(res)
 	});
@@ -187,12 +206,14 @@ module.exports = function(app, passport, multer) {
     // =====================================
 	// BROWSE ==============================
 	// =====================================
+    // browse all file
     app.get('/browse', (req,res) => {
         res.render('browse.html',{
 			user: req.user
 		});
     });
 
+    // query in browse page
     app.get('/api/show/browse', (req,res) => {
         connection.query('SELECT f.fileID,f.fileName,f.filePath,s.subjectID,s.subjectName,c.categoryID,c.categoryName,u.userID,u.username FROM file as f INNER JOIN subject AS s ON f.subjectID = s.subjectID INNER JOIN user AS u ON u.userID = f.ownerID INNER JOIN category AS c ON c.categoryID = s.categoryID', (err,result) => {
             if(err) throw err;
@@ -205,22 +226,6 @@ module.exports = function(app, passport, multer) {
 	// =====================================
     app.get('/api/show/catagories', (req,res) => {
         connection.query('select * from category order by categoryName',(err, result) => {
-            if(err) throw err;
-            return res.json(result);
-        });
-    });
-
-    // query by subject
-    app.get('/api/search/by/subject/:item', (req,res) => {
-        connection.query('SELECT f.fileID,f.fileName,f.filePath,s.subjectID,s.subjectName,c.categoryID,c.categoryName,u.userID,u.username FROM file AS f INNER JOIN subject AS s ON f.subjectID = s.subjectID INNER JOIN category AS c ON c.categoryID = s.categoryID INNER JOIN user as u ON u.userID = f.ownerID WHERE s.subjectID = ?', [req.params.item], (err,result) => {
-            if(err) throw err;
-            return res.json(result);
-        });
-    });
-
-    // query by category
-    app.get('/api/search/by/category/:item', (req,res) => {
-        connection.query('SELECT f.fileID,f.fileName,f.filePath,s.subjectID,s.subjectName,c.categoryID,c.categoryName,u.userID,u.username FROM file AS f INNER JOIN subject AS s ON f.subjectID = s.subjectID INNER JOIN category AS c ON c.categoryID = s.categoryID INNER JOIN user as u ON u.userID = f.ownerID WHERE c.categoryID = ?', [req.params.item], (err, result) => {
             if(err) throw err;
             return res.json(result);
         });
@@ -248,7 +253,7 @@ module.exports = function(app, passport, multer) {
         	    });
             });
         });
-        res.redirect('/profile#upload');
+        res.redirect('/profile');
 	});
 
     app.get('/api/delete/comment/:id',(req,res) => {
