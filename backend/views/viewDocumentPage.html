@@ -168,9 +168,10 @@
     <br />
     <br />
 
-    <div align="center" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        <div ng-controller="fileOpenCtrl">
-            <iframe id="documentFrame" src={{filePath}} width='800' height='600' allowfullscreen webkitallowfullscreen></iframe>
+    <div align="center" class="col-xs-12 col-sm-12 col-md-12 col-lg-12" ng-controller="fileOpenCtrl">
+        <div>
+            <!--<iframe id="documentFrame" src={{filePath}} width='800' height='600' allowfullscreen webkitallowfullscreen></iframe>-->
+            <iframe ng-src="{{filePath}}" style="width:600px; height:500px;" frameborder="0"></iframe>
         </div>
         <div ng-controller="postCommentCtrl">
             <form>

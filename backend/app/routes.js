@@ -136,6 +136,8 @@ module.exports = function(app, passport, multer) {
     });
 
     app.post('/api/comment', (req, res) => {
+        //var userID = req.session.passport.user;
+        //console.log('UserID in current session', userID)
         connection.query('INSERT INTO comment(detail,userID,fileID,commentTime) values(?,?,?,NOW())',[req.body.commentDetail,req.session.passport.user,req.body.fileID], (err,result) => {
                 if(err) throw err;
                 connection.query('SELECT * FROM comment AS com INNER JOIN user AS u ON com.userID = u.userID where fileID = ?',[req.body.fileID], (err, result) => {
